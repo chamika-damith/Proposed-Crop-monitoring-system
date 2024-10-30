@@ -5,7 +5,8 @@ function toggleMobileMenu() {
 }
 
 // Toggle Profile Menu
-function toggleProfileMenu(){
-    const profileMenu = document.getElementById("user-menu-button");
+function toggleProfileMenu() {
+    const profileMenu = document.getElementById("user-menu");
     profileMenu.classList.toggle("hidden");
 }
+   
