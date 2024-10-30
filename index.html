@@ -13,7 +13,7 @@
 </head>
 
 <div
-    class="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+    class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
 
     <body class="bg-teal-50">
         <div class="min-h-full">
@@ -84,7 +84,7 @@
                         </div>
                     </div>
                 </div>
-    
+
                 <div class="md:hidden hidden" id="mobile-menu">
                     <div class="border-t border-gray-700 pb-3 pt-4">
                         <div class="group flex items-center ">
@@ -97,7 +97,7 @@
                                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
                                 Dashboard</div>
                         </div>
-    
+
                         <div class="group flex items-center ">
                             <a href="#" class="text-gray-600 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -108,7 +108,7 @@
                                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
                                 Field</div>
                         </div>
-    
+
                         <div class="group flex items-center ">
                             <a href="#" class="text-gray-600 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -119,7 +119,7 @@
                                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
                                 Crop</div>
                         </div>
-    
+
                         <div class="group flex items-center ">
                             <a href="#" class="text-gray-600 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -130,7 +130,7 @@
                                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
                                 Staff</div>
                         </div>
-    
+
                         <div class="group flex items-center ">
                             <a href="#" class="text-gray-600 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -141,7 +141,7 @@
                                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
                                 Vehicle</div>
                         </div>
-    
+
                         <div class="group flex items-center ">
                             <a href="#" class="text-gray-600 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -152,7 +152,7 @@
                                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
                                 Equipment</div>
                         </div>
-    
+
                         <div class="group flex items-center ">
                             <a href="#" class="text-gray-600 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -163,8 +163,8 @@
                                 class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
                                 Log</div>
                         </div>
-    
-    
+
+
                         <div class="flex items-center px-5">
                             <div class="flex-shrink-0">
                                 <img class="h-10 w-10 rounded-full"
@@ -199,13 +199,13 @@
                     </div>
                 </div>
             </nav>
-    
+
             <section class="flex">
                 <!-- Sidebar Navigation -->
                 <div class="hidden md:flex bg-white flex-auto w-12">
                     <div
                         class="w-32 h-screen bg-white shadow-lg flex flex-col items-center py-4 space-y-6 border-r-2 border-gray-300">
-                        <div class="group relative">
+                        <div class="group relative" id="dashboardBtn">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
                                     <i class="fa-solid fa-house"></i>
@@ -216,8 +216,8 @@
                                 Dashboard
                             </span>
                         </div>
-    
-                        <div class="group relative">
+
+                        <div class="group relative" id="fieldBtn">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
                                     <i class="fas fa-seedling"></i>
@@ -228,7 +228,7 @@
                                 Field
                             </span>
                         </div>
-    
+
                         <div class="group relative">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -240,7 +240,7 @@
                                 Crop
                             </span>
                         </div>
-    
+
                         <div class="group relative">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -252,7 +252,7 @@
                                 Staff
                             </span>
                         </div>
-    
+
                         <div class="group relative">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -264,7 +264,7 @@
                                 Vehicle
                             </span>
                         </div>
-    
+
                         <div class="group relative mt-auto">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -276,7 +276,7 @@
                                 Equipment
                             </span>
                         </div>
-    
+
                         <div class="group relative mt-auto">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
@@ -289,11 +289,11 @@
                             </span>
                         </div>
                     </div>
-    
+
                 </div>
-    
+
                 <main class="flex-auto w-full p-6 ml-5 mr-5 mt-5 h-fit ">
-                    <div class="flex flex-col justify-between sm:flex-row">
+                    <div class="flex flex-col justify-between sm:flex-row" id="dashboard">
                         <div
                             class="xl:w-72  h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
                             <div>
@@ -305,8 +305,8 @@
                                 <span class="font-extrabold tracking-wider text-3xl text-gray-800">350</span>
                             </div>
                         </div>
-    
-    
+
+
                         <div
                             class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
                             <div>
@@ -329,7 +329,7 @@
                                 <span class="font-extrabold tracking-wider text-3xl text-gray-800">1100</span>
                             </div>
                         </div>
-    
+
                         <div
                             class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
                             <div>
@@ -342,12 +342,18 @@
                             </div>
                         </div>
                     </div>
+
+                    <div id="field">
+                        <h1>field</h1>
+                    </div>
                 </main>
+
             </section>
-    
-    
+
+
         </div>
-    
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js" integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="/script/script.js"></script>
     </body>
 </div>

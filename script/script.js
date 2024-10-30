@@ -1,3 +1,18 @@
+/*----------spa------------*/
+$('#field').hide();
+
+$('#fieldBtn').on('click',()=>{
+    $('#dashboard').hide();
+    $('#field').show();
+
+});
+
+$('#dashboardBtn').on('click',()=>{
+    $('#dashboard').show();
+    $('#field').hide();
+});
+
+
 // Toggle Mobile Menu
 function toggleMobileMenu() {
     const mobileMenu = document.getElementById("mobile-menu");
