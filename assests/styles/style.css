@@ -1,0 +1,11 @@
+/* Custom tooltip styling */
+.tooltip {
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.group:hover .tooltip {
+  visibility: visible;
+  opacity: 1;
+}

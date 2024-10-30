@@ -9,24 +9,25 @@
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="/assets/styles/style.css">
+    <link rel="stylesheet" href="/assests/styles/style.css">
 </head>
 
-<body>
+<body class="bg-teal-50">
     <div class="min-h-full">
-        <nav class="bg-gray-50">
+        <nav class="bg-white">
             <div class="mx-auto max-w-7xl sm:px-6 ">
                 <div class="flex h-16 items-center justify-between">
                     <div class="flex items-center">
                         <div class="flex-shrink-0">
-                            <img class="h-14 w-14"
-                                src="/assests/logo.png"
-                                alt="Green Shadow (Pvt) Ltd.">
+                            <img class="h-14 w-14" src="/assests/logo.png" alt="Green Shadow (Pvt) Ltd.">
                         </div>
-                        <div class="flex ml-5 rounded-md shadow-sm items-center ring-1 ring-inset ring-gray-300  sm:max-w-md">
+                        <div
+                            class="flex ml-5 rounded-md shadow-sm items-center ring-1 ring-inset ring-gray-300  sm:max-w-md">
                             <i class="fa-solid fa-magnifying-glass ml-2 mr-1 text-gray-500 cursor-pointer"></i>
-                            <input type="text" class="block flex-1 w-32 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 sm:text-sm/6 sm:w-72" placeholder="Search...">
-                          </div>
+                            <input type="text"
+                                class="block flex-1 w-32 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 sm:text-sm/6 sm:w-72"
+                                placeholder="Search...">
+                        </div>
                     </div>
                     <div class="hidden md:block">
                         <div class="ml-5 flex items-center md:ml-6">
@@ -69,7 +70,7 @@
                     <div class="-mr-2 flex md:hidden">
                         <button type="button" onclick="toggleMobileMenu()"
                             class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                            aria-controls="mobile-menu" aria-expanded="false"> 
+                            aria-controls="mobile-menu" aria-expanded="false">
                             <span class="sr-only">Open main menu</span>
                             <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
                                 stroke="currentColor" aria-hidden="true">
@@ -83,11 +84,75 @@
 
             <div class="md:hidden hidden" id="mobile-menu">
                 <div class="border-t border-gray-700 pb-3 pt-4">
+                    <div class="group flex items-center ">
+                        <a href="#" class="text-gray-600 hover:text-gray-900">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                <i class="fa-solid fa-house"></i>
+                            </div>
+                        </a>
+                        <div class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">Dashboard</div>
+                    </div>
+
+                    <div class="group flex items-center ">
+                        <a href="#" class="text-gray-600 hover:text-gray-900">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                <i class="fas fa-seedling"></i>
+                            </div>
+                        </a>
+                        <div class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">Field</div>
+                    </div>
+
+                    <div class="group flex items-center ">
+                        <a href="#" class="text-gray-600 hover:text-gray-900">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                        </a>
+                        <div class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">Crop</div>
+                    </div>
+
+                    <div class="group flex items-center ">
+                        <a href="#" class="text-gray-600 hover:text-gray-900">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                <i class="fas fa-users"></i>
+                            </div>
+                        </a>
+                        <div class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">Staff</div>
+                    </div>
+
+                    <div class="group flex items-center ">
+                        <a href="#" class="text-gray-600 hover:text-gray-900">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                <i class="fas fa-tractor"></i>
+                            </div>
+                        </a>
+                        <div class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">Vehicle</div>
+                    </div>
+
+                    <div class="group flex items-center ">
+                        <a href="#" class="text-gray-600 hover:text-gray-900">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                <i class="fas fa-tools"></i>
+                            </div>
+                        </a>
+                        <div class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">Equipment</div>
+                    </div>
+
+                    <div class="group flex items-center ">
+                        <a href="#" class="text-gray-600 hover:text-gray-900">
+                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                <i class="fas fa-clipboard-list"></i>
+                            </div>
+                        </a>
+                        <div class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">Log</div>
+                    </div>
+
+
                     <div class="flex items-center px-5">
                         <div class="flex-shrink-0">
                             <img class="h-10 w-10 rounded-full"
-                            src="https://media.licdn.com/dms/image/v2/D5603AQFK-toJWo5W6Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1695037566372?e=1735776000&v=beta&t=lK-maXwcnU9K9hpQ_jOaZRob6CHnr2WHNZV3f31AtVE"
-                            alt="profile pic">
+                                src="https://media.licdn.com/dms/image/v2/D5603AQFK-toJWo5W6Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1695037566372?e=1735776000&v=beta&t=lK-maXwcnU9K9hpQ_jOaZRob6CHnr2WHNZV3f31AtVE"
+                                alt="profile pic">
                         </div>
                         <div class="ml-3">
                             <div class="text-base/5 font-medium text-gray-400">chamika damith</div>
@@ -117,6 +182,96 @@
                 </div>
             </div>
         </nav>
+
+        <!-- Sidebar Navigation -->
+        <div class="hidden md:flex">
+            <div
+                class="w-16 h-screen bg-white shadow-lg flex flex-col items-center py-4 space-y-6 border-r-2 border-gray-300">
+                <div class="group relative">
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                            <i class="fa-solid fa-house"></i>
+                        </div>
+                    </a>
+                    <span
+                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                        Dashboard
+                    </span>
+                </div>
+
+                <div class="group relative">
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                            <i class="fas fa-seedling"></i>
+                        </div>
+                    </a>
+                    <span
+                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                        Field
+                    </span>
+                </div>
+
+                <div class="group relative">
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                            <i class="fas fa-leaf"></i>
+                        </div>
+                    </a>
+                    <span
+                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                        Crop
+                    </span>
+                </div>
+
+                <div class="group relative">
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                            <i class="fas fa-users"></i>
+                        </div>
+                    </a>
+                    <span
+                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                        Staff
+                    </span>
+                </div>
+
+                <div class="group relative">
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                            <i class="fas fa-tractor"></i>
+                        </div>
+                    </a>
+                    <span
+                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                        Vehicle
+                    </span>
+                </div>
+
+                <div class="group relative mt-auto">
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                            <i class="fas fa-tools"></i>
+                        </div>
+                    </a>
+                    <span
+                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                        Equipment
+                    </span>
+                </div>
+
+                <div class="group relative mt-auto">
+                    <a href="#" class="text-gray-500 hover:text-gray-900">
+                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                            <i class="fas fa-clipboard-list"></i>
+                        </div>
+                    </a>
+                    <span
+                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                        Log
+                    </span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <script src="/script/script.js"></script>
