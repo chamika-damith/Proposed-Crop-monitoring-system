@@ -12,331 +12,346 @@
     <link rel="stylesheet" href="/assests/styles/style.css">
 </head>
 
-<body class="bg-teal-50">
-    <div class="min-h-full">
-        <nav class="bg-white shadow">
-            <div class="container mx-auto max-w-7xl sm:px-6 ">
-                <div class="flex h-16 items-center justify-between">
-                    <div class="flex items-center">
-                        <div class="flex-shrink-0">
-                            <img class="h-14 w-14" src="/assests/logo.png" alt="Green Shadow (Pvt) Ltd.">
+<div
+    class="absolute top-0 z-[-2] h-screen w-screen bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+
+    <body class="bg-teal-50">
+        <div class="min-h-full">
+            <nav class="bg-white shadow">
+                <div class="container mx-auto max-w-7xl sm:px-6 ">
+                    <div class="flex h-16 items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <img class="h-14 w-14" src="/assests/logo.png" alt="Green Shadow (Pvt) Ltd.">
+                            </div>
+                            <div
+                                class="flex ml-5 rounded-md shadow-sm items-center ring-1 ring-inset ring-gray-300  sm:max-w-md">
+                                <i class="fa-solid fa-magnifying-glass ml-2 mr-1 text-gray-500 cursor-pointer"></i>
+                                <input type="text"
+                                    class="block flex-1 w-32 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 sm:text-sm/6 sm:w-72"
+                                    placeholder="Search...">
+                            </div>
                         </div>
-                        <div
-                            class="flex ml-5 rounded-md shadow-sm items-center ring-1 ring-inset ring-gray-300  sm:max-w-md">
-                            <i class="fa-solid fa-magnifying-glass ml-2 mr-1 text-gray-500 cursor-pointer"></i>
-                            <input type="text"
-                                class="block flex-1 w-32 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 sm:text-sm/6 sm:w-72"
-                                placeholder="Search...">
+                        <div class="hidden md:block">
+                            <div class="ml-5 flex items-center md:ml-6">
+                                <button type="button"
+                                    class="relative rounded-full mr-3 bg-gray-50 p-1 text-gray-700 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                    <span class="sr-only">View notifications</span>
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                        stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                    </svg>
+                                </button>
+                                <!-- Profile dropdown -->
+                                <div class="relative ml-3">
+                                    <div>
+                                        <button type="button" onclick="toggleProfileMenu()"
+                                            class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                            aria-controls="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                            <span class="absolute -inset-1.5"></span>
+                                            <span class="sr-only">Open user menu</span>
+                                            <img class="h-8 w-8 rounded-full"
+                                                src="https://media.licdn.com/dms/image/v2/D5603AQFK-toJWo5W6Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1695037566372?e=1735776000&v=beta&t=lK-maXwcnU9K9hpQ_jOaZRob6CHnr2WHNZV3f31AtVE"
+                                                alt="profile pic">
+                                        </button>
+                                    </div>
+                                    <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+                                        role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
+                                        tabindex="-1" id="user-menu">
+                                        <!-- Active: "bg-gray-100", Not Active: "" -->
+                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                            tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                            tabindex="-1" id="user-menu-item-1">Settings</a>
+                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                            tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="-mr-2 flex md:hidden">
+                            <button type="button" onclick="toggleMobileMenu()"
+                                class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                aria-controls="mobile-menu" aria-expanded="false">
+                                <span class="sr-only">Open main menu</span>
+                                <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+                            </button>
                         </div>
                     </div>
-                    <div class="hidden md:block">
-                        <div class="ml-5 flex items-center md:ml-6">
+                </div>
+    
+                <div class="md:hidden hidden" id="mobile-menu">
+                    <div class="border-t border-gray-700 pb-3 pt-4">
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fa-solid fa-house"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Dashboard</div>
+                        </div>
+    
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Field</div>
+                        </div>
+    
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Crop</div>
+                        </div>
+    
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Staff</div>
+                        </div>
+    
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-tractor"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Vehicle</div>
+                        </div>
+    
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Equipment</div>
+                        </div>
+    
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Log</div>
+                        </div>
+    
+    
+                        <div class="flex items-center px-5">
+                            <div class="flex-shrink-0">
+                                <img class="h-10 w-10 rounded-full"
+                                    src="https://media.licdn.com/dms/image/v2/D5603AQFK-toJWo5W6Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1695037566372?e=1735776000&v=beta&t=lK-maXwcnU9K9hpQ_jOaZRob6CHnr2WHNZV3f31AtVE"
+                                    alt="profile pic">
+                            </div>
+                            <div class="ml-3">
+                                <div class="text-base/5 font-medium text-gray-400">chamika damith</div>
+                                <div class="text-sm font-medium text-gray-400">chamika@gmail.com</div>
+                            </div>
                             <button type="button"
-                                class="relative rounded-full mr-3 bg-gray-50 p-1 text-gray-700 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                <span class="absolute -inset-1.5"></span>
                                 <span class="sr-only">View notifications</span>
                                 <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                    stroke="currentColor" aria-hidden="true">
+                                    stroke="currentColor" aria-hidden="true" data-slot="icon">
                                     <path stroke-linecap="round" stroke-linejoin="round"
                                         d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
                                 </svg>
                             </button>
-                            <!-- Profile dropdown -->
-                            <div class="relative ml-3">
-                                <div>
-                                    <button type="button" onclick="toggleProfileMenu()"
-                                        class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                                        aria-controls="user-menu-button" aria-expanded="false" aria-haspopup="true">
-                                        <span class="absolute -inset-1.5"></span>
-                                        <span class="sr-only">Open user menu</span>
-                                        <img class="h-8 w-8 rounded-full"
-                                            src="https://media.licdn.com/dms/image/v2/D5603AQFK-toJWo5W6Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1695037566372?e=1735776000&v=beta&t=lK-maXwcnU9K9hpQ_jOaZRob6CHnr2WHNZV3f31AtVE"
-                                            alt="profile pic">
-                                    </button>
+                        </div>
+                        <div class="mt-3 space-y-1 px-2">
+                            <a href="#"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
+                                Profile</a>
+                            <a href="#"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
+                            <a href="#"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
+                                out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+    
+            <section class="flex">
+                <!-- Sidebar Navigation -->
+                <div class="hidden md:flex bg-white flex-auto w-12">
+                    <div
+                        class="w-32 h-screen bg-white shadow-lg flex flex-col items-center py-4 space-y-6 border-r-2 border-gray-300">
+                        <div class="group relative">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fa-solid fa-house"></i>
                                 </div>
-                                <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
-                                    role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
-                                    tabindex="-1" id="user-menu">
-                                    <!-- Active: "bg-gray-100", Not Active: "" -->
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                        tabindex="-1" id="user-menu-item-0">Your Profile</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                        tabindex="-1" id="user-menu-item-1">Settings</a>
-                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
-                                        tabindex="-1" id="user-menu-item-2">Sign out</a>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Dashboard
+                            </span>
+                        </div>
+    
+                        <div class="group relative">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-seedling"></i>
                                 </div>
-                            </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Field
+                            </span>
+                        </div>
+    
+                        <div class="group relative">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Crop
+                            </span>
+                        </div>
+    
+                        <div class="group relative">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Staff
+                            </span>
+                        </div>
+    
+                        <div class="group relative">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-tractor"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Vehicle
+                            </span>
+                        </div>
+    
+                        <div class="group relative mt-auto">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Equipment
+                            </span>
+                        </div>
+    
+                        <div class="group relative mt-auto">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Log
+                            </span>
                         </div>
                     </div>
-                    <div class="-mr-2 flex md:hidden">
-                        <button type="button" onclick="toggleMobileMenu()"
-                            class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
-                            aria-controls="mobile-menu" aria-expanded="false">
-                            <span class="sr-only">Open main menu</span>
-                            <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-                            </svg>
-                        </button>
-                    </div>
+    
                 </div>
-            </div>
-
-            <div class="md:hidden hidden" id="mobile-menu">
-                <div class="border-t border-gray-700 pb-3 pt-4">
-                    <div class="group flex items-center ">
-                        <a href="#" class="text-gray-600 hover:text-gray-900">
-                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                                <i class="fa-solid fa-house"></i>
-                            </div>
-                        </a>
+    
+                <main class="flex-auto w-full p-6 ml-5 mr-5 mt-5 h-fit ">
+                    <div class="flex flex-col justify-between sm:flex-row">
                         <div
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
-                            Dashboard</div>
-                    </div>
-
-                    <div class="group flex items-center ">
-                        <a href="#" class="text-gray-600 hover:text-gray-900">
-                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                                <i class="fas fa-seedling"></i>
+                            class="xl:w-72  h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            <div>
+                                <i
+                                    class="fas fa-seedling lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
                             </div>
-                        </a>
-                        <div
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
-                            Field</div>
-                    </div>
-
-                    <div class="group flex items-center ">
-                        <a href="#" class="text-gray-600 hover:text-gray-900">
-                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                                <i class="fas fa-leaf"></i>
+                            <div class="flex flex-col items-end">
+                                <span class="font-bold tracking-wide text-md text-gray-500">FIELD</span>
+                                <span class="font-extrabold tracking-wider text-3xl text-gray-800">350</span>
                             </div>
-                        </a>
+                        </div>
+    
+    
                         <div
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
-                            Crop</div>
-                    </div>
-
-                    <div class="group flex items-center ">
-                        <a href="#" class="text-gray-600 hover:text-gray-900">
-                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                                <i class="fas fa-users"></i>
+                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            <div>
+                                <i
+                                    class="fas fa-leaf lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
                             </div>
-                        </a>
-                        <div
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
-                            Staff</div>
-                    </div>
-
-                    <div class="group flex items-center ">
-                        <a href="#" class="text-gray-600 hover:text-gray-900">
-                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                                <i class="fas fa-tractor"></i>
+                            <div class="flex flex-col items-end">
+                                <span class="font-bold tracking-wide text-md text-gray-500">CROP</span>
+                                <span class="font-extrabold tracking-wider text-3xl text-gray-800">930</span>
                             </div>
-                        </a>
+                        </div>
                         <div
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
-                            Vehicle</div>
-                    </div>
-
-                    <div class="group flex items-center ">
-                        <a href="#" class="text-gray-600 hover:text-gray-900">
-                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                                <i class="fas fa-tools"></i>
+                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            <div>
+                                <i
+                                    class="fas fa-users lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
                             </div>
-                        </a>
-                        <div
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
-                            Equipment</div>
-                    </div>
-
-                    <div class="group flex items-center ">
-                        <a href="#" class="text-gray-600 hover:text-gray-900">
-                            <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                                <i class="fas fa-clipboard-list"></i>
+                            <div class="flex flex-col items-end">
+                                <span class="font-bold tracking-wide text-md text-gray-500">STAFF</span>
+                                <span class="font-extrabold tracking-wider text-3xl text-gray-800">1100</span>
                             </div>
-                        </a>
+                        </div>
+    
                         <div
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
-                            Log</div>
-                    </div>
-
-
-                    <div class="flex items-center px-5">
-                        <div class="flex-shrink-0">
-                            <img class="h-10 w-10 rounded-full"
-                                src="https://media.licdn.com/dms/image/v2/D5603AQFK-toJWo5W6Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1695037566372?e=1735776000&v=beta&t=lK-maXwcnU9K9hpQ_jOaZRob6CHnr2WHNZV3f31AtVE"
-                                alt="profile pic">
-                        </div>
-                        <div class="ml-3">
-                            <div class="text-base/5 font-medium text-gray-400">chamika damith</div>
-                            <div class="text-sm font-medium text-gray-400">chamika@gmail.com</div>
-                        </div>
-                        <button type="button"
-                            class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
-                            <span class="absolute -inset-1.5"></span>
-                            <span class="sr-only">View notifications</span>
-                            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" aria-hidden="true" data-slot="icon">
-                                <path stroke-linecap="round" stroke-linejoin="round"
-                                    d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
-                            </svg>
-                        </button>
-                    </div>
-                    <div class="mt-3 space-y-1 px-2">
-                        <a href="#"
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
-                            Profile</a>
-                        <a href="#"
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Settings</a>
-                        <a href="#"
-                            class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
-                            out</a>
-                    </div>
-                </div>
-            </div>
-        </nav>
-
-        <!-- Sidebar Navigation -->
-        <div class="hidden md:flex">
-            <div
-                class="w-16 h-screen bg-white shadow-lg flex flex-col items-center py-4 space-y-6 border-r-2 border-gray-300">
-                <div class="group relative">
-                    <a href="#" class="text-gray-500 hover:text-gray-900">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                            <i class="fa-solid fa-house"></i>
-                        </div>
-                    </a>
-                    <span
-                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
-                        Dashboard
-                    </span>
-                </div>
-
-                <div class="group relative">
-                    <a href="#" class="text-gray-500 hover:text-gray-900">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                            <i class="fas fa-seedling"></i>
-                        </div>
-                    </a>
-                    <span
-                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
-                        Field
-                    </span>
-                </div>
-
-                <div class="group relative">
-                    <a href="#" class="text-gray-500 hover:text-gray-900">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                            <i class="fas fa-leaf"></i>
-                        </div>
-                    </a>
-                    <span
-                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
-                        Crop
-                    </span>
-                </div>
-
-                <div class="group relative">
-                    <a href="#" class="text-gray-500 hover:text-gray-900">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                            <i class="fas fa-users"></i>
-                        </div>
-                    </a>
-                    <span
-                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
-                        Staff
-                    </span>
-                </div>
-
-                <div class="group relative">
-                    <a href="#" class="text-gray-500 hover:text-gray-900">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                            <i class="fas fa-tractor"></i>
-                        </div>
-                    </a>
-                    <span
-                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
-                        Vehicle
-                    </span>
-                </div>
-
-                <div class="group relative mt-auto">
-                    <a href="#" class="text-gray-500 hover:text-gray-900">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                            <i class="fas fa-tools"></i>
-                        </div>
-                    </a>
-                    <span
-                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
-                        Equipment
-                    </span>
-                </div>
-
-                <div class="group relative mt-auto">
-                    <a href="#" class="text-gray-500 hover:text-gray-900">
-                        <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
-                            <i class="fas fa-clipboard-list"></i>
-                        </div>
-                    </a>
-                    <span
-                        class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
-                        Log
-                    </span>
-                </div>
-            </div>
-            <main class="flex-1 p-6 ml-5 mr-5 mt-5 h-fit">
-                <div class="flex flex-row justify-between">
-                    <div class="w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group">
-                        <div>
-                            <i class="fas fa-seedling text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45"></i>
-                        </div>
-                        <div class="flex flex-col items-end">
-                            <span class="font-bold tracking-wide text-md text-gray-500">FIELD</span>
-                            <span class="font-extrabold tracking-wider text-3xl text-gray-800">350</span>
+                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            <div>
+                                <i
+                                    class="fas fa-tractor lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="font-bold tracking-wide text-md text-gray-500">VEHICLE</span>
+                                <span class="font-extrabold tracking-wider text-3xl text-gray-800">500</span>
+                            </div>
                         </div>
                     </div>
-                    
-
-                    <div
-                        class="w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group">
-                        <div>
-                            <i class="fas fa-leaf text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45"></i>
-                        </div>
-                        <div class="flex flex-col items-end">
-                            <span class="font-bold tracking-wide text-md text-gray-500">CROP</span>
-                            <span class="font-extrabold tracking-wider text-3xl text-gray-800">930</span>
-                        </div>
-                    </div>
-                    <div
-                        class="w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group">
-                        <div>
-                            <i class="fas fa-users text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45"></i>
-                        </div>
-                        <div class="flex flex-col items-end">
-                            <span class="font-bold tracking-wide text-md text-gray-500">STAFF</span>
-                            <span class="font-extrabold tracking-wider text-3xl text-gray-800">1100</span>
-                        </div>
-                    </div>
-
-                    <div
-                        class="w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group">
-                        <div>
-                            <i class="fas fa-tractor text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45"></i>
-                        </div>
-                        <div class="flex flex-col items-end">
-                            <span class="font-bold tracking-wide text-md text-gray-500">VEHICLE</span>
-                            <span class="font-extrabold tracking-wider text-3xl text-gray-800">500</span>
-                        </div>
-                    </div>
-                </div>
-            </main>
+                </main>
+            </section>
+    
+    
         </div>
+    
+        <script src="/script/script.js"></script>
+    </body>
+</div>
 
 
-    </div>
-
-    <script src="/script/script.js"></script>
-</body>
 
 </html>
