@@ -360,7 +360,7 @@
                                 </div>
                             </div>
 
-                            <!-- Product Table -->
+                            <!-- Table -->
                             <div class="bg-white shadow rounded-lg overflow-hidden">
 
                                 <table class="w-full text-center">
@@ -375,7 +375,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="fieldTableBody">
-                                        <!-- Product Rows -->
+                                        <!-- Rows -->
                                         <tr class="border-b">
                                             <td class="p-4 flex items-center space-x-4">
                                                 <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
@@ -530,7 +530,7 @@
                                 </div>
                             </div>
 
-                            <!-- Product Table -->
+                            <!--  Table -->
                             <div class="bg-white shadow rounded-lg overflow-hidden">
 
                                 <table class="w-full text-center">
@@ -545,8 +545,8 @@
                                             <th class="p-4 font-semibold text-gray-600">Action</th>
                                         </tr>
                                     </thead>
-                                    <tbody id="fieldTableBody">
-                                        <!-- Product Rows -->
+                                    <tbody id="cropTableBody">
+                                        <!--  Rows -->
                                         <tr class="border-b">
                                             <td class="p-4 flex items-center space-x-4">
                                                 <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
@@ -560,7 +560,7 @@
                                             <td class="p-4 text-center">Paddy field</td>
                                             <td class="p-4 text-gray-500  space-x-3">
                                                 <!-- Edit Icon -->
-                                                <button class="text-blue-500 px-1">
+                                                <button class="text-blue-500 px-1 editbtn" id="openCropEditModal">
                                                     <i class="fa-solid fa-pen"></i>
                                                 </button>
 
@@ -598,7 +598,7 @@
                                     </div>
                                     <div class="mb-4">
                                         <label for="cropCategory" class="block mb-2">Category</label>
-                                        <input type="number" id="cropCategory"
+                                        <input type="text" id="cropCategory"
                                             class="border border-gray-300 rounded w-full p-2" required>
                                     </div>
                                     <div class="mb-4">
@@ -612,15 +612,61 @@
                                             class="border border-gray-300 rounded w-full p-2" required>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="fieldImage" class="block mb-2">Upload Image</label>
-                                        <input type="file" id="fieldImage" accept="image/*"
+                                        <label for="cropImage" class="block mb-2">Upload Image</label>
+                                        <input type="file" id="cropImage" accept="image/*"
                                             class="border border-gray-300 rounded w-full p-2">
                                     </div>
                                     <div class="flex justify-end">
                                         <button type="button" id="closeCropModal"
                                             class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
                                         <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add
-                                            Field</button>
+                                            Crop</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Edit Crop Modal -->
+                        <div id="editCropModal"
+                            class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
+                            <div class="bg-white rounded-lg p-4 w-96">
+                                <h2 class="text-xl font-bold mb-4">Edit Crop</h2>
+                                <form id="editCropForm">
+                                    <div class="mb-4">
+                                        <label for="cropCode" class="block mb-2">Crop Code</label>
+                                        <input type="text" id="cropEditCode"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropName" class="block mb-2">Crop Common Name</label>
+                                        <input type="text" id="cropEditName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropSceintificName" class="block mb-2">Crop Sceintific Name</label>
+                                        <input type="text" id="cropEditSceintificName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropCategory" class="block mb-2">Category</label>
+                                        <input type="text" id="cropEditCategory"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropSeason" class="block mb-2">Season</label>
+                                        <input type="text" id="cropEditSeason"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropField" class="block mb-2">Field</label>
+                                        <input type="text" id="cropEditField"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+                                            id="closeCropEditModal">Cancel</button>
+                                        <button type="submit"
+                                            class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
                                     </div>
                                 </form>
                             </div>

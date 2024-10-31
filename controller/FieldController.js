@@ -48,7 +48,7 @@ addFieldForm.addEventListener('submit', (event) => {
             <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded">${fieldCrops}</button></td>
             <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded">${fieldStaff}</button></td>
             <td class="p-4 text-gray-500 space-x-3">
-                <button class="text-blue-500 px-1 edit-btn""><i class="fa-solid fa-pen"></i></button>
+                <button class="text-blue-500 px-1 edit-btn"><i class="fa-solid fa-pen"></i></button>
                 <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-btn"><i class="fa-solid fa-times"></i></button>
             </td>
         `;
