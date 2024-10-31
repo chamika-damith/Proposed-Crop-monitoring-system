@@ -351,7 +351,8 @@
                                 <p class="text-gray-500">Manage your field and view</p>
                             </div>
                             <div class="flex space-x-4">
-                                <button id="openModal" class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2">
+                                <button id="openModal"
+                                    class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2">
                                     <span>+</span>
                                     <span>Add Field</span>
                                 </button>
@@ -418,7 +419,7 @@
                                         </td>
                                         <td class="p-4 text-gray-500  space-x-3">
                                             <!-- Edit Icon -->
-                                            <button class="text-blue-500 px-1">
+                                            <button class="text-blue-500 px-1 edit-btn" id="openEditModal">
                                                 <i class="fa-solid fa-pen"></i>
                                             </button>
 
@@ -478,6 +479,34 @@
                             </form>
                         </div>
                     </div>
+
+                    <!-- Edit Field Modal -->
+                    <div id="editModal"
+                        class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
+                        <div class="bg-white rounded-lg p-4 w-96">
+                            <h2 class="text-xl font-bold mb-4">Edit Field</h2>
+                            <form id="editFieldForm">
+                                <div class="mb-4">
+                                    <label for="fieldName" class="block text-gray-700">Field Name</label>
+                                    <input type="text" id="editfieldName" class="border rounded w-full p-2" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="fieldLocation" class="block text-gray-700">Location</label>
+                                    <input type="text" id="editfieldLocation" class="border rounded w-full p-2" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="fieldSize" class="block text-gray-700">Size</label>
+                                    <input type="number" id="editfieldSize" class="border rounded w-full p-2" required>
+                                </div>
+                                <div class="flex justify-end">
+                                    <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+                                        id="closeEditModal">Cancel</button>
+                                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
                 </main>
 
             </section>

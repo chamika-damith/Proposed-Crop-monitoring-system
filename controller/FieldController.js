@@ -1,15 +1,24 @@
+// Define constants for modal and form elements
 const openModalButton = document.getElementById('openModal');
 const closeModalButton = document.getElementById('closeModal');
 const addFieldForm = document.getElementById('addFieldForm');
 const fieldTableBody = document.getElementById('fieldTableBody');
 const addFieldModal = document.getElementById('addFieldModal');
 
-// Function to open modal
+// Define constants for edit modal elements
+const openEditModalBtn = document.getElementById('openEditModal');
+const closeEditModalBtn = document.getElementById('closeEditModal');
+const editFieldForm = document.getElementById('editFieldForm');
+const editFieldModal = document.getElementById('editModal');
+
+let currentRow;
+
+// Function to open add field modal
 openModalButton.addEventListener('click', () => {
     addFieldModal.classList.remove('hidden');
 });
 
-// Function to close modal
+// Function to close add field modal
 closeModalButton.addEventListener('click', () => {
     addFieldModal.classList.add('hidden');
 });
@@ -39,24 +48,73 @@ addFieldForm.addEventListener('submit', (event) => {
             <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded">${fieldCrops}</button></td>
             <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded">${fieldStaff}</button></td>
             <td class="p-4 text-gray-500 space-x-3">
-                <button class="text-blue-500 px-1" onclick="editField(this)"><i class="fa-solid fa-pen"></i></button>
+                <button class="text-blue-500 px-1 edit-btn""><i class="fa-solid fa-pen"></i></button>
                 <button class="text-red-500 border-2 border-red-400 rounded-full px-1" onclick="deleteField(this)"><i class="fa-solid fa-times"></i></button>
             </td>
         `;
         fieldTableBody.appendChild(row);
         addFieldModal.classList.add('hidden');
         addFieldForm.reset();
+
+        row.querySelector('.edit-btn').addEventListener('click', function() {
+            editField(this);
+        });
     };
 
     if (fieldImage) {
         reader.readAsDataURL(fieldImage);
     }
 });
+ 
 
 // Function to edit field
 function editField(button) {
+    // Get the closest table row of the clicked button
+    currentRow = button.closest('tr');
+    const cells = currentRow.children;
+
+    // Populate form fields with current row data
+    document.getElementById('editfieldName').value = cells[0].querySelector('span').innerText;
+    document.getElementById('editfieldLocation').value = cells[1].innerText;
+    document.getElementById('editfieldSize').value = cells[2].innerText;
+    document.getElementById('fieldCrops').value = cells[3].querySelector('button').innerText;
+    document.getElementById('fieldStaff').value = cells[4].querySelector('button').innerText;
+
+    // Open the edit modal
+    editFieldModal.classList.remove('hidden');
 }
 
+// Attach event listener to edit buttons
+document.querySelectorAll('.edit-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        editField(this);
+    });
+});
+
+
 // Function to delete field
-function deleteField(button) {    
+function deleteField(button) {
+    const row = button.closest('tr');
+    row.remove();
 }
+
+// Function to close edit modal
+closeEditModalBtn.addEventListener('click', () => {
+    editFieldModal.classList.add('hidden');
+});
+
+// Handle form submission for editing
+editFieldForm.addEventListener('submit', (event) => {
+    event.preventDefault(); // Prevent form submission
+
+    // Update the table row with new data
+    currentRow.children[0].querySelector('span').innerText = document.getElementById('editfieldName').value;
+    currentRow.children[1].innerText = document.getElementById('editfieldLocation').value;
+    currentRow.children[2].innerText = document.getElementById('editfieldSize').value;
+    currentRow.children[3].querySelector('button').innerText = document.getElementById('fieldCrops').value;
+    currentRow.children[4].querySelector('button').innerText = document.getElementById('fieldStaff').value;
+
+    console.log(currentRow);
+
+    closeEditModalBtn.click();
+});

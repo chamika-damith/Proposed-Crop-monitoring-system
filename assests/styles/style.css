@@ -9,3 +9,7 @@
   visibility: visible;
   opacity: 1;
 }
+
+#editFieldModal {
+  display: none; /* Initially hidden */
+}
