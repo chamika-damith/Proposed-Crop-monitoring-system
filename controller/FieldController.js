@@ -49,7 +49,7 @@ addFieldForm.addEventListener('submit', (event) => {
             <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded">${fieldStaff}</button></td>
             <td class="p-4 text-gray-500 space-x-3">
                 <button class="text-blue-500 px-1 edit-btn""><i class="fa-solid fa-pen"></i></button>
-                <button class="text-red-500 border-2 border-red-400 rounded-full px-1" onclick="deleteField(this)"><i class="fa-solid fa-times"></i></button>
+                <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-btn"><i class="fa-solid fa-times"></i></button>
             </td>
         `;
         fieldTableBody.appendChild(row);
@@ -58,6 +58,10 @@ addFieldForm.addEventListener('submit', (event) => {
 
         row.querySelector('.edit-btn').addEventListener('click', function() {
             editField(this);
+        });
+
+        row.querySelector('.delete-btn').addEventListener('click', function() {
+            deleteField(this);
         });
     };
 
@@ -91,12 +95,24 @@ document.querySelectorAll('.edit-btn').forEach(button => {
     });
 });
 
+// Attach event listener to delete buttons
+document.querySelectorAll('.delete-btn').forEach(button => {
+    button.addEventListener('click', function() {
+        deleteField(this);
+    });
+});
+
 
 // Function to delete field
 function deleteField(button) {
     const row = button.closest('tr');
-    row.remove();
+    const confirmation = confirm('Are you sure you want to delete this field?');
+    
+    if (confirmation) {
+        row.remove();
+    }
 }
+
 
 // Function to close edit modal
 closeEditModalBtn.addEventListener('click', () => {
