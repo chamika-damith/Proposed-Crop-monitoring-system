@@ -229,7 +229,7 @@
                             </span>
                         </div>
 
-                        <div class="group relative">
+                        <div class="group relative" id="cropBtn">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
                                     <i class="fas fa-leaf"></i>
@@ -343,169 +343,289 @@
                         </div>
                     </div>
 
-                    <div id="field">
-                        <!-- Header -->
-                        <div class="flex justify-between items-center mb-6">
-                            <div>
-                                <h1 class="text-2xl font-bold">Field</h1>
-                                <p class="text-gray-500">Manage your field and view</p>
+                    <section id="field-section">
+                        <div id="field">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Field</h1>
+                                    <p class="text-gray-500">Manage your field and view</p>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <button id="openModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2">
+                                        <span>+</span>
+                                        <span>Add Field</span>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="flex space-x-4">
-                                <button id="openModal"
-                                    class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2">
-                                    <span>+</span>
-                                    <span>Add Field</span>
-                                </button>
+
+                            <!-- Product Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b ">
+                                            <th class="p-4 font-semibold text-gray-600 ">Name</th>
+                                            <th class="p-4 font-semibold text-gray-600">Location</th>
+                                            <th class="p-4 font-semibold text-gray-600">Size</th>
+                                            <th class="p-4 font-semibold text-gray-600">Crops</th>
+                                            <th class="p-4 font-semibold text-gray-600">Staff</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="fieldTableBody">
+                                        <!-- Product Rows -->
+                                        <tr class="border-b">
+                                            <td class="p-4 flex items-center space-x-4">
+                                                <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
+                                                    class="w-12 h-12 rounded-lg">
+                                                <span>Rice Palate A</span>
+                                            </td>
+                                            <td class="p-4 text-center">Colombo</td>
+                                            <td class="p-4 text-center">2000</td>
+                                            <td class="p-4 text-center">
+                                                <button class="bg-green-200 py-1 px-2 rounded">Crops</button>
+                                            </td>
+                                            <td class="p-4 text-center">
+                                                <button class="bg-red-200 py-1 px-2 rounded">Staff</button>
+                                            </td>
+                                            <td class="p-4 text-gray-500  space-x-3">
+                                                <!-- Edit Icon -->
+                                                <button class="text-blue-500 px-1">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <!-- Delete Icon -->
+                                                <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr class="border-b">
+                                            <td class="p-4 flex items-center space-x-4">
+                                                <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
+                                                    class="w-12 h-12 rounded-lg">
+                                                <span>Rice Palate B</span>
+                                            </td>
+                                            <td class="p-4 text-center">Panadura</td>
+                                            <td class="p-4 text-center">3000</td>
+                                            <td class="p-4 text-center">
+                                                <button class="bg-green-200 py-1 px-2 rounded">Crops</button>
+                                            </td>
+                                            <td class="p-4 text-center">
+                                                <button class="bg-red-200 py-1 px-2 rounded">Staff</button>
+                                            </td>
+                                            <td class="p-4 text-gray-500  space-x-3">
+                                                <!-- Edit Icon -->
+                                                <button class="text-blue-500 px-1 edit-btn" id="openEditModal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <!-- Delete Icon -->
+                                                <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
                             </div>
                         </div>
 
-                        <!-- Product Table -->
-                        <div class="bg-white shadow rounded-lg overflow-hidden">
-
-                            <table class="w-full text-center">
-                                <thead>
-                                    <tr class="bg-gray-200 border-b ">
-                                        <th class="p-4 font-semibold text-gray-600 ">Name</th>
-                                        <th class="p-4 font-semibold text-gray-600">Location</th>
-                                        <th class="p-4 font-semibold text-gray-600">Size</th>
-                                        <th class="p-4 font-semibold text-gray-600">Crops</th>
-                                        <th class="p-4 font-semibold text-gray-600">Staff</th>
-                                        <th class="p-4 font-semibold text-gray-600">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="fieldTableBody">
-                                    <!-- Product Rows -->
-                                    <tr class="border-b">
-                                        <td class="p-4 flex items-center space-x-4">
-                                            <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
-                                                class="w-12 h-12 rounded-lg">
-                                            <span>Rice Palate A</span>
-                                        </td>
-                                        <td class="p-4 text-center">Colombo</td>
-                                        <td class="p-4 text-center">2000</td>
-                                        <td class="p-4 text-center">
-                                            <button class="bg-green-200 py-1 px-2 rounded">Crops</button>
-                                        </td>
-                                        <td class="p-4 text-center">
-                                            <button class="bg-red-200 py-1 px-2 rounded">Staff</button>
-                                        </td>
-                                        <td class="p-4 text-gray-500  space-x-3">
-                                            <!-- Edit Icon -->
-                                            <button class="text-blue-500 px-1">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
-
-                                            <!-- Delete Icon -->
-                                            <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
-                                                <i class="fa-solid fa-times"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-
-
-                                    <tr class="border-b">
-                                        <td class="p-4 flex items-center space-x-4">
-                                            <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
-                                                class="w-12 h-12 rounded-lg">
-                                            <span>Rice Palate B</span>
-                                        </td>
-                                        <td class="p-4 text-center">Panadura</td>
-                                        <td class="p-4 text-center">3000</td>
-                                        <td class="p-4 text-center">
-                                            <button class="bg-green-200 py-1 px-2 rounded">Crops</button>
-                                        </td>
-                                        <td class="p-4 text-center">
-                                            <button class="bg-red-200 py-1 px-2 rounded">Staff</button>
-                                        </td>
-                                        <td class="p-4 text-gray-500  space-x-3">
-                                            <!-- Edit Icon -->
-                                            <button class="text-blue-500 px-1 edit-btn" id="openEditModal">
-                                                <i class="fa-solid fa-pen"></i>
-                                            </button>
-
-                                            <!-- Delete Icon -->
-                                            <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
-                                                <i class="fa-solid fa-times"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                        <!-- Modal for Adding Field -->
+                        <div id="addFieldModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96">
+                                <h2 class="text-xl font-bold mb-4">Add New Field</h2>
+                                <form id="addFieldForm">
+                                    <div class="mb-4">
+                                        <label for="fieldName" class="block mb-2">Field Name</label>
+                                        <input type="text" id="fieldName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldLocation" class="block mb-2">Location</label>
+                                        <input type="text" id="fieldLocation"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldSize" class="block mb-2">Size (in sq. ft)</label>
+                                        <input type="number" id="fieldSize"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldCrops" class="block mb-2">Crops</label>
+                                        <input type="text" id="fieldCrops"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldStaff" class="block mb-2">Staff</label>
+                                        <input type="text" id="fieldStaff"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldImage" class="block mb-2">Upload Image</label>
+                                        <input type="file" id="fieldImage" accept="image/*"
+                                            class="border border-gray-300 rounded w-full p-2">
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add
+                                            Field</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
 
-                    <!-- Modal for Adding Field -->
-                    <div id="addFieldModal"
-                        class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
-                        <div class="bg-white rounded-lg p-6 w-96">
-                            <h2 class="text-xl font-bold mb-4">Add New Field</h2>
-                            <form id="addFieldForm">
-                                <div class="mb-4">
-                                    <label for="fieldName" class="block mb-2">Field Name</label>
-                                    <input type="text" id="fieldName" class="border border-gray-300 rounded w-full p-2"
-                                        required>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="fieldLocation" class="block mb-2">Location</label>
-                                    <input type="text" id="fieldLocation"
-                                        class="border border-gray-300 rounded w-full p-2" required>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="fieldSize" class="block mb-2">Size (in sq. ft)</label>
-                                    <input type="number" id="fieldSize"
-                                        class="border border-gray-300 rounded w-full p-2" required>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="fieldCrops" class="block mb-2">Crops</label>
-                                    <input type="text" id="fieldCrops" class="border border-gray-300 rounded w-full p-2"
-                                        required>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="fieldStaff" class="block mb-2">Staff</label>
-                                    <input type="text" id="fieldStaff" class="border border-gray-300 rounded w-full p-2"
-                                        required>
-                                </div>
-                                <div class="mb-4">
-                                    <label for="fieldImage" class="block mb-2">Upload Image</label>
-                                    <input type="file" id="fieldImage" accept="image/*"
-                                        class="border border-gray-300 rounded w-full p-2">
-                                </div>
-                                <div class="flex justify-end">
-                                    <button type="button" id="closeModal"
-                                        class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
-                                    <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add
-                                        Field</button>
-                                </div>
-                            </form>
+                        <!-- Edit Field Modal -->
+                        <div id="editModal"
+                            class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
+                            <div class="bg-white rounded-lg p-4 w-96">
+                                <h2 class="text-xl font-bold mb-4">Edit Field</h2>
+                                <form id="editFieldForm">
+                                    <div class="mb-4">
+                                        <label for="fieldName" class="block text-gray-700">Field Name</label>
+                                        <input type="text" id="editfieldName" class="border rounded w-full p-2"
+                                            required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldLocation" class="block text-gray-700">Location</label>
+                                        <input type="text" id="editfieldLocation" class="border rounded w-full p-2"
+                                            required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldSize" class="block text-gray-700">Size</label>
+                                        <input type="number" id="editfieldSize" class="border rounded w-full p-2"
+                                            required>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+                                            id="closeEditModal">Cancel</button>
+                                        <button type="submit"
+                                            class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
-                    </div>
+                    </section>
 
-                    <!-- Edit Field Modal -->
-                    <div id="editModal"
-                        class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
-                        <div class="bg-white rounded-lg p-4 w-96">
-                            <h2 class="text-xl font-bold mb-4">Edit Field</h2>
-                            <form id="editFieldForm">
-                                <div class="mb-4">
-                                    <label for="fieldName" class="block text-gray-700">Field Name</label>
-                                    <input type="text" id="editfieldName" class="border rounded w-full p-2" required>
+                    <section id="crop-section">
+                        <div id="crop">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Crop</h1>
+                                    <p class="text-gray-500">Manage your crop and view</p>
                                 </div>
-                                <div class="mb-4">
-                                    <label for="fieldLocation" class="block text-gray-700">Location</label>
-                                    <input type="text" id="editfieldLocation" class="border rounded w-full p-2" required>
+                                <div class="flex space-x-4">
+                                    <button id="openCropModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2">
+                                        <span>+</span>
+                                        <span>Add Crop</span>
+                                    </button>
                                 </div>
-                                <div class="mb-4">
-                                    <label for="fieldSize" class="block text-gray-700">Size</label>
-                                    <input type="number" id="editfieldSize" class="border rounded w-full p-2" required>
-                                </div>
-                                <div class="flex justify-end">
-                                    <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
-                                        id="closeEditModal">Cancel</button>
-                                    <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
-                                </div>
-                            </form>
+                            </div>
+
+                            <!-- Product Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b ">
+                                            <th class="p-4 font-semibold text-gray-600 ">Code</th>
+                                            <th class="p-4 font-semibold text-gray-600 ">Common Name</th>
+                                            <th class="p-4 font-semibold text-gray-600 ">Scientific Name</th>
+                                            <th class="p-4 font-semibold text-gray-600">Category</th>
+                                            <th class="p-4 font-semibold text-gray-600">Season</th>
+                                            <th class="p-4 font-semibold text-gray-600">Field</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="fieldTableBody">
+                                        <!-- Product Rows -->
+                                        <tr class="border-b">
+                                            <td class="p-4 flex items-center space-x-4">
+                                                <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
+                                                    class="w-12 h-12 rounded-lg">
+                                                <span>BG-34</span>
+                                            </td>
+                                            <td class="p-4 text-center">Rice</td>
+                                            <td class="p-4 text-center">Oryza sativa</td>
+                                            <td class="p-4 text-center">Cereal</td>
+                                            <td class="p-4 text-center">Monsoon</td>
+                                            <td class="p-4 text-center">Paddy field</td>
+                                            <td class="p-4 text-gray-500  space-x-3">
+                                                <!-- Edit Icon -->
+                                                <button class="text-blue-500 px-1">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <!-- Delete Icon -->
+                                                <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
-                    </div>
+
+                        <!-- Modal for Adding Crop -->
+                        <div id="addCropModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96">
+                                <h2 class="text-xl font-bold mb-4">Add New Crop</h2>
+                                <form id="addCropForm">
+                                    <div class="mb-4">
+                                        <label for="cropCode" class="block mb-2">Crop Code</label>
+                                        <input type="text" id="cropCode"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropName" class="block mb-2">Crop Common Name</label>
+                                        <input type="text" id="cropName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropSceintificName" class="block mb-2">Crop Sceintific Name</label>
+                                        <input type="text" id="cropSceintificName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropCategory" class="block mb-2">Category</label>
+                                        <input type="number" id="cropCategory"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropSeason" class="block mb-2">Season</label>
+                                        <input type="text" id="cropSeason"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropField" class="block mb-2">Field</label>
+                                        <input type="text" id="cropField"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldImage" class="block mb-2">Upload Image</label>
+                                        <input type="file" id="fieldImage" accept="image/*"
+                                            class="border border-gray-300 rounded w-full p-2">
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeCropModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add
+                                            Field</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
 
                 </main>
 
@@ -519,6 +639,7 @@
             crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <script src="/script/script.js"></script>
         <script type="module" src="/controller/FieldController.js"></script>
+        <script type="module" src="/controller/CropController.js"></script>
     </body>
 </div>
 

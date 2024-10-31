@@ -1,15 +1,27 @@
 /*----------spa------------*/
 $('#field').hide();
+$('#crop-section').hide();
+
 
 $('#fieldBtn').on('click',()=>{
     $('#dashboard').hide();
     $('#field').show();
+    $('#crop-section').hide();
 
 });
 
 $('#dashboardBtn').on('click',()=>{
     $('#dashboard').show();
     $('#field').hide();
+    $('#crop-section').hide();
+
+});
+
+$('#cropBtn').on('click',()=>{
+    $('#dashboard').hide();
+    $('#field').hide();
+    $('#crop-section').show();
+
 });
 
 
