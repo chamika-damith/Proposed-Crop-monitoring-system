@@ -578,7 +578,7 @@
                         <!-- Modal for Adding Crop -->
                         <div id="addCropModal"
                             class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
-                            <div class="bg-white rounded-lg p-6 w-96">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
                                 <h2 class="text-xl font-bold mb-4">Add New Crop</h2>
                                 <form id="addCropForm">
                                     <div class="mb-4">
@@ -592,7 +592,7 @@
                                             class="border border-gray-300 rounded w-full p-2" required>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="cropSceintificName" class="block mb-2">Crop Sceintific Name</label>
+                                        <label for="cropSceintificName" class="block mb-2">Crop Scientific Name</label>
                                         <input type="text" id="cropSceintificName"
                                             class="border border-gray-300 rounded w-full p-2" required>
                                     </div>
@@ -625,6 +625,7 @@
                                 </form>
                             </div>
                         </div>
+
 
                         <!-- Edit Crop Modal -->
                         <div id="editCropModal"
@@ -683,60 +684,36 @@
                                 </div>
                                 <div class="flex space-x-4">
                                     <button id="openStaffModal"
-                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2">
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-800">
                                         <span>+</span>
                                         <span>Add Staff</span>
                                     </button>
                                 </div>
                             </div>
 
-                            <!--  Table -->
+                            <!-- Table -->
                             <div class="bg-white shadow rounded-lg overflow-hidden">
-
                                 <table class="w-full text-center">
                                     <thead>
                                         <tr class="bg-gray-200 border-b ">
-                                            <th class="p-4 font-semibold text-gray-600 ">First Name</th>
-                                            <th class="p-4 font-semibold text-gray-600 ">Last Name</th>
-                                            <th class="p-4 font-semibold text-gray-600 ">Designation</th>
-                                            <th class="p-4 font-semibold text-gray-600">Gender</th>
-                                            <th class="p-4 font-semibold text-gray-600">Joined Date</th>
-                                            <th class="p-4 font-semibold text-gray-600">DOB</th>
-                                            <th class="p-4 font-semibold text-gray-600">Address</th>
-                                            <th class="p-4 font-semibold text-gray-600">Contact No</th>
-                                            <th class="p-4 font-semibold text-gray-600">Email</th>
-                                            <th class="p-4 font-semibold text-gray-600">Role</th>
-                                            <th class="p-4 font-semibold text-gray-600">Field</th>
-                                            <th class="p-4 font-semibold text-gray-600">Vehicle</th>
+                                            <th class="p-4 font-semibold text-gray-600">First Name</th>
+                                            <th class="p-4 font-semibold text-gray-600">Last Name</th>
+                                            <th class="p-4 font-semibold text-gray-600">Designation</th>
                                             <th class="p-4 font-semibold text-gray-600">Action</th>
                                         </tr>
                                     </thead>
                                     <tbody id="staffTableBody">
-                                        <!--  Rows -->
                                         <tr class="border-b">
                                             <td class="p-4 text-center">chamika</td>
                                             <td class="p-4 text-center">damith</td>
                                             <td class="p-4 text-center">Panadura</td>
-                                            <td class="p-4 text-center">Male</td>
-                                            <td class="p-4 text-center">2024-02-11</td>
-                                            <td class="p-4 text-center">2002-07-03</td>
-                                            <td class="p-4 text-center">Panadura</td>
-                                            <td class="p-4 text-center">0785765111</td>
-                                            <td class="p-4 text-center">Cdd@gmail.com</td>
-                                            <td class="p-4 text-center">ADMIN</td>
                                             <td class="p-4 text-center">
-                                                <button class="bg-green-200 py-1 px-2 rounded">field</button>
-                                            </td>
-                                            <td class="p-4 text-center">
-                                                <button class="bg-red-200 py-1 px-2 rounded">vehicle</button>
-                                            </td>
-                                            <td class="p-4 text-gray-500  space-x-3">
-                                                <!-- Edit Icon -->
+                                                <button class="text-green-500 px-1 viewStaffDetailbtn" data-id="">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
                                                 <button class="text-blue-500 px-1 editStaffbtn" id="openStaffEditModal">
                                                     <i class="fa-solid fa-pen"></i>
                                                 </button>
-
-                                                <!-- Delete Icon -->
                                                 <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
                                                     <i class="fa-solid fa-times"></i>
                                                 </button>
@@ -746,6 +723,113 @@
                                 </table>
                             </div>
                         </div>
+
+                        <!-- View Staff Modal -->
+                        <div id="staffDetailModal" class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div class="bg-white p-5 rounded-lg w-1/3 shadow-lg">
+                                <h2 class="text-2xl font-bold mb-4">Staff Details</h2>
+                                <div id="staffDetailsContent" class="space-y-4 max-h-64 overflow-y-auto"></div>
+                                <button id="closeStaffDetailModal"
+                                    class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <!-- Modal for Adding Crop -->
+                        <div id="addStaffModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Add New Staff</h2>
+                                <form id="addStaffForm"
+                                    class="grid grid-cols-2 gap-4 bg-white p-6 rounded-lg shadow-md">
+                                    <div class="mb-4">
+                                        <label for="firstName" class="block text-gray-700 font-medium mb-2">First
+                                            Name</label>
+                                        <input type="text" id="firstName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="lastName" class="block text-gray-700 font-medium mb-2">Last
+                                            Name</label>
+                                        <input type="text" id="lastName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="designation"
+                                            class="block text-gray-700 font-medium mb-2">Designation</label>
+                                        <input type="text" id="designation"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="gender" class="block text-gray-700 font-medium mb-2">Gender</label>
+                                        <select id="gender" class="border border-gray-300 rounded w-full p-2">
+                                            <option value="">Select</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="joinedDate" class="block text-gray-700 font-medium mb-2">Joined
+                                            Date</label>
+                                        <input type="date" id="joinedDate"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="dob" class="block text-gray-700 font-medium mb-2">Date of
+                                            Birth</label>
+                                        <input type="date" id="dob" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                    </div>
+                                    <div class="mb-4 col-span-2">
+                                        <label for="address"
+                                            class="block text-gray-700 font-medium mb-2">Address</label>
+                                        <input type="text" id="address"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="contactNo" class="block text-gray-700 font-medium mb-2">Contact
+                                            No</label>
+                                        <input type="tel" id="contactNo"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                        <input type="email" id="email" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="role" class="block text-gray-700 font-medium mb-2">Role</label>
+                                        <select id="role" class="border border-gray-300 rounded w-full p-2" required>
+                                            <option value="">Select a Role</option>
+                                            <option value="MANAGER">MANAGER</option>
+                                            <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
+                                            <option value="SCIENTIST">SCIENTIST</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="field" class="block text-gray-700 font-medium mb-2">Field</label>
+                                        <input type="text" id="field" class="border border-gray-300 rounded w-full p-2">
+                                    </div>
+                                    <div class="mb-4 col-span-2">
+                                        <label for="vehicle"
+                                            class="block text-gray-700 font-medium mb-2">Vehicle</label>
+                                        <input type="text" id="vehicle"
+                                            class="border border-gray-300 rounded w-full p-2">
+                                    </div>
+                                    <div class="flex justify-end col-span-2">
+                                        <button type="button" id="closeStaffModal"
+                                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Add
+                                            Staff</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
                     </section>
 
                 </main>
@@ -761,6 +845,7 @@
         <script src="/script/script.js"></script>
         <script type="module" src="/controller/FieldController.js"></script>
         <script type="module" src="/controller/CropController.js"></script>
+        <script type="module" src="/controller/StaffController.js"></script>
     </body>
 </div>
 
