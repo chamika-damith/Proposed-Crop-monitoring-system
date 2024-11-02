@@ -73,11 +73,9 @@ addFieldForm.addEventListener('submit', (event) => {
 
 // Function to edit field
 function editField(button) {
-    // Get the closest table row of the clicked button
     currentRow = button.closest('tr');
     const cells = currentRow.children;
 
-    // Populate form fields with current row data
     document.getElementById('editfieldName').value = cells[0].querySelector('span').innerText;
     document.getElementById('editfieldLocation').value = cells[1].innerText;
     document.getElementById('editfieldSize').value = cells[2].innerText;
@@ -130,7 +128,6 @@ editFieldForm.addEventListener('submit', (event) => {
     currentRow.children[3].querySelector('button').innerText = document.getElementById('fieldCrops').value;
     currentRow.children[4].querySelector('button').innerText = document.getElementById('fieldStaff').value;
 
-    console.log(currentRow);
 
     closeEditModalBtn.click();
 });

@@ -5,6 +5,14 @@ const addStaffForm = document.getElementById('addStaffForm');
 const staffTableBody = document.getElementById('staffTableBody');
 const addStaffModal = document.getElementById('addStaffModal');
 
+
+
+const closeStaffEditModal = document.getElementById('closeStaffEditModal');
+const editStaffForm = document.getElementById('editStaffForm');
+const editStaffModal = document.getElementById('editStaffModal');
+
+let currentRow;
+
 // Function to open add staff modal
 openStaffModalbtn.addEventListener('click', () => {
     addStaffModal.classList.remove('hidden');
@@ -43,7 +51,7 @@ addStaffForm.addEventListener('submit', (event) => {
             <button class="text-blue-500 px-1 editStaffbtn" id="openStaffEditModal">
                 <i class="fa-solid fa-pen"></i>
             </button>
-            <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
+            <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-staff-btn">
                 <i class="fa-solid fa-times"></i>
             </button>
         </td>
@@ -51,6 +59,25 @@ addStaffForm.addEventListener('submit', (event) => {
     staffTableBody.appendChild(row);
     addStaffModal.classList.add('hidden');
     addStaffForm.reset();
+
+    row.querySelector('.delete-staff-btn').addEventListener('click', function() {
+        deleteStaff(this);
+    });
+
+    row.querySelector('.editStaffbtn').addEventListener('click', function () {
+        editStaff(this, {
+            firstName,
+            lastName,
+            designation,
+            gender,
+            joinDate,
+            dob,
+            address,
+            contactNo,
+            role,
+            email,
+        });
+    });
 
     row.querySelector('.viewStaffDetailbtn').addEventListener('click', function () {
         viewStaffDetail({
@@ -130,3 +157,74 @@ function viewStaffDetail(staff) {
 document.getElementById('closeStaffDetailModal').addEventListener('click', function () {
     document.getElementById('staffDetailModal').classList.add('hidden');
 });
+
+// Function to edit staff
+function editStaff(button, staff) {
+    currentRow = button.closest('tr');
+    const cells = currentRow.children;
+
+    document.getElementById('editfirstName').value = cells[0].innerText;
+    document.getElementById('editlastName').value = cells[1].innerText;
+    document.getElementById('editdesignation').value = cells[2].innerText;
+    document.getElementById('editgender').value = staff.gender;
+    document.getElementById('editjoinedDate').value = staff.joinDate;
+    document.getElementById('editdob').value = staff.dob;
+    document.getElementById('editaddress').value = staff.address;
+    document.getElementById('editcontactNo').value = staff.contactNo;
+    document.getElementById('editemail').value = staff.email;
+    document.getElementById('editrole').value = staff.role;
+    document.getElementById('editfield').value = "field";
+    document.getElementById('editvehicle').value = "vehicle";
+
+    // Open the edit modal
+    editStaffModal.classList.remove('hidden');
+}
+
+// Function to close edit modal
+closeStaffEditModal.addEventListener('click', () => {
+    editStaffModal.classList.add('hidden');
+});
+
+document.querySelectorAll('.editStaffbtn').forEach(button => {
+    button.addEventListener('click', function () {
+        editStaff(this);
+    });
+});
+
+
+// Submit edit form and update the view
+editStaffForm.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    // Update table row with new values
+    currentRow.children[0].innerText = document.getElementById('editfirstName').value;
+    currentRow.children[1].innerText = document.getElementById('editlastName').value;
+    currentRow.children[2].innerText = document.getElementById('editdesignation').value;
+
+    // View updated staff details
+    viewStaffDetail({
+        firstName: document.getElementById('editfirstName').value,
+        lastName: document.getElementById('editlastName').value,
+        designation: document.getElementById('editdesignation').value,
+        gender: document.getElementById('editgender').value,
+        joinDate: document.getElementById('editjoinedDate').value,
+        dob: document.getElementById('editdob').value,
+        address: document.getElementById('editaddress').value,
+        contactNo: document.getElementById('editcontactNo').value,
+        email: document.getElementById('editemail').value,
+        role: document.getElementById('editrole').value,
+    });
+
+    // Close the edit modal
+    editStaffModal.classList.add('hidden');
+});
+
+// Function to delete field
+function deleteStaff(button) {
+    const row = button.closest('tr');
+    const confirmation = confirm('Are you sure you want to delete this field?');
+    
+    if (confirmation) {
+        row.remove();
+    }
+}
