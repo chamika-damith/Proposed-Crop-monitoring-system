@@ -253,7 +253,7 @@
                             </span>
                         </div>
 
-                        <div class="group relative">
+                        <div class="group relative" id="vehicleBtn">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
                                     <i class="fas fa-tractor"></i>
@@ -277,7 +277,7 @@
                             </span>
                         </div>
 
-                        <div class="group relative mt-auto">
+                        <div class="group relative mt-auto" id="logBtn">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
                                     <i class="fas fa-clipboard-list"></i>
@@ -295,7 +295,7 @@
                 <main class="flex-auto w-full p-6 ml-5 mr-5 mt-5 h-fit ">
                     <div class="flex flex-col justify-between sm:flex-row" id="dashboard">
                         <div
-                            class="xl:w-72  h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            class="xl:w-72  h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 shadow-md hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
                             <div>
                                 <i
                                     class="fas fa-seedling lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
@@ -308,7 +308,7 @@
 
 
                         <div
-                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 shadow-md hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
                             <div>
                                 <i
                                     class="fas fa-leaf lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
@@ -319,7 +319,7 @@
                             </div>
                         </div>
                         <div
-                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 shadow-md hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
                             <div>
                                 <i
                                     class="fas fa-users lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
@@ -331,7 +331,7 @@
                         </div>
 
                         <div
-                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 shadow-md hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
                             <div>
                                 <i
                                     class="fas fa-tractor lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
@@ -714,7 +714,8 @@
                                                 <button class="text-blue-500 px-1 editStaffbtn" id="openStaffEditModal">
                                                     <i class="fa-solid fa-pen"></i>
                                                 </button>
-                                                <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-staff-btn">
+                                                <button
+                                                    class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-staff-btn">
                                                     <i class="fa-solid fa-times"></i>
                                                 </button>
                                             </td>
@@ -925,6 +926,117 @@
                             </div>
                         </div>
 
+                    </section>
+
+                    <section id="vehicle-section">
+                        <div id="vehicle">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Vehicle</h1>
+                                    <p class="text-gray-500">Manage your vehicle and view</p>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <button id="openVehicleModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-800">
+                                        <span>+</span>
+                                        <span>Add Vehicle</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b ">
+                                            <th class="p-4 font-semibold text-gray-600">License Number</th>
+                                            <th class="p-4 font-semibold text-gray-600">category</th>
+                                            <th class="p-4 font-semibold text-gray-600">Fuel type</th>
+                                            <th class="p-4 font-semibold text-gray-600">Status</th>
+                                            <th class="p-4 font-semibold text-gray-600">Staff member</th>
+                                            <th class="p-4 font-semibold text-gray-600">Remarks</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="vehicleTableBody">
+                                        <tr class="border-b">
+                                            <td class="p-4 text-center">NC-7749</td>
+                                            <td class="p-4 text-center">Bike</td>
+                                            <td class="p-4 text-center">Petrol</td>
+                                            <td class="p-4 text-center">Available</td>
+                                            <td class="p-4 text-center">D-0012</td>
+                                            <td class="p-4 text-center">No</td>
+                                            <td class="p-4 text-center">
+                                                <button class="text-blue-500 px-1 editStaffbtn" id="openStaffEditModal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                                <button
+                                                    class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-staff-btn">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Modal for Adding Vehicle -->
+                        <div id="addVehicleModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Add New Vehicle</h2>
+                                <form id="addVehicleForm">
+                                    <div class="mb-4">
+                                        <label for="licensePlateNumber" class="block mb-2">License Plate Number</label>
+                                        <input type="text" id="licensePlateNumber"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="vehicleCategory" class="block mb-2">Vehicle Category</label>
+                                        <input type="text" id="vehicleCategory"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fuelType" class="block mb-2">Fuel Type</label>
+                                        <select id="fuelType" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Fuel Type</option>
+                                            <option value="Petrol">Petrol</option>
+                                            <option value="Diesel">Diesel</option>
+                                            <option value="Electric">Electric</option>
+                                            <option value="Hybrid">Hybrid</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="status" class="block mb-2">Status</label>
+                                        <select id="status" class="border border-gray-300 rounded w-full p-2" required>
+                                            <option value="Available">Available</option>
+                                            <option value="Out of Service">Out of Service</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="allocatedStaff" class="block mb-2">Allocated Staff Member
+                                            Details</label>
+                                        <input type="text" id="allocatedStaff"
+                                            class="border border-gray-300 rounded w-full p-2" required
+                                            placeholder="Assigned driver and/or assistant">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="remarks" class="block mb-2">Remarks</label>
+                                        <textarea id="remarks" class="border border-gray-300 rounded w-full p-2"
+                                            placeholder="Any special remarks or N/A"></textarea>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeVehicleModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add
+                                            Vehicle</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
 
 
                     </section>
@@ -943,6 +1055,7 @@
         <script type="module" src="controller/FieldController.js"></script>
         <script type="module" src="controller/CropController.js"></script>
         <script type="module" src="controller/StaffController.js"></script>
+        <script type="module" src="controller/VehicleController.js"></script>
     </body>
 </div>
 
