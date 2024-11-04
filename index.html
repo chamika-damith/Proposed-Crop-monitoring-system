@@ -1273,13 +1273,150 @@
                                     <div class="flex justify-end">
                                         <button type="button" id="closeEditEquipmentModal"
                                             class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
-                                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                                        <button type="submit"
+                                            class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
 
 
+
+                    </section>
+
+                    <section id="log-section">
+                        <div id="logMonitoring">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Log Monitoring - Crop Details</h1>
+                                    <p class="text-gray-500">Track and manage observations related to crops and fields
+                                    </p>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <button id="openLogModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-800">
+                                        <span>+</span>
+                                        <span>Add Log</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b">
+                                            <th class="p-4 font-semibold text-gray-600">Log Code</th>
+                                            <th class="p-4 font-semibold text-gray-600">Log Date</th>
+                                            <th class="p-4 font-semibold text-gray-600">Observation</th>
+                                            <th class="p-4 font-semibold text-gray-600">Observed Image</th>
+                                            <th class="p-4 font-semibold text-gray-600">Field</th>
+                                            <th class="p-4 font-semibold text-gray-600">Crop</th>
+                                            <th class="p-4 font-semibold text-gray-600">Staff Member</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="logTableBody">
+                                        <tr class="border-b">
+                                            <td class="p-4 text-center">LG-001</td>
+                                            <td class="p-4 text-center">2024-11-04</td>
+                                            <td class="p-4 text-center">Healthy growth observed</td>
+                                            <td class="p-4 text-center flex justify-center">
+                                                <img src="https://via.placeholder.com/50" alt="Observation Image"
+                                                    class="w-12 h-12 object-cover">
+                                            </td>
+                                            <td class="p-4 text-center">Field A</td>
+                                            <td class="p-4 text-center">Wheat</td>
+                                            <td class="p-4 text-center">John Doe</td>
+                                            <td class="p-4 text-center">
+                                                <button class="text-blue-500 px-1 editLogbtn" id="openLogEditModal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                                <button
+                                                    class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-log-btn">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Add Log Modal -->
+                        <div id="addLogModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+                            <div class="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full">
+                                <h2 class="text-xl font-semibold mb-4">Add New Log Entry</h2>
+                                <form id="addLogForm" class="space-y-4">
+                                    <div>
+                                        <label for="logCode" class="block text-gray-700">Log Code</label>
+                                        <input type="text" id="logCode"
+                                            class="w-full border border-gray-300 p-2 rounded"
+                                            placeholder="Enter Log Code (e.g., LG-001)" required>
+                                    </div>
+                                    <div>
+                                        <label for="logDate" class="block text-gray-700">Log Date</label>
+                                        <input type="date" id="logDate"
+                                            class="w-full border border-gray-300 p-2 rounded" required>
+                                    </div>
+                                    <div>
+                                        <label for="observation" class="block text-gray-700">Observation</label>
+                                        <textarea id="observation" class="w-full border border-gray-300 p-2 rounded"
+                                            placeholder="Enter Observation" required></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="observedImage" class="block text-gray-700">Observed Image</label>
+                                        <input type="file" id="observedImage" accept="image/*"
+                                            class="w-full border border-gray-300 p-2 rounded-file" required>
+                                    </div>
+                                    <div>
+                                        <label for="relevantFields" class="block text-gray-700">Relevant Fields</label>
+                                        <select id="relevantFields"
+                                            class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8"
+                                            required>
+                                            <option value="" disabled selected>Select Field</option>
+                                            <option value="Field A">Field A</option>
+                                            <option value="Field B">Field B</option>
+                                            <option value="Field C">Field C</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="relevantCrops" class="block text-gray-700">Relevant Crops</label>
+                                        <select id="relevantCrops"
+                                            class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8"
+                                            required>
+                                            <option value="" disabled selected>Select Crop</option>
+                                            <option value="Wheat">Wheat</option>
+                                            <option value="Corn">Corn</option>
+                                            <option value="Rice">Rice</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="staffMember" class="block text-gray-700">Staff Member</label>
+                                        <select id="staffMember"
+                                            class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8"
+                                            required>
+                                            <option value="" disabled selected>Select Staff Member</option>
+                                            <option value="John Doe">John Doe</option>
+                                            <option value="Jane Smith">Jane Smith</option>
+                                            <option value="Emily Johnson">Emily Johnson</option>
+                                            <!-- Add more options as needed -->
+                                        </select>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button"
+                                            class="bg-gray-300 text-gray-700 py-2 px-4 rounded ml-2 hover:bg-gray-400"
+                                            id="closeLogModel">Cancel</button>
+                                        <button type="button"
+                                            class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">Submit
+                                            Log</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
 
                     </section>
 
@@ -1299,6 +1436,7 @@
         <script type="module" src="controller/StaffController.js"></script>
         <script type="module" src="controller/VehicleController.js"></script>
         <script type="module" src="controller/Equipment.js"></script>
+        <script type="module" src="controller/LogController.js"></script>
     </body>
 </div>
 
