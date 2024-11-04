@@ -46,7 +46,7 @@ addFieldForm.addEventListener('submit', (event) => {
             <td class="p-4 text-center">${fieldLocation}</td>
             <td class="p-4 text-center">${fieldSize}</td>
             <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail">${fieldCrops}</button></td>
-            <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded">${fieldStaff}</button></td>
+            <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded fieldStaffDetail">${fieldStaff}</button></td>
             <td class="p-4 text-gray-500 space-x-3">
                 <button class="text-blue-500 px-1 edit-btn"><i class="fa-solid fa-pen"></i></button>
                 <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-btn"><i class="fa-solid fa-times"></i></button>
@@ -66,6 +66,10 @@ addFieldForm.addEventListener('submit', (event) => {
 
         row.querySelector('.cropDetail').addEventListener('click', function () {
             viewCropDetail(this);
+        });
+
+        row.querySelector('.fieldStaffDetail').addEventListener('click', function () {
+            viewStaffDetail(this);
         });
     };
 
@@ -150,4 +154,18 @@ function viewCropDetail() {
 
 document.getElementById('closecropDetailModal').addEventListener('click', function () {
     document.getElementById('cropDetailModal').classList.add('hidden');
+});
+
+// Function to view staff detail
+function viewStaffDetail() {
+    document.getElementById('fieldStaffDetailsContent').innerHTML = `
+        <p class="flex items-center text-gray-700">
+            <i class="fas fa-user-circle mr-2"></i><strong>Crop Name:</strong> <span class="font-medium ml-2">staff A</span>
+        </p>
+    `;
+    document.getElementById('fieldStaffDetailModal').classList.remove('hidden');
+}
+
+document.getElementById('closefieldStaffDetailModal').addEventListener('click', function () {
+    document.getElementById('fieldStaffDetailModal').classList.add('hidden');
 });
