@@ -1232,27 +1232,43 @@
                                             class="border border-gray-300 rounded w-full p-2" required>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="editEquipmentType" class="block mb-2">Equipment Type</label>
-                                        <input type="text" id="editEquipmentType"
-                                            class="border border-gray-300 rounded w-full p-2" required>
+                                        <label for="editEquipmentType" class="block mb-2">Type</label>
+                                        <select id="editEquipmentType" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Type</option>
+                                            <option value="Electrical">Electrical</option>
+                                            <option value="Mechanical">Mechanical</option>
+                                        </select>
                                     </div>
                                     <div class="mb-4">
                                         <label for="editEquipmentStatus" class="block mb-2">Status</label>
                                         <select id="editEquipmentStatus"
                                             class="border border-gray-300 rounded w-full p-2" required>
-                                            <option value="Operational">Available</option>
+                                            <option value="Available">Available</option>
                                             <option value="Out of Service">Out of Service</option>
                                         </select>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="editAssignedStaff" class="block mb-2">Assigned Staff Member</label>
-                                        <input type="text" id="editAssignedStaff"
-                                            class="border border-gray-300 rounded w-full p-2" required>
+                                        <label for="editAssignedStaff" class="block mb-2">Assigned Staff</label>
+                                        <select id="editAssignedStaff" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Staff Member</option>
+                                            <option value="S-1023">John Doe - S-1023</option>
+                                            <option value="S-1024">Jane Smith - S-1024</option>
+                                            <option value="S-1025">Michael Brown - S-1025</option>
+                                            <option value="S-1026">Emily Davis - S-1026</option>
+                                        </select>
                                     </div>
                                     <div class="mb-4">
                                         <label for="editAssignedField" class="block mb-2">Assigned Field</label>
-                                        <input type="text" id="editAssignedField"
-                                            class="border border-gray-300 rounded w-full p-2" required>
+                                        <select id="editAssignedField" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Field</option>
+                                            <option value="Construction Site">Construction Site</option>
+                                            <option value="Warehouse A">Warehouse A</option>
+                                            <option value="Factory Floor">Factory Floor</option>
+                                            <option value="Remote Site B">Remote Site B</option>
+                                        </select>
                                     </div>
                                     <div class="flex justify-end">
                                         <button type="button" id="closeEditEquipmentModal"
