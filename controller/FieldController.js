@@ -16,6 +16,11 @@ const cropDetailsContent = document.getElementById('cropDetailsContent');
 const addCropBtn = document.getElementById('addCropBtn');
 const fieldCrops = document.getElementById('fieldCrops');
 
+const staffList = document.getElementById('staffList');
+const fieldStaffDetailsContent = document.getElementById('fieldStaffDetailsContent');
+const addStaffBtn = document.getElementById('addStaffBtn');
+const fieldStaff = document.getElementById('fieldStaff');
+
 let currentRow;
 
 // Function to open add field modal
@@ -67,13 +72,12 @@ addFieldForm.addEventListener('submit', (event) => {
             deleteField(this);
         });
 
-
-        row.querySelector('.fieldStaffDetail').addEventListener('click', function () {
-            viewStaffDetail(this);
-        });
-
         row.querySelector('.cropDetail').addEventListener('click', function () {
             viewCropDetails(this);
+        });
+
+        row.querySelector('.fieldStaffDetail').addEventListener('click', function () {
+            viewStaffDetails(this);
         });
     };
 
@@ -145,45 +149,6 @@ editFieldForm.addEventListener('submit', (event) => {
 });
 
 
-// Function to view staff detail
-function viewStaffDetail() {
-    document.getElementById('fieldStaffDetailsContent').innerHTML = `
-        <p class="flex items-center text-gray-700">
-            <i class="fas fa-user-circle mr-2"></i><strong>Crop Name:</strong> <span class="font-medium ml-2">staff A</span>
-        </p>
-    `;
-    document.getElementById('fieldStaffDetailModal').classList.remove('hidden');
-}
-
-document.getElementById('closefieldStaffDetailModal').addEventListener('click', function () {
-    document.getElementById('fieldStaffDetailModal').classList.add('hidden');
-});
-
-
-document.getElementById('addStaffBtn').addEventListener('click', function () {
-    const staffSelect = document.getElementById('fieldStaff');
-    const staffList = document.getElementById('staffList');
-    const selectedStaff = staffSelect.value;
-    const selectedStaffText = staffSelect.options[staffSelect.selectedIndex].text;
-
-    if (selectedStaff) {
-        const staffItem = document.createElement('div');
-        staffItem.className = 'flex justify-between items-center mb-1';
-        staffItem.innerHTML = `
-            <span>${selectedStaffText}</span>
-            <button type="button" class="text-red-500 remove-btn">Remove</button>
-        `;
-        staffList.appendChild(staffItem);
-
-        staffItem.querySelector('.remove-btn').addEventListener('click', function () {
-            staffList.removeChild(staffItem);
-        });
-    }
-});
-
-
-
-
  // Add selected crop to the preview list
  addCropBtn.addEventListener('click', () => {
     const selectedCrop = fieldCrops.value;
@@ -219,4 +184,43 @@ function viewCropDetails(){
 
 document.getElementById('closecropDetailModal').addEventListener('click', function () {
     document.getElementById('cropDetailModal').classList.add('hidden');
+});
+
+
+
+ // Add selected staff to the preview list
+ addStaffBtn.addEventListener('click', () => {
+    const selectedStaff = fieldStaff.value;
+    if (selectedStaff) {
+        const staffItem = document.createElement('div');
+        staffItem.className = 'flex justify-between items-center mb-1 text-gray-700';
+        staffItem.innerHTML = `
+            <span>${selectedStaff}</span>
+            <button type="button" class="text-red-500 font-bold remove-staff">X</button>
+        `;
+        staffList.appendChild(staffItem);
+
+        // Handle removal of staff items
+        staffItem.querySelector('.remove-staff').addEventListener('click', () => {
+            staffList.removeChild(staffItem);
+        });
+    }
+});
+
+function viewStaffDetails(){
+    fieldStaffDetailsContent.innerHTML = '';
+    const staffItems = staffList.querySelectorAll('span');
+
+    staffItems.forEach(staff => {
+        const staffDetail = document.createElement('p');
+        staffDetail.className = 'text-gray-700';
+        staffDetail.innerHTML = `<strong>Staff Member Name:</strong> ${staff.innerText}`;
+        fieldStaffDetailsContent.appendChild(staffDetail);
+    });
+
+    document.getElementById('fieldStaffDetailModal').classList.remove('hidden');
+}
+
+document.getElementById('closefieldStaffDetailModal').addEventListener('click', function () {
+    document.getElementById('fieldStaffDetailModal').classList.add('hidden');
 });
