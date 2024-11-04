@@ -45,7 +45,7 @@ addFieldForm.addEventListener('submit', (event) => {
             </td>
             <td class="p-4 text-center">${fieldLocation}</td>
             <td class="p-4 text-center">${fieldSize}</td>
-            <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded">${fieldCrops}</button></td>
+            <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail">${fieldCrops}</button></td>
             <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded">${fieldStaff}</button></td>
             <td class="p-4 text-gray-500 space-x-3">
                 <button class="text-blue-500 px-1 edit-btn"><i class="fa-solid fa-pen"></i></button>
@@ -56,12 +56,16 @@ addFieldForm.addEventListener('submit', (event) => {
         addFieldModal.classList.add('hidden');
         addFieldForm.reset();
 
-        row.querySelector('.edit-btn').addEventListener('click', function() {
+        row.querySelector('.edit-btn').addEventListener('click', function () {
             editField(this);
         });
 
-        row.querySelector('.delete-btn').addEventListener('click', function() {
+        row.querySelector('.delete-btn').addEventListener('click', function () {
             deleteField(this);
+        });
+
+        row.querySelector('.cropDetail').addEventListener('click', function () {
+            viewCropDetail(this);
         });
     };
 
@@ -69,7 +73,7 @@ addFieldForm.addEventListener('submit', (event) => {
         reader.readAsDataURL(fieldImage);
     }
 });
- 
+
 
 // Function to edit field
 function editField(button) {
@@ -88,14 +92,14 @@ function editField(button) {
 
 // Attach event listener to edit buttons
 document.querySelectorAll('.edit-btn').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         editField(this);
     });
 });
 
 // Attach event listener to delete buttons
 document.querySelectorAll('.delete-btn').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         deleteField(this);
     });
 });
@@ -105,7 +109,7 @@ document.querySelectorAll('.delete-btn').forEach(button => {
 function deleteField(button) {
     const row = button.closest('tr');
     const confirmation = confirm('Are you sure you want to delete this field?');
-    
+
     if (confirmation) {
         row.remove();
     }
@@ -130,4 +134,20 @@ editFieldForm.addEventListener('submit', (event) => {
 
 
     closeEditModalBtn.click();
+});
+
+
+
+// Function to view crop detail
+function viewCropDetail() {
+    document.getElementById('cropDetailsContent').innerHTML = `
+        <p class="flex items-center text-gray-700">
+            <i class="fas fa-user-circle mr-2"></i><strong>Crop Name:</strong> <span class="font-medium ml-2">crop A</span>
+        </p>
+    `;
+    document.getElementById('cropDetailModal').classList.remove('hidden');
+}
+
+document.getElementById('closecropDetailModal').addEventListener('click', function () {
+    document.getElementById('cropDetailModal').classList.add('hidden');
 });

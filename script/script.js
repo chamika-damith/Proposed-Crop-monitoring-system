@@ -15,6 +15,7 @@ $('#fieldBtn').on('click',()=>{
     $('#vehicle-section').hide();
     $('#equipment-section').hide();
     $('#log-section').hide();
+    $('#chart-section').hide();
 });
 
 $('#dashboardBtn').on('click',()=>{
@@ -25,6 +26,7 @@ $('#dashboardBtn').on('click',()=>{
     $('#vehicle-section').hide();
     $('#equipment-section').hide();
     $('#log-section').hide();
+    $('#chart-section').show();
 
 });
 
@@ -36,6 +38,7 @@ $('#cropBtn').on('click',()=>{
     $('#vehicle-section').hide();
     $('#equipment-section').hide();
     $('#log-section').hide();
+    $('#chart-section').hide();
 });
 
 $('#staffBtn').on('click',()=>{
@@ -46,6 +49,7 @@ $('#staffBtn').on('click',()=>{
     $('#vehicle-section').hide();
     $('#equipment-section').hide();
     $('#log-section').hide();
+    $('#chart-section').hide();
 });
 
 $('#vehicleBtn').on('click',()=>{
@@ -56,6 +60,7 @@ $('#vehicleBtn').on('click',()=>{
     $('#vehicle-section').show();
     $('#equipment-section').hide();
     $('#log-section').hide();
+    $('#chart-section').hide();
 });
 
 $('#equipmentBtn').on('click',()=>{
@@ -66,6 +71,7 @@ $('#equipmentBtn').on('click',()=>{
     $('#vehicle-section').hide();
     $('#equipment-section').show();
     $('#log-section').hide();
+    $('#chart-section').hide();
 });
 
 $('#logBtn').on('click',()=>{
@@ -76,6 +82,7 @@ $('#logBtn').on('click',()=>{
     $('#vehicle-section').hide();
     $('#equipment-section').hide();
     $('#log-section').show();
+    $('#chart-section').hide();
 });
 
 // Toggle Mobile Menu
