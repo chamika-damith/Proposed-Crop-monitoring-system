@@ -30,9 +30,13 @@ addFieldForm.addEventListener('submit', (event) => {
     const fieldName = document.getElementById('fieldName').value;
     const fieldLocation = document.getElementById('fieldLocation').value;
     const fieldSize = document.getElementById('fieldSize').value;
-    const fieldCrops = document.getElementById('fieldCrops').value;
-    const fieldStaff = document.getElementById('fieldStaff').value;
     const fieldImage = document.getElementById('fieldImage').files[0];
+
+    const selectedCrops = Array.from(document.getElementById('fieldCrops').selectedOptions).map(option => option.value);
+    const selectedStaff = Array.from(document.getElementById('fieldStaff').selectedOptions).map(option => option.value);
+
+    console.log('Selected Crops:', selectedCrops);
+    console.log('Selected Staff:', selectedStaff);
 
     const reader = new FileReader();
     reader.onloadend = () => {
@@ -45,8 +49,8 @@ addFieldForm.addEventListener('submit', (event) => {
             </td>
             <td class="p-4 text-center">${fieldLocation}</td>
             <td class="p-4 text-center">${fieldSize}</td>
-            <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail">${fieldCrops}</button></td>
-            <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded fieldStaffDetail">${fieldStaff}</button></td>
+            <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail">null</button></td>
+            <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded fieldStaffDetail">null</button></td>
             <td class="p-4 text-gray-500 space-x-3">
                 <button class="text-blue-500 px-1 edit-btn"><i class="fa-solid fa-pen"></i></button>
                 <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-btn"><i class="fa-solid fa-times"></i></button>
@@ -168,4 +172,49 @@ function viewStaffDetail() {
 
 document.getElementById('closefieldStaffDetailModal').addEventListener('click', function () {
     document.getElementById('fieldStaffDetailModal').classList.add('hidden');
+});
+
+
+document.getElementById('addCropBtn').addEventListener('click', function () {
+    const cropSelect = document.getElementById('fieldCrops');
+    const cropList = document.getElementById('cropList');
+    const selectedCrop = cropSelect.value;
+    const selectedCropText = cropSelect.options[cropSelect.selectedIndex].text;
+
+    if (selectedCrop) {
+        const cropItem = document.createElement('div');
+        cropItem.className = 'flex justify-between items-center mb-1';
+        cropItem.innerHTML = `
+            <span>${selectedCropText}</span>
+            <button type="button" class="text-red-500 remove-btn">Remove</button>
+        `;
+        cropList.appendChild(cropItem);
+
+        // Add event listener to remove the crop item
+        cropItem.querySelector('.remove-btn').addEventListener('click', function () {
+            cropList.removeChild(cropItem);
+        });
+    }
+});
+
+document.getElementById('addStaffBtn').addEventListener('click', function () {
+    const staffSelect = document.getElementById('fieldStaff');
+    const staffList = document.getElementById('staffList');
+    const selectedStaff = staffSelect.value;
+    const selectedStaffText = staffSelect.options[staffSelect.selectedIndex].text;
+
+    if (selectedStaff) {
+        const staffItem = document.createElement('div');
+        staffItem.className = 'flex justify-between items-center mb-1';
+        staffItem.innerHTML = `
+            <span>${selectedStaffText}</span>
+            <button type="button" class="text-red-500 remove-btn">Remove</button>
+        `;
+        staffList.appendChild(staffItem);
+
+        // Add event listener to remove the staff item
+        staffItem.querySelector('.remove-btn').addEventListener('click', function () {
+            staffList.removeChild(staffItem);
+        });
+    }
 });

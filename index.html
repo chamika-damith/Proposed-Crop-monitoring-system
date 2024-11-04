@@ -347,10 +347,11 @@
                                 <canvas id="pieChart" class="mx-auto" style="width: 100%; height: 300px;"></canvas>
                                 <div id="cropLegend" class="flex flex-wrap justify-center mt-6 text-sm space-y-2"></div>
                             </div>
-                    
+
                             <!-- Bar Chart Container -->
                             <div class="w-full max-w-4xl p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
-                                <h2 class="text-lg font-semibold mb-4 text-center text-gray-700">Log Monitoring Details</h2>
+                                <h2 class="text-lg font-semibold mb-4 text-center text-gray-700">Log Monitoring Details
+                                </h2>
                                 <canvas id="barChart" class="mx-auto" style="width: 100%; height: 300px;"></canvas>
                             </div>
                         </div>
@@ -477,7 +478,7 @@
                         <!-- Modal for Adding Field -->
                         <div id="addFieldModal"
                             class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
-                            <div class="bg-white rounded-lg p-6 w-96">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
                                 <h2 class="text-xl font-bold mb-4">Add New Field</h2>
                                 <form id="addFieldForm">
                                     <div class="mb-4">
@@ -497,13 +498,46 @@
                                     </div>
                                     <div class="mb-4">
                                         <label for="fieldCrops" class="block mb-2">Crops</label>
-                                        <input type="text" id="fieldCrops"
-                                            class="border border-gray-300 rounded w-full p-2" required>
+                                        <div class="flex">
+                                            <select id="fieldCrops"
+                                                class="border border-gray-300 rounded w-full p-2 mr-2" required>
+                                                <option value="">Select Crop</option>
+                                                <option value="Wheat">Wheat</option>
+                                                <option value="Corn">Corn</option>
+                                                <option value="Rice">Rice</option>
+                                                <option value="Soybeans">Soybeans</option>
+                                                <option value="Barley">Barley</option>
+                                                <option value="Oats">Oats</option>
+                                                <option value="Rye">Rye</option>
+                                                <option value="Millet">Millet</option>
+                                                <option value="Sorghum">Sorghum</option>
+                                                <option value="Quinoa">Quinoa</option>
+                                            </select>
+                                            <button type="button" id="addCropBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-72 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="cropList"></div>
                                     </div>
                                     <div class="mb-4">
                                         <label for="fieldStaff" class="block mb-2">Staff</label>
-                                        <input type="text" id="fieldStaff"
-                                            class="border border-gray-300 rounded w-full p-2" required>
+                                        <div class="flex">
+                                            <select id="fieldStaff"
+                                                class="border border-gray-300 rounded w-full p-2 mr-2" required>
+                                                <option value="John Doe">John Doe</option>
+                                                <option value="Jane Smith">Jane Smith</option>
+                                                <option value="Mike Johnson">Mike Johnson</option>
+                                                <option value="Emily Davis">Emily Davis</option>
+                                                <option value="Alice Brown">Alice Brown</option>
+                                                <option value="Bob White">Bob White</option>
+                                                <option value="Charlie Black">Charlie Black</option>
+                                                <option value="Diana Green">Diana Green</option>
+                                            </select>
+                                            <button type="button" id="addStaffBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-72 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="staffList"></div>
                                     </div>
                                     <div class="mb-4">
                                         <label for="fieldImage" class="block mb-2">Upload Image</label>
@@ -519,6 +553,8 @@
                                 </form>
                             </div>
                         </div>
+
+
 
                         <!-- Edit Field Modal -->
                         <div id="editModal"
@@ -540,6 +576,38 @@
                                         <label for="fieldSize" class="block text-gray-700">Size</label>
                                         <input type="number" id="editfieldSize" class="border rounded w-full p-2"
                                             required>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="fieldCrops" class="block mb-2">Crops</label>
+                                        <select id="editfieldCrops" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Crop</option>
+                                            <option value="Wheat">Wheat</option>
+                                            <option value="Corn">Corn</option>
+                                            <option value="Rice">Rice</option>
+                                            <option value="Soybeans">Soybeans</option>
+                                            <option value="Barley">Barley</option>
+                                            <option value="Oats">Oats</option>
+                                            <option value="Rye">Rye</option>
+                                            <option value="Millet">Millet</option>
+                                            <option value="Sorghum">Sorghum</option>
+                                            <option value="Quinoa">Quinoa</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldStaff" class="block mb-2">Staff</label>
+                                        <select id="editfieldStaff" class="border border-gray-300 rounded w-full p-2""
+                                             required>
+                                            <option value=" John Doe">John Doe</option>
+                                            <option value="Jane Smith">Jane Smith</option>
+                                            <option value="Mike Johnson">Mike Johnson</option>
+                                            <option value="Emily Davis">Emily Davis</option>
+                                            <option value="Alice Brown">Alice Brown</option>
+                                            <option value="Bob White">Bob White</option>
+                                            <option value="Charlie Black">Charlie Black</option>
+                                            <option value="Diana Green">Diana Green</option>
+                                        </select>
                                     </div>
                                     <div class="flex justify-end">
                                         <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
