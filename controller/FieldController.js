@@ -11,6 +11,11 @@ const closeEditModalBtn = document.getElementById('closeEditModal');
 const editFieldForm = document.getElementById('editFieldForm');
 const editFieldModal = document.getElementById('editModal');
 
+const cropListElement = document.getElementById('cropList');
+const cropDetailsContent = document.getElementById('cropDetailsContent');
+const addCropBtn = document.getElementById('addCropBtn');
+const fieldCrops = document.getElementById('fieldCrops');
+
 let currentRow;
 
 // Function to open add field modal
@@ -32,12 +37,6 @@ addFieldForm.addEventListener('submit', (event) => {
     const fieldSize = document.getElementById('fieldSize').value;
     const fieldImage = document.getElementById('fieldImage').files[0];
 
-    const selectedCrops = Array.from(document.getElementById('fieldCrops').selectedOptions).map(option => option.value);
-    const selectedStaff = Array.from(document.getElementById('fieldStaff').selectedOptions).map(option => option.value);
-
-    console.log('Selected Crops:', selectedCrops);
-    console.log('Selected Staff:', selectedStaff);
-
     const reader = new FileReader();
     reader.onloadend = () => {
         const row = document.createElement('tr');
@@ -49,7 +48,7 @@ addFieldForm.addEventListener('submit', (event) => {
             </td>
             <td class="p-4 text-center">${fieldLocation}</td>
             <td class="p-4 text-center">${fieldSize}</td>
-            <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail">null</button></td>
+            <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail" id="viewCropDetailsBtn">null</button></td>
             <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded fieldStaffDetail">null</button></td>
             <td class="p-4 text-gray-500 space-x-3">
                 <button class="text-blue-500 px-1 edit-btn"><i class="fa-solid fa-pen"></i></button>
@@ -68,12 +67,13 @@ addFieldForm.addEventListener('submit', (event) => {
             deleteField(this);
         });
 
-        row.querySelector('.cropDetail').addEventListener('click', function () {
-            viewCropDetail(this);
-        });
 
         row.querySelector('.fieldStaffDetail').addEventListener('click', function () {
             viewStaffDetail(this);
+        });
+
+        row.querySelector('.cropDetail').addEventListener('click', function () {
+            viewCropDetails(this);
         });
     };
 
@@ -145,21 +145,6 @@ editFieldForm.addEventListener('submit', (event) => {
 });
 
 
-
-// Function to view crop detail
-function viewCropDetail() {
-    document.getElementById('cropDetailsContent').innerHTML = `
-        <p class="flex items-center text-gray-700">
-            <i class="fas fa-user-circle mr-2"></i><strong>Crop Name:</strong> <span class="font-medium ml-2">crop A</span>
-        </p>
-    `;
-    document.getElementById('cropDetailModal').classList.remove('hidden');
-}
-
-document.getElementById('closecropDetailModal').addEventListener('click', function () {
-    document.getElementById('cropDetailModal').classList.add('hidden');
-});
-
 // Function to view staff detail
 function viewStaffDetail() {
     document.getElementById('fieldStaffDetailsContent').innerHTML = `
@@ -174,28 +159,6 @@ document.getElementById('closefieldStaffDetailModal').addEventListener('click', 
     document.getElementById('fieldStaffDetailModal').classList.add('hidden');
 });
 
-
-document.getElementById('addCropBtn').addEventListener('click', function () {
-    const cropSelect = document.getElementById('fieldCrops');
-    const cropList = document.getElementById('cropList');
-    const selectedCrop = cropSelect.value;
-    const selectedCropText = cropSelect.options[cropSelect.selectedIndex].text;
-
-    if (selectedCrop) {
-        const cropItem = document.createElement('div');
-        cropItem.className = 'flex justify-between items-center mb-1';
-        cropItem.innerHTML = `
-            <span>${selectedCropText}</span>
-            <button type="button" class="text-red-500 remove-btn">Remove</button>
-        `;
-        cropList.appendChild(cropItem);
-
-        // Add event listener to remove the crop item
-        cropItem.querySelector('.remove-btn').addEventListener('click', function () {
-            cropList.removeChild(cropItem);
-        });
-    }
-});
 
 document.getElementById('addStaffBtn').addEventListener('click', function () {
     const staffSelect = document.getElementById('fieldStaff');
@@ -212,9 +175,48 @@ document.getElementById('addStaffBtn').addEventListener('click', function () {
         `;
         staffList.appendChild(staffItem);
 
-        // Add event listener to remove the staff item
         staffItem.querySelector('.remove-btn').addEventListener('click', function () {
             staffList.removeChild(staffItem);
         });
     }
+});
+
+
+
+
+ // Add selected crop to the preview list
+ addCropBtn.addEventListener('click', () => {
+    const selectedCrop = fieldCrops.value;
+    if (selectedCrop) {
+        const cropItem = document.createElement('div');
+        cropItem.className = 'flex justify-between items-center mb-1 text-gray-700';
+        cropItem.innerHTML = `
+            <span>${selectedCrop}</span>
+            <button type="button" class="text-red-500 font-bold remove-crop">X</button>
+        `;
+        cropListElement.appendChild(cropItem);
+
+        // Handle removal of crop items
+        cropItem.querySelector('.remove-crop').addEventListener('click', () => {
+            cropListElement.removeChild(cropItem);
+        });
+    }
+});
+
+function viewCropDetails(){
+    cropDetailsContent.innerHTML = '';
+    const cropItems = cropListElement.querySelectorAll('span');
+
+    cropItems.forEach(crop => {
+        const cropDetail = document.createElement('p');
+        cropDetail.className = 'text-gray-700';
+        cropDetail.innerHTML = `<strong>Crop Name:</strong> ${crop.innerText}`;
+        cropDetailsContent.appendChild(cropDetail);
+    });
+
+    document.getElementById('cropDetailModal').classList.remove('hidden');
+}
+
+document.getElementById('closecropDetailModal').addEventListener('click', function () {
+    document.getElementById('cropDetailModal').classList.add('hidden');
 });
