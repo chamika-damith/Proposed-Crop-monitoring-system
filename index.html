@@ -265,7 +265,7 @@
                             </span>
                         </div>
 
-                        <div class="group relative mt-auto">
+                        <div class="group relative mt-auto" id="equipmentBtn">
                             <a href="#" class="text-gray-500 hover:text-gray-900">
                                 <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
                                     <i class="fas fa-tools"></i>
@@ -968,7 +968,8 @@
                                             <td class="p-4 text-center">D-0012</td>
                                             <td class="p-4 text-center">No</td>
                                             <td class="p-4 text-center">
-                                                <button class="text-blue-500 px-1 editVehiclebtn" id="openVehicleEditModal">
+                                                <button class="text-blue-500 px-1 editVehiclebtn"
+                                                    id="openVehicleEditModal">
                                                     <i class="fa-solid fa-pen"></i>
                                                 </button>
                                                 <button
@@ -1095,6 +1096,172 @@
                                 </form>
                             </div>
                         </div>
+                    </section>
+
+                    <section id="equipment-section">
+                        <div id="equipment">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Equipment</h1>
+                                    <p class="text-gray-500">Manage your equipment and view</p>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <button id="openEquipmentModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-800">
+                                        <span>+</span>
+                                        <span>Add Equipment</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b">
+                                            <th class="p-4 font-semibold text-gray-600">Equipment Id</th>
+                                            <th class="p-4 font-semibold text-gray-600">Name</th>
+                                            <th class="p-4 font-semibold text-gray-600">Type</th>
+                                            <th class="p-4 font-semibold text-gray-600">Status</th>
+                                            <th class="p-4 font-semibold text-gray-600">Assigned Staff</th>
+                                            <th class="p-4 font-semibold text-gray-600">Assigned Field</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="equipmentTableBody">
+                                        <tr class="border-b">
+                                            <td class="p-4 text-center">EQ-101</td>
+                                            <td class="p-4 text-center">Drill Machine</td>
+                                            <td class="p-4 text-center">Mechanical</td>
+                                            <td class="p-4 text-center">Available</td>
+                                            <td class="p-4 text-center">S-1023</td>
+                                            <td class="p-4 text-center">Construction Site</td>
+                                            <td class="p-4 text-center">
+                                                <button class="text-blue-500 px-1 editEquipmentbtn"
+                                                    id="openEquipmentEditModal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                                <button
+                                                    class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-equipment-btn">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Modal for Adding Equipment -->
+                        <div id="addEquipmentModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Add New Equipment</h2>
+                                <form id="addEquipmentForm">
+                                    <div class="mb-4">
+                                        <label for="equipmentId" class="block mb-2">Equipment Id</label>
+                                        <input type="text" id="equipmentId"
+                                            class="border border-gray-300 rounded w-full p-2" required
+                                            placeholder="Unique Id, e.g., EQ-101">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="equipmentName" class="block mb-2">Name</label>
+                                        <input type="text" id="equipmentName"
+                                            class="border border-gray-300 rounded w-full p-2" required
+                                            placeholder="Equipment Name, e.g., Drill Machine">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="equipmentType" class="block mb-2">Type</label>
+                                        <select id="equipmentType" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Type</option>
+                                            <option value="Electrical">Electrical</option>
+                                            <option value="Mechanical">Mechanical</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="equipmentStatus" class="block mb-2">Status</label>
+                                        <select id="equipmentStatus" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="Available">Available</option>
+                                            <option value="Out of Service">Out of Service</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="assignedStaff" class="block mb-2">Assigned Staff</label>
+                                        <select id="assignedStaff" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Staff Member</option>
+                                            <option value="S-1023">John Doe - S-1023</option>
+                                            <option value="S-1024">Jane Smith - S-1024</option>
+                                            <option value="S-1025">Michael Brown - S-1025</option>
+                                            <option value="S-1026">Emily Davis - S-1026</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="assignedField" class="block mb-2">Assigned Field</label>
+                                        <select id="assignedField" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Field</option>
+                                            <option value="Construction Site">Construction Site</option>
+                                            <option value="Warehouse A">Warehouse A</option>
+                                            <option value="Factory Floor">Factory Floor</option>
+                                            <option value="Remote Site B">Remote Site B</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeEquipmentModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add
+                                            Equipment</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Edit Equipment Modal -->
+                        <div id="editEquipmentModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Edit Equipment</h2>
+                                <form id="editEquipmentForm">
+                                    <div class="mb-4">
+                                        <label for="editEquipmentName" class="block mb-2">Equipment Name</label>
+                                        <input type="text" id="editEquipmentName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editEquipmentType" class="block mb-2">Equipment Type</label>
+                                        <input type="text" id="editEquipmentType"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editEquipmentStatus" class="block mb-2">Status</label>
+                                        <select id="editEquipmentStatus"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                            <option value="Operational">Available</option>
+                                            <option value="Out of Service">Out of Service</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editAssignedStaff" class="block mb-2">Assigned Staff Member</label>
+                                        <input type="text" id="editAssignedStaff"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editAssignedField" class="block mb-2">Assigned Field</label>
+                                        <input type="text" id="editAssignedField"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeEditEquipmentModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
 
 
 
@@ -1115,6 +1282,7 @@
         <script type="module" src="controller/CropController.js"></script>
         <script type="module" src="controller/StaffController.js"></script>
         <script type="module" src="controller/VehicleController.js"></script>
+        <script type="module" src="controller/Equipment.js"></script>
     </body>
 </div>
 

@@ -15,7 +15,6 @@ let currentRow;
 
 // Open modal when the add vehicle button is clicked
 openVehicleModalBtn.addEventListener('click', () => {
-    console.log("Added hii")
     addVehicleModal.classList.remove('hidden');
 });
 
