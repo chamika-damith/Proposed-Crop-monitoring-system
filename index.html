@@ -554,7 +554,7 @@
                                 </form>
                             </div>
                         </div>
-                        
+
                         <!-- Edit Field Modal -->
                         <div id="editModal"
                             class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
@@ -578,35 +578,48 @@
                                     </div>
 
                                     <div class="mb-4">
-                                        <label for="fieldCrops" class="block mb-2">Crops</label>
-                                        <select id="editfieldCrops" class="border border-gray-300 rounded w-full p-2"
-                                            required>
-                                            <option value="">Select Crop</option>
-                                            <option value="Wheat">Wheat</option>
-                                            <option value="Corn">Corn</option>
-                                            <option value="Rice">Rice</option>
-                                            <option value="Soybeans">Soybeans</option>
-                                            <option value="Barley">Barley</option>
-                                            <option value="Oats">Oats</option>
-                                            <option value="Rye">Rye</option>
-                                            <option value="Millet">Millet</option>
-                                            <option value="Sorghum">Sorghum</option>
-                                            <option value="Quinoa">Quinoa</option>
-                                        </select>
+                                        <label for="editfieldCrops" class="block mb-2">Crops</label>
+                                        <div class="flex">
+                                            <select id="editfieldCrops"
+                                                class="border border-gray-300 rounded w-full p-2 mr-2" required>
+                                                <option value="">Select Crop</option>
+                                                <option value="Wheat">Wheat</option>
+                                                <option value="Corn">Corn</option>
+                                                <option value="Rice">Rice</option>
+                                                <option value="Soybeans">Soybeans</option>
+                                                <option value="Barley">Barley</option>
+                                                <option value="Oats">Oats</option>
+                                                <option value="Rye">Rye</option>
+                                                <option value="Millet">Millet</option>
+                                                <option value="Sorghum">Sorghum</option>
+                                                <option value="Quinoa">Quinoa</option>
+                                            </select>
+                                            <button type="button" id="addeditCropBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-72 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="editcropList"></div>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="fieldStaff" class="block mb-2">Staff</label>
-                                        <select id="editfieldStaff" class="border border-gray-300 rounded w-full p-2""
-                                             required>
-                                            <option value=" John Doe">John Doe</option>
-                                            <option value="Jane Smith">Jane Smith</option>
-                                            <option value="Mike Johnson">Mike Johnson</option>
-                                            <option value="Emily Davis">Emily Davis</option>
-                                            <option value="Alice Brown">Alice Brown</option>
-                                            <option value="Bob White">Bob White</option>
-                                            <option value="Charlie Black">Charlie Black</option>
-                                            <option value="Diana Green">Diana Green</option>
-                                        </select>
+                                        <label for="editfieldStaff" class="block mb-2">Staff</label>
+                                        <div class="flex">
+                                            <select id="editfieldStaff"
+                                                class="border border-gray-300 rounded w-full p-2 mr-2" required>
+                                                <option value="">Select Staff</option>
+                                                <option value="John Doe">John Doe</option>
+                                                <option value="Jane Smith">Jane Smith</option>
+                                                <option value="Mike Johnson">Mike Johnson</option>
+                                                <option value="Emily Davis">Emily Davis</option>
+                                                <option value="Alice Brown">Alice Brown</option>
+                                                <option value="Bob White">Bob White</option>
+                                                <option value="Charlie Black">Charlie Black</option>
+                                                <option value="Diana Green">Diana Green</option>
+                                            </select>
+                                            <button type="button" id="addeditStaffBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-72 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="editstaffList"></div>
                                     </div>
                                     <div class="flex justify-end">
                                         <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"

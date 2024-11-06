@@ -16,6 +16,16 @@ const cropDetailsContent = document.getElementById('cropDetailsContent');
 const addCropBtn = document.getElementById('addCropBtn');
 const fieldCrops = document.getElementById('fieldCrops');
 
+
+const addeditCropBtn = document.getElementById('addeditCropBtn');
+const editfieldCrops = document.getElementById('editfieldCrops');
+const editcropList = document.getElementById('editcropList');
+
+const addeditStaffBtn = document.getElementById('addeditStaffBtn');
+const editfieldStaff = document.getElementById('editfieldStaff');
+const editstaffList = document.getElementById('editstaffList');
+
+
 const staffList = document.getElementById('staffList');
 const fieldStaffDetailsContent = document.getElementById('fieldStaffDetailsContent');
 const addStaffBtn = document.getElementById('addStaffBtn');
@@ -53,8 +63,8 @@ addFieldForm.addEventListener('submit', (event) => {
             </td>
             <td class="p-4 text-center">${fieldLocation}</td>
             <td class="p-4 text-center">${fieldSize}</td>
-            <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail" id="viewCropDetailsBtn">null</button></td>
-            <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded fieldStaffDetail">null</button></td>
+            <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail" id="viewCropDetailsBtn">Crops</button></td>
+            <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded fieldStaffDetail">Staff</button></td>
             <td class="p-4 text-gray-500 space-x-3">
                 <button class="text-blue-500 px-1 edit-btn"><i class="fa-solid fa-pen"></i></button>
                 <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-btn"><i class="fa-solid fa-times"></i></button>
@@ -141,8 +151,8 @@ editFieldForm.addEventListener('submit', (event) => {
     currentRow.children[0].querySelector('span').innerText = document.getElementById('editfieldName').value;
     currentRow.children[1].innerText = document.getElementById('editfieldLocation').value;
     currentRow.children[2].innerText = document.getElementById('editfieldSize').value;
-    currentRow.children[3].querySelector('button').innerText = document.getElementById('fieldCrops').value;
-    currentRow.children[4].querySelector('button').innerText = document.getElementById('fieldStaff').value;
+    currentRow.children[3].querySelector('button').innerText = "Crops"
+    currentRow.children[4].querySelector('button').innerText = "Staff"
 
 
     closeEditModalBtn.click();
@@ -223,4 +233,41 @@ function viewStaffDetails(){
 
 document.getElementById('closefieldStaffDetailModal').addEventListener('click', function () {
     document.getElementById('fieldStaffDetailModal').classList.add('hidden');
+});
+
+
+addeditCropBtn.addEventListener('click', () => {
+    const selectedCrop = editfieldCrops.value;
+    if (selectedCrop) {
+        const cropItem = document.createElement('div');
+        cropItem.className = 'flex justify-between items-center mb-1 text-gray-700';
+        cropItem.innerHTML = `
+            <span>${selectedCrop}</span>
+            <button type="button" class="text-red-500 font-bold remove-edit-crop">X</button>
+        `;
+        editcropList.appendChild(cropItem);
+
+        // Handle removal of crop items
+        cropItem.querySelector('.remove-edit-crop').addEventListener('click', () => {
+            editcropList.removeChild(cropItem);
+        });
+    }
+});
+
+addeditStaffBtn.addEventListener('click', () => {
+    const selectedEditStaff = editfieldStaff.value;
+    if (selectedEditStaff) {
+        const staffItem = document.createElement('div');
+        staffItem.className = 'flex justify-between items-center mb-1 text-gray-700';
+        staffItem.innerHTML = `
+            <span>${selectedEditStaff}</span>
+            <button type="button" class="text-red-500 font-bold remove-edit-staff">X</button>
+        `;
+        editstaffList.appendChild(staffItem);
+
+        // Handle removal of staff items
+        staffItem.querySelector('.remove-edit-staff').addEventListener('click', () => {
+            editstaffList.removeChild(staffItem);
+        });
+    }
 });
