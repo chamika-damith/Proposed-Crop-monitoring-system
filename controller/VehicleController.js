@@ -78,7 +78,7 @@ function editVehicle(button) {
     document.getElementById('editVehicleCategory').value = cells[1].innerText;
     document.getElementById('editFuelType').value = cells[2].innerText;
     document.getElementById('editStatus').value = cells[3].innerText;
-    document.getElementById('editAllocatedStaff').value = cells[4].innerText;
+    document.getElementById('allocatedEditStaff').value = cells[4].innerText;
     document.getElementById('editRemarks').value = cells[5].innerText;
 
     // Open the edit modal
@@ -105,7 +105,7 @@ editVehicleForm.addEventListener('submit', (event) => {
     currentRow.children[1].innerText = document.getElementById('editVehicleCategory').value;
     currentRow.children[2].innerText = document.getElementById('editFuelType').value;
     currentRow.children[3].innerText = document.getElementById('editStatus').value;
-    currentRow.children[4].innerText = document.getElementById('editAllocatedStaff').value;
+    currentRow.children[4].innerText = document.getElementById('allocatedEditStaff').value;
     currentRow.children[5].innerText = document.getElementById('editRemarks').value;
 
     closeEditVehicleModalBtn.click();
@@ -120,3 +120,24 @@ function deleteVehicle(button) {
         row.remove();
     }
 }
+
+const allocatedStaffSelect = document.getElementById('allocatedStaff');
+const staffOptions = ["Driver 1", "Driver 2"];
+
+staffOptions.forEach(staff => {
+    const option = document.createElement('option');
+    option.value = staff.toLowerCase().replace(" ", "_");
+    option.textContent = staff;
+    allocatedStaffSelect.appendChild(option);
+});
+
+
+const allocatedEditStaff = document.getElementById('allocatedEditStaff');
+const staffEditOptions = ["Driver 1", "Driver 2"];
+
+staffEditOptions.forEach(editstaff => {
+    const option = document.createElement('option');
+    option.value = editstaff.toLowerCase().replace(" ", "_");
+    option.textContent = editstaff;
+    allocatedEditStaff.appendChild(option);
+});
