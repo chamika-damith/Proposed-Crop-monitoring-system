@@ -11,6 +11,24 @@ const closeStaffEditModal = document.getElementById('closeStaffEditModal');
 const editStaffForm = document.getElementById('editStaffForm');
 const editStaffModal = document.getElementById('editStaffModal');
 
+
+const addStaffFieldBtn = document.getElementById('addStaffFieldBtn');
+const staffFieldSelect = document.getElementById('staffFieldSelect');
+const staffFieldList = document.getElementById('staffFieldList');
+
+const addVehicleFieldBtn = document.getElementById('addVehicleFieldBtn');
+const fieldvehicle = document.getElementById('fieldvehicle');
+const vehicleFieldList = document.getElementById('vehicleFieldList');
+
+const editStaffFieldBtn = document.getElementById('editStaffFieldBtn');
+const staffEditFieldSelect = document.getElementById('staffEditFieldSelect');
+const editstaffFieldList = document.getElementById('editstaffFieldList');
+
+const editVehicleFieldBtn = document.getElementById('editVehicleFieldBtn');
+const editfieldvehicle = document.getElementById('editfieldvehicle');
+const editvehicleFieldList = document.getElementById('editvehicleFieldList');
+
+
 let currentRow;
 
 // Function to open add staff modal
@@ -173,8 +191,6 @@ function editStaff(button, staff) {
     document.getElementById('editcontactNo').value = staff.contactNo;
     document.getElementById('editemail').value = staff.email;
     document.getElementById('editrole').value = staff.role;
-    document.getElementById('editfield').value = "field";
-    document.getElementById('editvehicle').value = "vehicle";
 
     // Open the edit modal
     editStaffModal.classList.remove('hidden');
@@ -219,12 +235,84 @@ editStaffForm.addEventListener('submit', (event) => {
     editStaffModal.classList.add('hidden');
 });
 
-// Function to delete field
+// Function to delete staff
 function deleteStaff(button) {
     const row = button.closest('tr');
-    const confirmation = confirm('Are you sure you want to delete this field?');
+    const confirmation = confirm('Are you sure you want to delete this staff?');
     
     if (confirmation) {
         row.remove();
     }
 }
+
+addStaffFieldBtn.addEventListener('click', () => {
+    const selectedField = staffFieldSelect.value;
+    if (selectedField) {
+        const fieldItem = document.createElement('div');
+        fieldItem.className = 'flex justify-between items-center mb-1 text-gray-700';
+        fieldItem.innerHTML = `
+            <span>${selectedField}</span>
+            <button type="button" class="text-red-500 font-bold remove-edit-field">X</button>
+        `;
+        staffFieldList.appendChild(fieldItem);
+
+        // Handle removal of field items
+        fieldItem.querySelector('.remove-edit-field').addEventListener('click', () => {
+            staffFieldList.removeChild(fieldItem);
+        });
+    }
+});
+
+addVehicleFieldBtn.addEventListener('click', () => {
+    const selectedVehicle = fieldvehicle.value;
+    if (selectedVehicle) {
+        const vehicleItem = document.createElement('div');
+        vehicleItem.className = 'flex justify-between items-center mb-1 text-gray-700';
+        vehicleItem.innerHTML = `
+            <span>${selectedVehicle}</span>
+            <button type="button" class="text-red-500 font-bold remove-edit-vehicle">X</button>
+        `;
+        vehicleFieldList.appendChild(vehicleItem);
+
+        // Handle removal of vehicle items
+        vehicleItem.querySelector('.remove-edit-vehicle').addEventListener('click', () => {
+            vehicleFieldList.removeChild(vehicleItem);
+        });
+    }
+});
+
+editStaffFieldBtn.addEventListener('click', () => {
+    const selectedStaffField = staffEditFieldSelect.value;
+    if (selectedStaffField) {
+        const staffFieldItem = document.createElement('div');
+        staffFieldItem.className = 'flex justify-between items-center mb-1 text-gray-700';
+        staffFieldItem.innerHTML = `
+            <span>${selectedStaffField}</span>
+            <button type="button" class="text-red-500 font-bold remove-edit-staff-field">X</button>
+        `;
+        editstaffFieldList.appendChild(staffFieldItem);
+
+        // Handle removal of staff field items
+        staffFieldItem.querySelector('.remove-edit-staff-field').addEventListener('click', () => {
+            editstaffFieldList.removeChild(staffFieldItem);
+        });
+    }
+});
+
+editVehicleFieldBtn.addEventListener('click', () => {
+    const selectedVehicle = editfieldvehicle.value;
+    if (selectedVehicle) {
+        const vehicleFieldItem = document.createElement('div');
+        vehicleFieldItem.className = 'flex justify-between items-center mb-1 text-gray-700';
+        vehicleFieldItem.innerHTML = `
+            <span>${selectedVehicle}</span>
+            <button type="button" class="text-red-500 font-bold remove-edit-vehicle-field">X</button>
+        `;
+        editvehicleFieldList.appendChild(vehicleFieldItem);
+
+        // Handle removal of vehicle field items
+        vehicleFieldItem.querySelector('.remove-edit-vehicle-field').addEventListener('click', () => {
+            editvehicleFieldList.removeChild(vehicleFieldItem);
+        });
+    }
+});

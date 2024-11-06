@@ -796,7 +796,6 @@
                                             class="border border-gray-300 rounded w-full p-2" required>
                                     </div>
 
-                                    <!-- Category Dropdown -->
                                     <div class="mb-4">
                                         <label for="cropEditCategory" class="block mb-2">Category</label>
                                         <select id="cropEditCategory" class="border border-gray-300 rounded w-full p-2"
@@ -811,7 +810,6 @@
                                         </select>
                                     </div>
 
-                                    <!-- Season Dropdown -->
                                     <div class="mb-4">
                                         <label for="cropEditSeason" class="block mb-2">Season</label>
                                         <select id="cropEditSeason" class="border border-gray-300 rounded w-full p-2"
@@ -824,7 +822,6 @@
                                         </select>
                                     </div>
 
-                                    <!-- Field Dropdown -->
                                     <div class="mb-4">
                                         <label for="cropEditField" class="block mb-2">Field</label>
                                         <select id="cropEditField" class="border border-gray-300 rounded w-full p-2"
@@ -976,7 +973,7 @@
                                         <input type="email" id="email" class="border border-gray-300 rounded w-full p-2"
                                             required>
                                     </div>
-                                    <div class="mb-4">
+                                    <div class="mb-4 col-span-2">
                                         <label for="role" class="block text-gray-700 font-medium mb-2">Role</label>
                                         <select id="role" class="border border-gray-300 rounded w-full p-2" required>
                                             <option value="">Select a Role</option>
@@ -986,16 +983,38 @@
                                         </select>
                                     </div>
 
+                                    
                                     <div class="mb-4">
                                         <label for="field" class="block text-gray-700 font-medium mb-2">Field</label>
-                                        <input type="text" id="field" class="border border-gray-300 rounded w-full p-2">
+                                        <div class="flex">
+                                            <select id="staffFieldSelect" class="border border-gray-300 rounded w-80 p-2 mr-2">
+                                                <option value="">Select a Field</option>
+                                                <option value="Agriculture">Agriculture</option>
+                                                <option value="Horticulture">Horticulture</option>
+                                                <option value="Botany">Botany</option>
+                                                <option value="Zoology">Zoology</option>
+                                            </select>
+                                            <button type="button" id="addStaffFieldBtn" class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-80 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto" id="staffFieldList"></div>
                                     </div>
-                                    <div class="mb-4 col-span-2">
-                                        <label for="vehicle"
-                                            class="block text-gray-700 font-medium mb-2">Vehicle</label>
-                                        <input type="text" id="vehicle"
-                                            class="border border-gray-300 rounded w-full p-2">
+                                    
+                                    <div class="mb-4 ">
+                                        <label for="vehicle" class="block text-gray-700 font-medium mb-2">Vehicle</label>
+                                        <div class="flex">
+                                            <select id="fieldvehicle" class="border border-gray-300 rounded w-80 p-2 mr-2">
+                                                <option value="">Select a Vehicle</option>
+                                                <option value="Car">Car</option>
+                                                <option value="Truck">Truck</option>
+                                                <option value="Motorcycle">Motorcycle</option>
+                                                <option value="Bicycle">Bicycle</option>
+                                            </select>
+                                            <button type="button" id="addVehicleFieldBtn" class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-80 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto" id="vehicleFieldList"></div>
                                     </div>
+                                    
+
                                     <div class="flex justify-end col-span-2">
                                         <button type="button" id="closeStaffModal"
                                             class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mr-2">Cancel</button>
@@ -1006,6 +1025,7 @@
                                 </form>
                             </div>
                         </div>
+
 
                         <!-- Edit Staff Modal -->
                         <div id="editStaffModal"
@@ -1081,14 +1101,32 @@
 
                                     <div class="mb-4">
                                         <label for="field" class="block text-gray-700 font-medium mb-2">Field</label>
-                                        <input type="text" id="editfield"
-                                            class="border border-gray-300 rounded w-full p-2">
+                                        <div class="flex">
+                                            <select id="staffEditFieldSelect" class="border border-gray-300 rounded w-80 p-2 mr-2">
+                                                <option value="">Select a Field</option>
+                                                <option value="Agriculture">Agriculture</option>
+                                                <option value="Horticulture">Horticulture</option>
+                                                <option value="Botany">Botany</option>
+                                                <option value="Zoology">Zoology</option>
+                                            </select>
+                                            <button type="button" id="editStaffFieldBtn" class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-80 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto" id="editstaffFieldList"></div>
                                     </div>
-                                    <div class="mb-4 col-span-2">
-                                        <label for="vehicle"
-                                            class="block text-gray-700 font-medium mb-2">Vehicle</label>
-                                        <input type="text" id="editvehicle"
-                                            class="border border-gray-300 rounded w-full p-2">
+                                    
+                                    <div class="mb-4 ">
+                                        <label for="vehicle" class="block text-gray-700 font-medium mb-2">Vehicle</label>
+                                        <div class="flex">
+                                            <select id="editfieldvehicle" class="border border-gray-300 rounded w-80 p-2 mr-2">
+                                                <option value="">Select a Vehicle</option>
+                                                <option value="Car">Car</option>
+                                                <option value="Truck">Truck</option>
+                                                <option value="Motorcycle">Motorcycle</option>
+                                                <option value="Bicycle">Bicycle</option>
+                                            </select>
+                                            <button type="button" id="editVehicleFieldBtn" class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-80 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto" id="editvehicleFieldList"></div>
                                     </div>
 
                                     <div class="flex justify-end">

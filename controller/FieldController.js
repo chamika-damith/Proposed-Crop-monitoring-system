@@ -31,6 +31,8 @@ const fieldStaffDetailsContent = document.getElementById('fieldStaffDetailsConte
 const addStaffBtn = document.getElementById('addStaffBtn');
 const fieldStaff = document.getElementById('fieldStaff');
 
+
+
 let currentRow;
 
 // Function to open add field modal
