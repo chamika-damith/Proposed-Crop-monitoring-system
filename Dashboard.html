@@ -1,0 +1,1750 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assests/styles/style.css">
+</head>
+
+<div
+    class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
+
+    <body class="bg-teal-50">
+        <div class="min-h-full " id="content">
+            <nav class="bg-white shadow">
+                <div class="container mx-auto max-w-7xl sm:px-6 ">
+                    <div class="flex h-16 items-center justify-between">
+                        <div class="flex items-center">
+                            <div class="flex-shrink-0">
+                                <img class="h-14 w-14" src="assests/logo.png" alt="Green Shadow (Pvt) Ltd.">
+                            </div>
+                            <div
+                                class="flex ml-5 rounded-md shadow-sm items-center ring-1 ring-inset ring-gray-300  sm:max-w-md">
+                                <i class="fa-solid fa-magnifying-glass ml-2 mr-1 text-gray-500 cursor-pointer"></i>
+                                <input type="text"
+                                    class="block flex-1 w-32 border-0 bg-transparent py-1.5 pl-1 text-gray-900 placeholder:text-gray-400 sm:text-sm/6 sm:w-72"
+                                    placeholder="Search...">
+                            </div>
+                        </div>
+                        <div class="hidden md:block">
+                            <div class="ml-5 flex items-center md:ml-6">
+                                <button type="button"
+                                    class="relative rounded-full mr-3 bg-gray-50 p-1 text-gray-700 hover:text-gray-400 focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                    <span class="sr-only">View notifications</span>
+                                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                        stroke="currentColor" aria-hidden="true">
+                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                            d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                    </svg>
+                                </button>
+                                <!-- Profile dropdown -->
+                                <div class="relative ml-3">
+                                    <div>
+                                        <button type="button" onclick="toggleProfileMenu()"
+                                            class="relative flex max-w-xs items-center rounded-full bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                            aria-controls="user-menu-button" aria-expanded="false" aria-haspopup="true">
+                                            <span class="absolute -inset-1.5"></span>
+                                            <span class="sr-only">Open user menu</span>
+                                            <img class="h-8 w-8 rounded-full"
+                                                src="https://media.licdn.com/dms/image/v2/D5603AQFK-toJWo5W6Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1695037566372?e=1735776000&v=beta&t=lK-maXwcnU9K9hpQ_jOaZRob6CHnr2WHNZV3f31AtVE"
+                                                alt="profile pic">
+                                        </button>
+                                    </div>
+                                    <div class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none hidden"
+                                        role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button"
+                                        tabindex="-1" id="user-menu">
+                                        <!-- Active: "bg-gray-100", Not Active: "" -->
+                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                            tabindex="-1" id="user-menu-item-0">Your Profile</a>
+                                        <a href="#" class="block px-4 py-2 text-sm text-gray-700" role="menuitem"
+                                            tabindex="-1" id="user-menu-item-2">Sign out</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="-mr-2 flex md:hidden">
+                            <button type="button" onclick="toggleMobileMenu()"
+                                class="relative inline-flex items-center justify-center rounded-md bg-gray-800 p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800"
+                                aria-controls="mobile-menu" aria-expanded="false">
+                                <span class="sr-only">Open main menu</span>
+                                <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="md:hidden hidden" id="mobile-menu">
+                    <div class="border-t border-gray-700 pb-3 pt-4">
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fa-solid fa-house"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Dashboard</div>
+                        </div>
+
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Field</div>
+                        </div>
+
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Crop</div>
+                        </div>
+
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Staff</div>
+                        </div>
+
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-tractor"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Vehicle</div>
+                        </div>
+
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Equipment</div>
+                        </div>
+
+                        <div class="group flex items-center ">
+                            <a href="#" class="text-gray-600 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                            </a>
+                            <div
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-600 hover:bg-gray-700 hover:text-white">
+                                Log</div>
+                        </div>
+
+
+                        <div class="flex items-center px-5">
+                            <div class="flex-shrink-0">
+                                <img class="h-10 w-10 rounded-full"
+                                    src="https://media.licdn.com/dms/image/v2/D5603AQFK-toJWo5W6Q/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1695037566372?e=1735776000&v=beta&t=lK-maXwcnU9K9hpQ_jOaZRob6CHnr2WHNZV3f31AtVE"
+                                    alt="profile pic">
+                            </div>
+                            <div class="ml-3">
+                                <div class="text-base/5 font-medium text-gray-400">chamika damith</div>
+                                <div class="text-sm font-medium text-gray-400">chamika@gmail.com</div>
+                            </div>
+                            <button type="button"
+                                class="relative ml-auto flex-shrink-0 rounded-full bg-gray-800 p-1 text-gray-400 hover:text-white focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2 focus:ring-offset-gray-800">
+                                <span class="absolute -inset-1.5"></span>
+                                <span class="sr-only">View notifications</span>
+                                <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                    stroke="currentColor" aria-hidden="true" data-slot="icon">
+                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                        d="M14.857 17.082a23.848 23.848 0 0 0 5.454-1.31A8.967 8.967 0 0 1 18 9.75V9A6 6 0 0 0 6 9v.75a8.967 8.967 0 0 1-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 0 1-5.714 0m5.714 0a3 3 0 1 1-5.714 0" />
+                                </svg>
+                            </button>
+                        </div>
+                        <div class="mt-3 space-y-1 px-2">
+                            <a href="#"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Your
+                                Profile</a>
+                            <a href="#"
+                                class="block rounded-md px-3 py-2 text-base font-medium text-gray-400 hover:bg-gray-700 hover:text-white">Sign
+                                out</a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <section class="flex ">
+                <!-- Sidebar Navigation -->
+                <div class="hidden md:flex bg-white flex-auto w-12">
+                    <div
+                        class="w-32 h-auto bg-white flex flex-col items-center py-4 space-y-6 border-r-2 border-gray-300">
+                        <div class="group relative" id="dashboardBtn">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fa-solid fa-house"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Dashboard
+                            </span>
+                        </div>
+
+                        <div class="group relative" id="fieldBtn">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-seedling"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Field
+                            </span>
+                        </div>
+
+                        <div class="group relative" id="cropBtn">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-leaf"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Crop
+                            </span>
+                        </div>
+
+                        <div class="group relative" id="staffBtn">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Staff
+                            </span>
+                        </div>
+
+                        <div class="group relative" id="vehicleBtn">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-tractor"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Vehicle
+                            </span>
+                        </div>
+
+                        <div class="group relative mt-auto" id="equipmentBtn">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-tools"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Equipment
+                            </span>
+                        </div>
+
+                        <div class="group relative mt-auto" id="logBtn">
+                            <a href="#" class="text-gray-500 hover:text-gray-900">
+                                <div class="w-12 h-12 flex items-center justify-center rounded-full hover:bg-gray-200">
+                                    <i class="fas fa-clipboard-list"></i>
+                                </div>
+                            </a>
+                            <span
+                                class="tooltip absolute left-16 top-1/2 transform -translate-y-1/2 bg-gray-800 text-white text-xs rounded py-1 px-2 shadow-lg">
+                                Log
+                            </span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <main class="flex-auto w-full p-6 ml-5 mr-5 mt-5 h-fit ">
+                    <div class="flex flex-col justify-between sm:flex-row" id="dashboard">
+                        <div
+                            class="xl:w-72  h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 shadow-md hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            <div>
+                                <i
+                                    class="fas fa-seedling lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="font-bold tracking-wide text-md text-gray-500">FIELD</span>
+                                <span class="font-extrabold tracking-wider text-3xl text-gray-800">350</span>
+                            </div>
+                        </div>
+
+
+                        <div
+                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 shadow-md hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            <div>
+                                <i
+                                    class="fas fa-leaf lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="font-bold tracking-wide text-md text-gray-500">CROP</span>
+                                <span class="font-extrabold tracking-wider text-3xl text-gray-800">930</span>
+                            </div>
+                        </div>
+                        <div
+                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 shadow-md hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            <div>
+                                <i
+                                    class="fas fa-users lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="font-bold tracking-wide text-md text-gray-500">STAFF</span>
+                                <span class="font-extrabold tracking-wider text-3xl text-gray-800">1100</span>
+                            </div>
+                        </div>
+
+                        <div
+                            class="xl:w-72 h-32 bg-white rounded-md flex flex-row justify-between items-center lg:p-7 cursor-pointer transform transition duration-300 hover:scale-105 shadow-md hover:shadow-lg hover:bg-gray-100 group lg:w-52 md:w-32 md:p-1 md:h-28">
+                            <div>
+                                <i
+                                    class="fas fa-tractor lg:text-5xl text-green-700 transform transition duration-300 group-hover:rotate-45 md:text-3xl"></i>
+                            </div>
+                            <div class="flex flex-col items-end">
+                                <span class="font-bold tracking-wide text-md text-gray-500">VEHICLE</span>
+                                <span class="font-extrabold tracking-wider text-3xl text-gray-800">500</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="chart-section" class="p-4 mt-7 hidden xl:block ">
+                        <div class="flex flex-wrap justify-center space-x-4 ">
+                            <!-- Pie Chart Container -->
+                            <div class="max-w-xs p-4 bg-white rounded-lg shadow-lg flex flex-col items-center">
+                                <h2 class="text-lg font-semibold text-gray-700 mb-4 text-center">Crop Distribution</h2>
+                                <canvas id="pieChart" class="mx-auto" style="width: 100%; height: 300px;"></canvas>
+                                <div id="cropLegend" class="flex flex-wrap justify-center mt-6 text-sm space-y-2"></div>
+                            </div>
+
+                            <!-- Bar Chart Container -->
+                            <div class="w-full max-w-4xl p-4 bg-white rounded-lg shadow-md flex flex-col items-center">
+                                <h2 class="text-lg font-semibold mb-4 text-center text-gray-700">Log Monitoring Details
+                                </h2>
+                                <canvas id="barChart" class="mx-auto" style="width: 100%; height: 300px;"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <section id="field-section">
+                        <div id="field">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Field</h1>
+                                    <p class="text-gray-500">Manage your field and view</p>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <button id="openModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2">
+                                        <span>+</span>
+                                        <span>Add Field</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b ">
+                                            <th class="p-4 font-semibold text-gray-600 ">Name</th>
+                                            <th class="p-4 font-semibold text-gray-600">Location</th>
+                                            <th class="p-4 font-semibold text-gray-600">Size</th>
+                                            <th class="p-4 font-semibold text-gray-600">Crops</th>
+                                            <th class="p-4 font-semibold text-gray-600">Staff</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="fieldTableBody">
+                                        <!-- Rows -->
+                                        <tr class="border-b">
+                                            <td class="p-4 flex items-center space-x-4">
+                                                <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
+                                                    class="w-12 h-12 rounded-lg">
+                                                <span>Rice Palate A</span>
+                                            </td>
+                                            <td class="p-4 text-center">Colombo</td>
+                                            <td class="p-4 text-center">2000</td>
+                                            <td class="p-4 text-center">
+                                                <button class="bg-green-200 py-1 px-2 rounded">Crops</button>
+                                            </td>
+                                            <td class="p-4 text-center">
+                                                <button class="bg-red-200 py-1 px-2 rounded">Staff</button>
+                                            </td>
+                                            <td class="p-4 text-gray-500  space-x-3">
+                                                <!-- Edit Icon -->
+                                                <button class="text-blue-500 px-1">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <!-- Delete Icon -->
+                                                <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+
+
+                                        <tr class="border-b">
+                                            <td class="p-4 flex items-center space-x-4">
+                                                <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
+                                                    class="w-12 h-12 rounded-lg">
+                                                <span>Rice Palate B</span>
+                                            </td>
+                                            <td class="p-4 text-center">Panadura</td>
+                                            <td class="p-4 text-center">3000</td>
+                                            <td class="p-4 text-center">
+                                                <button class="bg-green-200 py-1 px-2 rounded">Crops</button>
+                                            </td>
+                                            <td class="p-4 text-center">
+                                                <button class="bg-red-200 py-1 px-2 rounded">Staff</button>
+                                            </td>
+                                            <td class="p-4 text-gray-500  space-x-3">
+                                                <!-- Edit Icon -->
+                                                <button class="text-blue-500 px-1 edit-btn" id="openEditModal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <!-- Delete Icon -->
+                                                <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- View crop Modal -->
+                        <div id="cropDetailModal"
+                            class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div class="bg-white p-5 rounded-lg w-1/3 shadow-lg">
+                                <h2 class="text-2xl font-bold mb-4">Crop Details</h2>
+                                <div id="cropDetailsContent" class="space-y-4 max-h-64 overflow-y-auto"></div>
+                                <button id="closecropDetailModal"
+                                    class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- View FieldStaff Modal -->
+                        <div id="fieldStaffDetailModal"
+                            class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div class="bg-white p-5 rounded-lg w-1/3 shadow-lg">
+                                <h2 class="text-2xl font-bold mb-4">Staff Details</h2>
+                                <div id="fieldStaffDetailsContent" class="space-y-4 max-h-64 overflow-y-auto"></div>
+                                <button id="closefieldStaffDetailModal"
+                                    class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Modal for Adding Field -->
+                        <div id="addFieldModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Add New Field</h2>
+                                <form id="addFieldForm">
+                                    <div class="mb-4">
+                                        <label for="fieldName" class="block mb-2">Field Name</label>
+                                        <input type="text" id="fieldName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldLocation" class="block mb-2">Location</label>
+                                        <input type="text" id="fieldLocation"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldSize" class="block mb-2">Size (in sq. ft)</label>
+                                        <input type="number" id="fieldSize"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldCrops" class="block mb-2">Crops</label>
+                                        <div class="flex">
+                                            <select id="fieldCrops"
+                                                class="border border-gray-300 rounded w-full p-2 mr-2" required>
+                                                <option value="">Select Crop</option>
+                                                <option value="Wheat">Wheat</option>
+                                                <option value="Corn">Corn</option>
+                                                <option value="Rice">Rice</option>
+                                                <option value="Soybeans">Soybeans</option>
+                                                <option value="Barley">Barley</option>
+                                                <option value="Oats">Oats</option>
+                                                <option value="Rye">Rye</option>
+                                                <option value="Millet">Millet</option>
+                                                <option value="Sorghum">Sorghum</option>
+                                                <option value="Quinoa">Quinoa</option>
+                                            </select>
+                                            <button type="button" id="addCropBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-72 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="cropList"></div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldStaff" class="block mb-2">Staff</label>
+                                        <div class="flex">
+                                            <select id="fieldStaff"
+                                                class="border border-gray-300 rounded w-full p-2 mr-2" required>
+                                                <option value="">Select Crop</option>
+                                                <option value="John Doe">John Doe</option>
+                                                <option value="Jane Smith">Jane Smith</option>
+                                                <option value="Mike Johnson">Mike Johnson</option>
+                                                <option value="Emily Davis">Emily Davis</option>
+                                                <option value="Alice Brown">Alice Brown</option>
+                                                <option value="Bob White">Bob White</option>
+                                                <option value="Charlie Black">Charlie Black</option>
+                                                <option value="Diana Green">Diana Green</option>
+                                            </select>
+                                            <button type="button" id="addStaffBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-72 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="staffList"></div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldImage" class="block mb-2">Upload Image</label>
+                                        <input type="file" id="fieldImage" accept="image/*"
+                                            class="border border-gray-300 rounded w-full p-2">
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add
+                                            Field</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Edit Field Modal -->
+                        <div id="editModal"
+                            class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
+                            <div class="bg-white rounded-lg p-4 w-96">
+                                <h2 class="text-xl font-bold mb-4">Edit Field</h2>
+                                <form id="editFieldForm">
+                                    <div class="mb-4">
+                                        <label for="fieldName" class="block text-gray-700">Field Name</label>
+                                        <input type="text" id="editfieldName" class="border rounded w-full p-2"
+                                            required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldLocation" class="block text-gray-700">Location</label>
+                                        <input type="text" id="editfieldLocation" class="border rounded w-full p-2"
+                                            required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldSize" class="block text-gray-700">Size</label>
+                                        <input type="number" id="editfieldSize" class="border rounded w-full p-2"
+                                            required>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="editfieldCrops" class="block mb-2">Crops</label>
+                                        <div class="flex">
+                                            <select id="editfieldCrops"
+                                                class="border border-gray-300 rounded w-full p-2 mr-2" required>
+                                                <option value="">Select Crop</option>
+                                                <option value="Wheat">Wheat</option>
+                                                <option value="Corn">Corn</option>
+                                                <option value="Rice">Rice</option>
+                                                <option value="Soybeans">Soybeans</option>
+                                                <option value="Barley">Barley</option>
+                                                <option value="Oats">Oats</option>
+                                                <option value="Rye">Rye</option>
+                                                <option value="Millet">Millet</option>
+                                                <option value="Sorghum">Sorghum</option>
+                                                <option value="Quinoa">Quinoa</option>
+                                            </select>
+                                            <button type="button" id="addeditCropBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-72 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="editcropList"></div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editfieldStaff" class="block mb-2">Staff</label>
+                                        <div class="flex">
+                                            <select id="editfieldStaff"
+                                                class="border border-gray-300 rounded w-full p-2 mr-2" required>
+                                                <option value="">Select Staff</option>
+                                                <option value="John Doe">John Doe</option>
+                                                <option value="Jane Smith">Jane Smith</option>
+                                                <option value="Mike Johnson">Mike Johnson</option>
+                                                <option value="Emily Davis">Emily Davis</option>
+                                                <option value="Alice Brown">Alice Brown</option>
+                                                <option value="Bob White">Bob White</option>
+                                                <option value="Charlie Black">Charlie Black</option>
+                                                <option value="Diana Green">Diana Green</option>
+                                            </select>
+                                            <button type="button" id="addeditStaffBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-72 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="editstaffList"></div>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+                                            id="closeEditModal">Cancel</button>
+                                        <button type="submit"
+                                            class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="crop-section">
+                        <div id="crop">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Crop</h1>
+                                    <p class="text-gray-500">Manage your crop and view</p>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <button id="openCropModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2">
+                                        <span>+</span>
+                                        <span>Add Crop</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!--  Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b ">
+                                            <th class="p-4 font-semibold text-gray-600 ">Code</th>
+                                            <th class="p-4 font-semibold text-gray-600 ">Common Name</th>
+                                            <th class="p-4 font-semibold text-gray-600 ">Scientific Name</th>
+                                            <th class="p-4 font-semibold text-gray-600">Category</th>
+                                            <th class="p-4 font-semibold text-gray-600">Season</th>
+                                            <th class="p-4 font-semibold text-gray-600">Field</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="cropTableBody">
+                                        <!--  Rows -->
+                                        <tr class="border-b">
+                                            <td class="p-4 flex items-center space-x-4">
+                                                <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
+                                                    class="w-12 h-12 rounded-lg">
+                                                <span>BG-34</span>
+                                            </td>
+                                            <td class="p-4 text-center">Rice</td>
+                                            <td class="p-4 text-center">Oryza sativa</td>
+                                            <td class="p-4 text-center">Cereal</td>
+                                            <td class="p-4 text-center">Monsoon</td>
+                                            <td class="p-4 text-center">Paddy field</td>
+                                            <td class="p-4 text-gray-500  space-x-3">
+                                                <!-- Edit Icon -->
+                                                <button class="text-blue-500 px-1 editbtn" id="openCropEditModal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+
+                                                <!-- Delete Icon -->
+                                                <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Modal for Adding Crop -->
+                        <div id="addCropModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Add New Crop</h2>
+                                <form id="addCropForm">
+                                    <div class="mb-4">
+                                        <label for="cropCode" class="block mb-2">Crop Code</label>
+                                        <input type="text" id="cropCode"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropName" class="block mb-2">Crop Common Name</label>
+                                        <input type="text" id="cropName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropSceintificName" class="block mb-2">Crop Scientific Name</label>
+                                        <input type="text" id="cropSceintificName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+
+                                    <!-- Category Dropdown -->
+                                    <div class="mb-4">
+                                        <label for="cropCategory" class="block mb-2">Category</label>
+                                        <select id="cropCategory" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Category</option>
+                                            <option value="Grain">Grain</option>
+                                            <option value="Vegetable">Vegetable</option>
+                                            <option value="Fruit">Fruit</option>
+                                            <option value="Legume">Legume</option>
+                                            <option value="Root">Root</option>
+                                            <option value="Herb">Herb</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Field Dropdown -->
+                                    <div class="mb-4">
+                                        <label for="cropField" class="block mb-2">Field</label>
+                                        <select id="cropField" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Field</option>
+                                            <option value="Field 1">Field 1</option>
+                                            <option value="Field 2">Field 2</option>
+                                            <option value="Field 3">Field 3</option>
+                                            <option value="Field 4">Field 4</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Season Dropdown -->
+                                    <div class="mb-4">
+                                        <label for="cropSeason" class="block mb-2">Season</label>
+                                        <select id="cropSeason" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Season</option>
+                                            <option value="Spring">Spring</option>
+                                            <option value="Summer">Summer</option>
+                                            <option value="Fall">Fall</option>
+                                            <option value="Winter">Winter</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="cropImage" class="block mb-2">Upload Image</label>
+                                        <input type="file" id="cropImage" accept="image/*"
+                                            class="border border-gray-300 rounded w-full p-2">
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeCropModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add
+                                            Crop</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <!-- Edit Crop Modal -->
+                        <div id="editCropModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Edit Crop</h2>
+                                <form id="editCropForm">
+                                    <div class="mb-4">
+                                        <label for="cropEditCode" class="block mb-2">Crop Code</label>
+                                        <input type="text" id="cropEditCode"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropEditName" class="block mb-2">Crop Common Name</label>
+                                        <input type="text" id="cropEditName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="cropEditSceintificName" class="block mb-2">Crop Scientific
+                                            Name</label>
+                                        <input type="text" id="cropEditSceintificName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="cropEditCategory" class="block mb-2">Category</label>
+                                        <select id="cropEditCategory" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Category</option>
+                                            <option value="Grain">Grain</option>
+                                            <option value="Vegetable">Vegetable</option>
+                                            <option value="Fruit">Fruit</option>
+                                            <option value="Legume">Legume</option>
+                                            <option value="Root">Root</option>
+                                            <option value="Herb">Herb</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="cropEditSeason" class="block mb-2">Season</label>
+                                        <select id="cropEditSeason" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Season</option>
+                                            <option value="Spring">Spring</option>
+                                            <option value="Summer">Summer</option>
+                                            <option value="Fall">Fall</option>
+                                            <option value="Winter">Winter</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="cropEditField" class="block mb-2">Field</label>
+                                        <select id="cropEditField" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Field</option>
+                                            <option value="Field 1">Field 1</option>
+                                            <option value="Field 2">Field 2</option>
+                                            <option value="Field 3">Field 3</option>
+                                            <option value="Field 4">Field 4</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeCropEditModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Save
+                                            Crop</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <section id="staff-section">
+                        <div id="staff">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Staff</h1>
+                                    <p class="text-gray-500">Manage your staff and view</p>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <button id="openStaffModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-800">
+                                        <span>+</span>
+                                        <span>Add Staff</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b ">
+                                            <th class="p-4 font-semibold text-gray-600">First Name</th>
+                                            <th class="p-4 font-semibold text-gray-600">Last Name</th>
+                                            <th class="p-4 font-semibold text-gray-600">Designation</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="staffTableBody">
+                                        <tr class="border-b">
+                                            <td class="p-4 text-center">chamika</td>
+                                            <td class="p-4 text-center">damith</td>
+                                            <td class="p-4 text-center">Panadura</td>
+                                            <td class="p-4 text-center">
+                                                <button class="text-green-500 px-1 viewStaffDetailbtn" data-id="">
+                                                    <i class="fa-solid fa-eye"></i>
+                                                </button>
+                                                <button class="text-blue-500 px-1 editStaffbtn" id="openStaffEditModal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                                <button
+                                                    class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-staff-btn">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- View Staff Modal -->
+                        <div id="staffDetailModal"
+                            class="hidden fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <div class="bg-white p-5 rounded-lg w-1/3 shadow-lg">
+                                <h2 class="text-2xl font-bold mb-4">Staff Details</h2>
+                                <div id="staffDetailsContent" class="space-y-4 max-h-64 overflow-y-auto"></div>
+                                <button id="closeStaffDetailModal"
+                                    class="mt-4 bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                                    Close
+                                </button>
+                            </div>
+                        </div>
+
+
+                        <!-- Modal for Adding Crop -->
+                        <div id="addStaffModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Add New Staff</h2>
+                                <form id="addStaffForm"
+                                    class="grid grid-cols-2 gap-4 bg-white p-6 rounded-lg shadow-md">
+                                    <div class="mb-4">
+                                        <label for="firstName" class="block text-gray-700 font-medium mb-2">First
+                                            Name</label>
+                                        <input type="text" id="firstName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="lastName" class="block text-gray-700 font-medium mb-2">Last
+                                            Name</label>
+                                        <input type="text" id="lastName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="designation"
+                                            class="block text-gray-700 font-medium mb-2">Designation</label>
+                                        <input type="text" id="designation"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="gender" class="block text-gray-700 font-medium mb-2">Gender</label>
+                                        <select id="gender" class="border border-gray-300 rounded w-full p-2">
+                                            <option value="">Select</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="joinedDate" class="block text-gray-700 font-medium mb-2">Joined
+                                            Date</label>
+                                        <input type="date" id="joinedDate"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="dob" class="block text-gray-700 font-medium mb-2">Date of
+                                            Birth</label>
+                                        <input type="date" id="dob" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                    </div>
+                                    <div class="mb-4 col-span-2">
+                                        <label for="address"
+                                            class="block text-gray-700 font-medium mb-2">Address</label>
+                                        <input type="text" id="address"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="contactNo" class="block text-gray-700 font-medium mb-2">Contact
+                                            No</label>
+                                        <input type="tel" id="contactNo"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                        <input type="email" id="email" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                    </div>
+                                    <div class="mb-4 col-span-2">
+                                        <label for="role" class="block text-gray-700 font-medium mb-2">Role</label>
+                                        <select id="role" class="border border-gray-300 rounded w-full p-2" required>
+                                            <option value="">Select a Role</option>
+                                            <option value="MANAGER">MANAGER</option>
+                                            <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
+                                            <option value="SCIENTIST">SCIENTIST</option>
+                                        </select>
+                                    </div>
+
+
+                                    <div class="mb-4">
+                                        <label for="field" class="block text-gray-700 font-medium mb-2">Field</label>
+                                        <div class="flex">
+                                            <select id="staffFieldSelect"
+                                                class="border border-gray-300 rounded w-80 p-2 mr-2">
+                                                <option value="">Select a Field</option>
+                                                <option value="Agriculture">Agriculture</option>
+                                                <option value="Horticulture">Horticulture</option>
+                                                <option value="Botany">Botany</option>
+                                                <option value="Zoology">Zoology</option>
+                                            </select>
+                                            <button type="button" id="addStaffFieldBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-80 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="staffFieldList"></div>
+                                    </div>
+
+                                    <div class="mb-4 ">
+                                        <label for="vehicle"
+                                            class="block text-gray-700 font-medium mb-2">Vehicle</label>
+                                        <div class="flex">
+                                            <select id="fieldvehicle"
+                                                class="border border-gray-300 rounded w-80 p-2 mr-2">
+                                                <option value="">Select a Vehicle</option>
+                                                <option value="Car">Car</option>
+                                                <option value="Truck">Truck</option>
+                                                <option value="Motorcycle">Motorcycle</option>
+                                                <option value="Bicycle">Bicycle</option>
+                                            </select>
+                                            <button type="button" id="addVehicleFieldBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-80 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="vehicleFieldList"></div>
+                                    </div>
+
+
+                                    <div class="flex justify-end col-span-2">
+                                        <button type="button" id="closeStaffModal"
+                                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit"
+                                            class="bg-green-500 hover:bg-green-600 text-white px-4 py-2 rounded">Add
+                                            Staff</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <!-- Edit Staff Modal -->
+                        <div id="editStaffModal"
+                            class="hidden fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center">
+                            <div class="bg-white rounded-lg p-4 w-96 max-h-[90vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Edit Staff</h2>
+                                <form id="editStaffForm">
+                                    <div class="mb-4">
+                                        <label for="firstName" class="block text-gray-700 font-medium mb-2">First
+                                            Name</label>
+                                        <input type="text" id="editfirstName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="lastName" class="block text-gray-700 font-medium mb-2">Last
+                                            Name</label>
+                                        <input type="text" id="editlastName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="designation"
+                                            class="block text-gray-700 font-medium mb-2">Designation</label>
+                                        <input type="text" id="editdesignation"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="gender" class="block text-gray-700 font-medium mb-2">Gender</label>
+                                        <select id="editgender" class="border border-gray-300 rounded w-full p-2">
+                                            <option value="">Select</option>
+                                            <option value="Male">Male</option>
+                                            <option value="Female">Female</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="joinedDate" class="block text-gray-700 font-medium mb-2">Joined
+                                            Date</label>
+                                        <input type="date" id="editjoinedDate"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="dob" class="block text-gray-700 font-medium mb-2">Date of
+                                            Birth</label>
+                                        <input type="date" id="editdob"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4 col-span-2">
+                                        <label for="address"
+                                            class="block text-gray-700 font-medium mb-2">Address</label>
+                                        <input type="text" id="editaddress"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="contactNo" class="block text-gray-700 font-medium mb-2">Contact
+                                            No</label>
+                                        <input type="tel" id="editcontactNo"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
+                                        <input type="email" id="editemail"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="role" class="block text-gray-700 font-medium mb-2">Role</label>
+                                        <select id="editrole" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select a Role</option>
+                                            <option value="MANAGER">MANAGER</option>
+                                            <option value="ADMINISTRATIVE">ADMINISTRATIVE</option>
+                                            <option value="SCIENTIST">SCIENTIST</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="mb-4">
+                                        <label for="field" class="block text-gray-700 font-medium mb-2">Field</label>
+                                        <div class="flex">
+                                            <select id="staffEditFieldSelect"
+                                                class="border border-gray-300 rounded w-80 p-2 mr-2">
+                                                <option value="">Select a Field</option>
+                                                <option value="Agriculture">Agriculture</option>
+                                                <option value="Horticulture">Horticulture</option>
+                                                <option value="Botany">Botany</option>
+                                                <option value="Zoology">Zoology</option>
+                                            </select>
+                                            <button type="button" id="editStaffFieldBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-80 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="editstaffFieldList"></div>
+                                    </div>
+
+                                    <div class="mb-4 ">
+                                        <label for="vehicle"
+                                            class="block text-gray-700 font-medium mb-2">Vehicle</label>
+                                        <div class="flex">
+                                            <select id="editfieldvehicle"
+                                                class="border border-gray-300 rounded w-80 p-2 mr-2">
+                                                <option value="">Select a Vehicle</option>
+                                                <option value="Car">Car</option>
+                                                <option value="Truck">Truck</option>
+                                                <option value="Motorcycle">Motorcycle</option>
+                                                <option value="Bicycle">Bicycle</option>
+                                            </select>
+                                            <button type="button" id="editVehicleFieldBtn"
+                                                class="font-semibold text-green-600">Add</button>
+                                        </div>
+                                        <div class="w-80 h-20 bg-gray-200 mt-1 rounded p-2 overflow-y-auto"
+                                            id="editvehicleFieldList"></div>
+                                    </div>
+
+                                    <div class="flex justify-end">
+                                        <button type="button" class="bg-gray-300 text-gray-700 px-4 py-2 rounded mr-2"
+                                            id="closeStaffEditModal">Cancel</button>
+                                        <button type="submit"
+                                            class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </section>
+
+                    <section id="vehicle-section">
+                        <div id="vehicle">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Vehicle</h1>
+                                    <p class="text-gray-500">Manage your vehicle and view</p>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <button id="openVehicleModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-800">
+                                        <span>+</span>
+                                        <span>Add Vehicle</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b ">
+                                            <th class="p-4 font-semibold text-gray-600">License Number</th>
+                                            <th class="p-4 font-semibold text-gray-600">category</th>
+                                            <th class="p-4 font-semibold text-gray-600">Fuel type</th>
+                                            <th class="p-4 font-semibold text-gray-600">Status</th>
+                                            <th class="p-4 font-semibold text-gray-600">Staff member</th>
+                                            <th class="p-4 font-semibold text-gray-600">Remarks</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="vehicleTableBody">
+                                        <tr class="border-b">
+                                            <td class="p-4 text-center">NC-7749</td>
+                                            <td class="p-4 text-center">Bike</td>
+                                            <td class="p-4 text-center">Petrol</td>
+                                            <td class="p-4 text-center">Available</td>
+                                            <td class="p-4 text-center">D-0012</td>
+                                            <td class="p-4 text-center">No</td>
+                                            <td class="p-4 text-center">
+                                                <button class="text-blue-500 px-1 editVehiclebtn"
+                                                    id="openVehicleEditModal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                                <button
+                                                    class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-vehicle-btn">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Modal for Adding Vehicle -->
+                        <div id="addVehicleModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Add New Vehicle</h2>
+                                <form id="addVehicleForm">
+                                    <div class="mb-4">
+                                        <label for="licensePlateNumber" class="block mb-2">License Plate Number</label>
+                                        <input type="text" id="licensePlateNumber"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="vehicleCategory" class="block mb-2">Vehicle Category</label>
+                                        <input type="text" id="vehicleCategory"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fuelType" class="block mb-2">Fuel Type</label>
+                                        <select id="fuelType" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Fuel Type</option>
+                                            <option value="Petrol">Petrol</option>
+                                            <option value="Diesel">Diesel</option>
+                                            <option value="Electric">Electric</option>
+                                            <option value="Hybrid">Hybrid</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="status" class="block mb-2">Status</label>
+                                        <select id="status" class="border border-gray-300 rounded w-full p-2" required>
+                                            <option value="Available">Available</option>
+                                            <option value="Out of Service">Out of Service</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="allocatedStaff" class="block mb-2">Allocated Staff Member
+                                            Details</label>
+                                        <select id="allocatedStaff" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Assigned Driver</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="remarks" class="block mb-2">Remarks</label>
+                                        <textarea id="remarks" class="border border-gray-300 rounded w-full p-2"
+                                            placeholder="Any special remarks or N/A"></textarea>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeVehicleModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add
+                                            Vehicle</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Edit Vehicle Modal -->
+                        <div id="editVehicleModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Edit Vehicle</h2>
+                                <form id="editVehicleForm">
+                                    <div class="mb-4">
+                                        <label for="editLicensePlateNumber" class="block mb-2">License Plate
+                                            Number</label>
+                                        <input type="text" id="editLicensePlateNumber"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editVehicleCategory" class="block mb-2">Vehicle Category</label>
+                                        <input type="text" id="editVehicleCategory"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editFuelType" class="block mb-2">Fuel Type</label>
+                                        <select id="editFuelType" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Fuel Type</option>
+                                            <option value="Petrol">Petrol</option>
+                                            <option value="Diesel">Diesel</option>
+                                            <option value="Electric">Electric</option>
+                                            <option value="Hybrid">Hybrid</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editStatus" class="block mb-2">Status</label>
+                                        <select id="editStatus" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="Available">Available</option>
+                                            <option value="Out of Service">Out of Service</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="allocatedEditStaff" class="block mb-2">Allocated Staff Member
+                                            Details</label>
+                                        <select id="allocatedEditStaff"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                            <option value="">Select Assigned Driver</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editRemarks" class="block mb-2">Remarks</label>
+                                        <textarea id="editRemarks" class="border border-gray-300 rounded w-full p-2"
+                                            placeholder="Any special remarks or N/A"></textarea>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeEditVehicleModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save
+                                            Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </section>
+
+                    <section id="equipment-section">
+                        <div id="equipment">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Equipment</h1>
+                                    <p class="text-gray-500">Manage your equipment and view</p>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <button id="openEquipmentModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-800">
+                                        <span>+</span>
+                                        <span>Add Equipment</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b">
+                                            <th class="p-4 font-semibold text-gray-600">Equipment Id</th>
+                                            <th class="p-4 font-semibold text-gray-600">Name</th>
+                                            <th class="p-4 font-semibold text-gray-600">Type</th>
+                                            <th class="p-4 font-semibold text-gray-600">Status</th>
+                                            <th class="p-4 font-semibold text-gray-600">Assigned Staff</th>
+                                            <th class="p-4 font-semibold text-gray-600">Assigned Field</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="equipmentTableBody">
+                                        <tr class="border-b">
+                                            <td class="p-4 text-center">EQ-101</td>
+                                            <td class="p-4 text-center">Drill Machine</td>
+                                            <td class="p-4 text-center">Mechanical</td>
+                                            <td class="p-4 text-center">Available</td>
+                                            <td class="p-4 text-center">S-1023</td>
+                                            <td class="p-4 text-center">Construction Site</td>
+                                            <td class="p-4 text-center">
+                                                <button class="text-blue-500 px-1 editEquipmentbtn"
+                                                    id="openEquipmentEditModal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                                <button
+                                                    class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-equipment-btn">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Modal for Adding Equipment -->
+                        <div id="addEquipmentModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Add New Equipment</h2>
+                                <form id="addEquipmentForm">
+                                    <div class="mb-4">
+                                        <label for="equipmentId" class="block mb-2">Equipment Id</label>
+                                        <input type="text" id="equipmentId"
+                                            class="border border-gray-300 rounded w-full p-2" required
+                                            placeholder="Unique Id, e.g., EQ-101">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="equipmentName" class="block mb-2">Name</label>
+                                        <input type="text" id="equipmentName"
+                                            class="border border-gray-300 rounded w-full p-2" required
+                                            placeholder="Equipment Name, e.g., Drill Machine">
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="equipmentType" class="block mb-2">Type</label>
+                                        <select id="equipmentType" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Type</option>
+                                            <option value="Electrical">Electrical</option>
+                                            <option value="Mechanical">Mechanical</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="equipmentStatus" class="block mb-2">Status</label>
+                                        <select id="equipmentStatus" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="Available">Available</option>
+                                            <option value="Out of Service">Out of Service</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="assignedStaff" class="block mb-2">Assigned Staff</label>
+                                        <select id="assignedStaff" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Staff Member</option>
+                                            <option value="S-1023">John Doe - S-1023</option>
+                                            <option value="S-1024">Jane Smith - S-1024</option>
+                                            <option value="S-1025">Michael Brown - S-1025</option>
+                                            <option value="S-1026">Emily Davis - S-1026</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="assignedField" class="block mb-2">Assigned Field</label>
+                                        <select id="assignedField" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Field</option>
+                                            <option value="Construction Site">Construction Site</option>
+                                            <option value="Warehouse A">Warehouse A</option>
+                                            <option value="Factory Floor">Factory Floor</option>
+                                            <option value="Remote Site B">Remote Site B</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeEquipmentModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add
+                                            Equipment</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                        <!-- Edit Equipment Modal -->
+                        <div id="editEquipmentModal"
+                            class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
+                            <div class="bg-white rounded-lg p-6 w-96 max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-bold mb-4">Edit Equipment</h2>
+                                <form id="editEquipmentForm">
+                                    <div class="mb-4">
+                                        <label for="editEquipmentName" class="block mb-2">Equipment Name</label>
+                                        <input type="text" id="editEquipmentName"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editEquipmentType" class="block mb-2">Type</label>
+                                        <select id="editEquipmentType" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Type</option>
+                                            <option value="Electrical">Electrical</option>
+                                            <option value="Mechanical">Mechanical</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editEquipmentStatus" class="block mb-2">Status</label>
+                                        <select id="editEquipmentStatus"
+                                            class="border border-gray-300 rounded w-full p-2" required>
+                                            <option value="Available">Available</option>
+                                            <option value="Out of Service">Out of Service</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editAssignedStaff" class="block mb-2">Assigned Staff</label>
+                                        <select id="editAssignedStaff" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Staff Member</option>
+                                            <option value="S-1023">John Doe - S-1023</option>
+                                            <option value="S-1024">Jane Smith - S-1024</option>
+                                            <option value="S-1025">Michael Brown - S-1025</option>
+                                            <option value="S-1026">Emily Davis - S-1026</option>
+                                        </select>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editAssignedField" class="block mb-2">Assigned Field</label>
+                                        <select id="editAssignedField" class="border border-gray-300 rounded w-full p-2"
+                                            required>
+                                            <option value="">Select Field</option>
+                                            <option value="Construction Site">Construction Site</option>
+                                            <option value="Warehouse A">Warehouse A</option>
+                                            <option value="Factory Floor">Factory Floor</option>
+                                            <option value="Remote Site B">Remote Site B</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeEditEquipmentModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit"
+                                            class="bg-blue-500 text-white px-4 py-2 rounded">Save</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+                    </section>
+
+                    <section id="log-section">
+                        <div id="logMonitoring">
+                            <!-- Header -->
+                            <div class="flex justify-between items-center mb-6">
+                                <div>
+                                    <h1 class="text-2xl font-bold">Log Monitoring</h1>
+                                    <p class="text-gray-500">Track and manage observations related to crops and fields
+                                    </p>
+                                </div>
+                                <div class="flex space-x-4">
+                                    <button id="openLogModal"
+                                        class="bg-black text-white px-4 py-2 rounded flex items-center space-x-2 hover:bg-gray-800">
+                                        <span>+</span>
+                                        <span>Add Log</span>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Table -->
+                            <div class="bg-white shadow rounded-lg overflow-hidden">
+                                <table class="w-full text-center">
+                                    <thead>
+                                        <tr class="bg-gray-200 border-b">
+                                            <th class="p-4 font-semibold text-gray-600">Log Code</th>
+                                            <th class="p-4 font-semibold text-gray-600">Log Date</th>
+                                            <th class="p-4 font-semibold text-gray-600">Observation</th>
+                                            <th class="p-4 font-semibold text-gray-600">Observed Image</th>
+                                            <th class="p-4 font-semibold text-gray-600">Field</th>
+                                            <th class="p-4 font-semibold text-gray-600">Crop</th>
+                                            <th class="p-4 font-semibold text-gray-600">Staff Member</th>
+                                            <th class="p-4 font-semibold text-gray-600">Action</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="logTableBody">
+                                        <tr class="border-b">
+                                            <td class="p-4 text-center">LG-001</td>
+                                            <td class="p-4 text-center">2024-11-04</td>
+                                            <td class="p-4 text-center">Healthy growth observed</td>
+                                            <td class="p-4 text-center flex justify-center">
+                                                <img src="https://via.placeholder.com/50" alt="Observation Image"
+                                                    class="w-12 h-12 object-cover">
+                                            </td>
+                                            <td class="p-4 text-center">Field A</td>
+                                            <td class="p-4 text-center">Wheat</td>
+                                            <td class="p-4 text-center">John Doe</td>
+                                            <td class="p-4 text-center">
+                                                <button class="text-blue-500 px-1 editLogbtn" id="openLogEditModal">
+                                                    <i class="fa-solid fa-pen"></i>
+                                                </button>
+                                                <button
+                                                    class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-log-btn">
+                                                    <i class="fa-solid fa-times"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Add Log Modal -->
+                        <div id="addLogModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+                            <div class="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-semibold mb-4">Add New Log</h2>
+                                <form id="addLogForm" class="space-y-4">
+                                    <div>
+                                        <label for="logCode" class="block text-gray-700">Log Code</label>
+                                        <input type="text" id="logCode"
+                                            class="w-full border border-gray-300 p-2 rounded"
+                                            placeholder="Enter Log Code (e.g., LG-001)" required>
+                                    </div>
+                                    <div>
+                                        <label for="logDate" class="block text-gray-700 mb-1">Log Date</label>
+                                        <input type="date" id="logDate"
+                                            class="cursor-pointer w-full border border-gray-300 p-2 rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-150 ease-in-out"
+                                            required>
+                                    </div>
+                                    <div>
+                                        <label for="observation" class="block text-gray-700">Observation</label>
+                                        <textarea id="observation" class="w-full border border-gray-300 p-2 rounded"
+                                            placeholder="Enter Observation" required></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="observedImage" class="block text-gray-700">Observed Image</label>
+                                        <input type="file" id="observedImage" accept="image/*"
+                                            class="w-full border border-gray-300 p-2 rounded" required>
+                                    </div>
+                                    <div>
+                                        <label for="relevantFields" class="block text-gray-700">Relevant Fields</label>
+                                        <select id="relevantFields"
+                                            class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
+                                            required>
+                                            <option value="" disabled selected>Select Field</option>
+                                            <option value="Field A">Field A</option>
+                                            <option value="Field B">Field B</option>
+                                            <option value="Field C">Field C</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="relevantCrops" class="block text-gray-700">Relevant Crops</label>
+                                        <select id="relevantCrops"
+                                            class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
+                                            required>
+                                            <option value="" disabled selected>Select Crop</option>
+                                            <option value="Wheat">Wheat</option>
+                                            <option value="Corn">Corn</option>
+                                            <option value="Rice">Rice</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="staffMember" class="block text-gray-700">Staff Member</label>
+                                        <select id="staffMember"
+                                            class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
+                                            required>
+                                            <option value="" disabled selected>Select Staff Member</option>
+                                            <option value="John Doe">John Doe</option>
+                                            <option value="Jane Smith">Jane Smith</option>
+                                            <option value="Emily Johnson">Emily Johnson</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button"
+                                            class="bg-red-500 text-white  py-2 px-4 rounded ml-2 hover:bg-red-600"
+                                            id="closeLogModel">Cancel</button>
+                                        <button type="submit"
+                                            class="bg-green-500 text-white py-2 px-4 ml-5 rounded hover:bg-green-600">Submit
+                                            Log</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+
+                        <!-- Edit Log Modal -->
+                        <div id="editLogModal" class="fixed inset-0 flex items-center justify-center z-50 hidden">
+                            <div class="bg-white shadow-lg rounded-lg p-6 max-w-lg w-full max-h-[80vh] overflow-y-auto">
+                                <h2 class="text-xl font-semibold mb-4">Edit Log</h2>
+                                <form id="editLogForm" class="space-y-4">
+                                    <div>
+                                        <label for="editLogCode" class="block text-gray-700">Log Code</label>
+                                        <input type="text" id="editLogCode"
+                                            class="w-full border border-gray-300 p-2 rounded" required>
+                                    </div>
+                                    <div>
+                                        <label for="editLogDate" class="block text-gray-700 mb-1">Log Date</label>
+                                        <input type="date" id="editLogDate"
+                                            class="cursor-pointer w-full border border-gray-300 p-2 rounded-md bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none transition duration-150 ease-in-out"
+                                            required>
+                                    </div>
+                                    <div>
+                                        <label for="editObservation" class="block text-gray-700">Observation</label>
+                                        <textarea id="editObservation" class="w-full border border-gray-300 p-2 rounded"
+                                            required></textarea>
+                                    </div>
+                                    <div>
+                                        <label for="editObservedImage" class="block text-gray-700">Observed
+                                            Image</label>
+                                        <input type="file" id="editObservedImage" accept="image/*"
+                                            class="w-full border border-gray-300 p-2 rounded">
+                                    </div>
+                                    <div class="mb-4">
+                                        <img id="imagePreview" alt="Preview" class="w-32 h-32 object-cover" />
+                                    </div>
+                                    <div>
+                                        <label for="editRelevantFields" class="block text-gray-700">Relevant
+                                            Fields</label>
+                                        <select id="editRelevantFields"
+                                            class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
+                                            required>
+                                            <option value="" disabled selected>Select Field</option>
+                                            <option value="Field A">Field A</option>
+                                            <option value="Field B">Field B</option>
+                                            <option value="Field C">Field C</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="editRelevantCrops" class="block text-gray-700">Relevant
+                                            Crops</label>
+                                        <select id="editRelevantCrops"
+                                            class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
+                                            required>
+                                            <option value="" disabled selected>Select Crop</option>
+                                            <option value="Wheat">Wheat</option>
+                                            <option value="Corn">Corn</option>
+                                            <option value="Rice">Rice</option>
+                                        </select>
+                                    </div>
+                                    <div>
+                                        <label for="editStaffMember" class="block text-gray-700">Staff Member</label>
+                                        <select id="editStaffMember"
+                                            class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
+                                            required>
+                                            <option value="" disabled selected>Select Staff Member</option>
+                                            <option value="John Doe">John Doe</option>
+                                            <option value="Jane Smith">Jane Smith</option>
+                                            <option value="Bob Johnson">Bob Johnson</option>
+                                        </select>
+                                    </div>
+                                    <div class="flex justify-end">
+                                        <button type="button" id="closeEditLogModal"
+                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">Cancel</button>
+                                        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Save
+                                            Changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+
+                    </section>
+
+                </main>
+
+            </section>
+
+
+        </div>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script src="script/script.js"></script>
+        <script type="module" src="controller/FieldController.js"></script>
+        <script type="module" src="controller/CropController.js"></script>
+        <script type="module" src="controller/StaffController.js"></script>
+        <script type="module" src="controller/VehicleController.js"></script>
+        <script type="module" src="controller/Equipment.js"></script>
+        <script type="module" src="controller/LogController.js"></script>
+        <script type="module" src="controller/Auth.js"></script>
+    </body>
+</div>
+
+
+
+</html>

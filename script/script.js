@@ -7,6 +7,7 @@ $('#equipment-section').hide();
 $('#log-section').hide();
 
 
+
 $('#fieldBtn').on('click',()=>{
     $('#dashboard').hide();
     $('#field').show();
