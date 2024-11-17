@@ -11,32 +11,22 @@ const closeEditModalBtn = document.getElementById('closeEditModal');
 const editFieldForm = document.getElementById('editFieldForm');
 const editFieldModal = document.getElementById('editModal');
 
-const cropListElement = document.getElementById('cropList');
-const cropDetailsContent = document.getElementById('cropDetailsContent');
-const addCropBtn = document.getElementById('addCropBtn');
-const fieldCrops = document.getElementById('fieldCrops');
-
-
-const addeditCropBtn = document.getElementById('addeditCropBtn');
-const editfieldCrops = document.getElementById('editfieldCrops');
-const editcropList = document.getElementById('editcropList');
 
 const addeditStaffBtn = document.getElementById('addeditStaffBtn');
 const editfieldStaff = document.getElementById('editfieldStaff');
 const editstaffList = document.getElementById('editstaffList');
 
-
-const staffList = document.getElementById('staffList');
-const fieldStaffDetailsContent = document.getElementById('fieldStaffDetailsContent');
-const addStaffBtn = document.getElementById('addStaffBtn');
-const fieldStaff = document.getElementById('fieldStaff');
-
-
+document.addEventListener('DOMContentLoaded', () => {
+    getAllFields();
+});
 
 let currentRow;
 
 // Function to open add field modal
 openModalButton.addEventListener('click', () => {
+    generateFieldId(function(response){
+        document.getElementById('fieldCode').value=response;
+    });
     addFieldModal.classList.remove('hidden');
 });
 
@@ -49,54 +39,55 @@ closeModalButton.addEventListener('click', () => {
 addFieldForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
+    const fieldCode = document.getElementById('fieldCode').value;
     const fieldName = document.getElementById('fieldName').value;
     const fieldLocation = document.getElementById('fieldLocation').value;
     const fieldSize = document.getElementById('fieldSize').value;
     const fieldImage = document.getElementById('fieldImage').files[0];
 
+    if (!fieldCode || !fieldName || !fieldLocation || !fieldSize || !fieldImage) {
+        alert("Please fill out all fields and select an image.");
+        return;
+    }
+
     const reader = new FileReader();
     reader.onloadend = () => {
-        const row = document.createElement('tr');
-        row.classList.add('border-b');
-        row.innerHTML = `
-            <td class="p-4 flex items-center space-x-4">
-                <img src="${reader.result}" alt="${fieldName}" class="w-12 h-12 rounded-lg">
-                <span>${fieldName}</span>
-            </td>
-            <td class="p-4 text-center">${fieldLocation}</td>
-            <td class="p-4 text-center">${fieldSize}</td>
-            <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail" id="viewCropDetailsBtn">Crops</button></td>
-            <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded fieldStaffDetail">Staff</button></td>
-            <td class="p-4 text-gray-500 space-x-3">
-                <button class="text-blue-500 px-1 edit-btn"><i class="fa-solid fa-pen"></i></button>
-                <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-btn"><i class="fa-solid fa-times"></i></button>
-            </td>
-        `;
-        fieldTableBody.appendChild(row);
-        addFieldModal.classList.add('hidden');
-        addFieldForm.reset();
+        const base64Image = reader.result.split(',')[1]; 
 
-        row.querySelector('.edit-btn').addEventListener('click', function () {
-            editField(this);
-        });
+        const requestData = {
+            fieldCode: fieldCode,
+            fieldName: fieldName,
+            fieldLocation: fieldLocation,
+            fieldSize: fieldSize,
+            fieldImage: base64Image,
+        };
 
-        row.querySelector('.delete-btn').addEventListener('click', function () {
-            deleteField(this);
-        });
 
-        row.querySelector('.cropDetail').addEventListener('click', function () {
-            viewCropDetails(this);
-        });
+        $.ajax({
+            url: "http://localhost:8080/api/v1/fields",
+            method: "POST",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            data: JSON.stringify(requestData),
+        })
+            .done(function (response) {
+                console.log("Field saved successfully:", response);
 
-        row.querySelector('.fieldStaffDetail').addEventListener('click', function () {
-            viewStaffDetails(this);
-        });
+                getAllFields();
+                addFieldModal.classList.add('hidden');
+                addFieldForm.reset();
+            })
+            .fail(function (error) {
+                console.error("Error saving field:", error);
+                alert("Failed to save field. Please try again.");
+            });
     };
 
-    if (fieldImage) {
-        reader.readAsDataURL(fieldImage);
-    }
+    reader.readAsDataURL(fieldImage); 
 });
+
 
 
 // Function to edit field
@@ -107,8 +98,6 @@ function editField(button) {
     document.getElementById('editfieldName').value = cells[0].querySelector('span').innerText;
     document.getElementById('editfieldLocation').value = cells[1].innerText;
     document.getElementById('editfieldSize').value = cells[2].innerText;
-    document.getElementById('fieldCrops').value = cells[3].querySelector('button').innerText;
-    document.getElementById('fieldStaff').value = cells[4].querySelector('button').innerText;
 
     // Open the edit modal
     editFieldModal.classList.remove('hidden');
@@ -161,26 +150,8 @@ editFieldForm.addEventListener('submit', (event) => {
 });
 
 
- // Add selected crop to the preview list
- addCropBtn.addEventListener('click', () => {
-    const selectedCrop = fieldCrops.value;
-    if (selectedCrop) {
-        const cropItem = document.createElement('div');
-        cropItem.className = 'flex justify-between items-center mb-1 text-gray-700';
-        cropItem.innerHTML = `
-            <span>${selectedCrop}</span>
-            <button type="button" class="text-red-500 font-bold remove-crop">X</button>
-        `;
-        cropListElement.appendChild(cropItem);
 
-        // Handle removal of crop items
-        cropItem.querySelector('.remove-crop').addEventListener('click', () => {
-            cropListElement.removeChild(cropItem);
-        });
-    }
-});
-
-function viewCropDetails(){
+function viewCropDetails() {
     cropDetailsContent.innerHTML = '';
     const cropItems = cropListElement.querySelectorAll('span');
 
@@ -200,26 +171,8 @@ document.getElementById('closecropDetailModal').addEventListener('click', functi
 
 
 
- // Add selected staff to the preview list
- addStaffBtn.addEventListener('click', () => {
-    const selectedStaff = fieldStaff.value;
-    if (selectedStaff) {
-        const staffItem = document.createElement('div');
-        staffItem.className = 'flex justify-between items-center mb-1 text-gray-700';
-        staffItem.innerHTML = `
-            <span>${selectedStaff}</span>
-            <button type="button" class="text-red-500 font-bold remove-staff">X</button>
-        `;
-        staffList.appendChild(staffItem);
 
-        // Handle removal of staff items
-        staffItem.querySelector('.remove-staff').addEventListener('click', () => {
-            staffList.removeChild(staffItem);
-        });
-    }
-});
-
-function viewStaffDetails(){
+function viewStaffDetails() {
     fieldStaffDetailsContent.innerHTML = '';
     const staffItems = staffList.querySelectorAll('span');
 
@@ -237,39 +190,75 @@ document.getElementById('closefieldStaffDetailModal').addEventListener('click', 
     document.getElementById('fieldStaffDetailModal').classList.add('hidden');
 });
 
+function generateFieldId(callback) {
+    var request = {
+        "url": "http://localhost:8080/api/v1/fields/generateId",
+        "method": "GET",
+        "timeout": 0,
+    };
 
-addeditCropBtn.addEventListener('click', () => {
-    const selectedCrop = editfieldCrops.value;
-    if (selectedCrop) {
-        const cropItem = document.createElement('div');
-        cropItem.className = 'flex justify-between items-center mb-1 text-gray-700';
-        cropItem.innerHTML = `
-            <span>${selectedCrop}</span>
-            <button type="button" class="text-red-500 font-bold remove-edit-crop">X</button>
-        `;
-        editcropList.appendChild(cropItem);
+    $.ajax(request).done(function (response) {
+        if (callback) {
+            callback(response);
+        }
+    }).fail(function (error) {
+        console.error("Error fetching field ID:", error);
+    });
+}
 
-        // Handle removal of crop items
-        cropItem.querySelector('.remove-edit-crop').addEventListener('click', () => {
-            editcropList.removeChild(cropItem);
+function getAllFields() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/fields",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+        .done(function (fields) {
+            fieldTableBody.innerHTML = '';
+
+            fields.forEach((field) => {
+                const row = document.createElement('tr');
+                row.classList.add('border-b');
+                row.innerHTML = `
+                    <td class="p-4 flex items-center space-x-4">
+                        <img src="data:image/jpeg;base64,${field.fieldImage}" alt="${field.fieldName}" class="w-12 h-12 rounded-lg">
+                        <span>${field.fieldName}</span>
+                    </td>
+                    <td class="p-4 text-center">${field.fieldLocation}</td>
+                    <td class="p-4 text-center">${field.fieldSize}</td>
+                    <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail">Crops</button></td>
+                    <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded fieldStaffDetail">Staff</button></td>
+                    <td class="p-4 text-gray-500 space-x-3">
+                        <button class="text-blue-500 px-1 edit-btn"><i class="fa-solid fa-pen"></i></button>
+                        <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-btn"><i class="fa-solid fa-times"></i></button>
+                    </td>
+                `;
+
+                // Append the row to the table body
+                fieldTableBody.appendChild(row);
+
+                // Add event listeners for buttons
+                row.querySelector('.edit-btn').addEventListener('click', function () {
+                    editField(this, field.fieldCode);
+                });
+
+                row.querySelector('.delete-btn').addEventListener('click', function () {
+                    deleteField(this, field.fieldCode);
+                });
+
+                row.querySelector('.cropDetail').addEventListener('click', function () {
+                    viewCropDetails(this, field.fieldCode);
+                });
+
+                row.querySelector('.fieldStaffDetail').addEventListener('click', function () {
+                    viewStaffDetails(this, field.fieldCode);
+                });
+            });
+        })
+        .fail(function (error) {
+            console.error("Error fetching fields:", error);
+            alert("Failed to fetch fields. Please try again later.");
         });
-    }
-});
-
-addeditStaffBtn.addEventListener('click', () => {
-    const selectedEditStaff = editfieldStaff.value;
-    if (selectedEditStaff) {
-        const staffItem = document.createElement('div');
-        staffItem.className = 'flex justify-between items-center mb-1 text-gray-700';
-        staffItem.innerHTML = `
-            <span>${selectedEditStaff}</span>
-            <button type="button" class="text-red-500 font-bold remove-edit-staff">X</button>
-        `;
-        editstaffList.appendChild(staffItem);
-
-        // Handle removal of staff items
-        staffItem.querySelector('.remove-edit-staff').addEventListener('click', () => {
-            editstaffList.removeChild(staffItem);
-        });
-    }
-});
+}
