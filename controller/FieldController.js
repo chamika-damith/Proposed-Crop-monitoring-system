@@ -24,8 +24,8 @@ let currentRow;
 
 // Function to open add field modal
 openModalButton.addEventListener('click', () => {
-    generateFieldId(function(response){
-        document.getElementById('fieldCode').value=response;
+    generateFieldId(function (response) {
+        document.getElementById('fieldCode').value = response;
     });
     addFieldModal.classList.remove('hidden');
 });
@@ -52,7 +52,7 @@ addFieldForm.addEventListener('submit', (event) => {
 
     const reader = new FileReader();
     reader.onloadend = () => {
-        const base64Image = reader.result.split(',')[1]; 
+        const base64Image = reader.result.split(',')[1];
 
         const requestData = {
             fieldCode: fieldCode,
@@ -85,7 +85,7 @@ addFieldForm.addEventListener('submit', (event) => {
             });
     };
 
-    reader.readAsDataURL(fieldImage); 
+    reader.readAsDataURL(fieldImage);
 });
 
 
@@ -95,13 +95,28 @@ function editField(button) {
     currentRow = button.closest('tr');
     const cells = currentRow.children;
 
-    document.getElementById('editfieldName').value = cells[0].querySelector('span').innerText;
-    document.getElementById('editfieldLocation').value = cells[1].innerText;
-    document.getElementById('editfieldSize').value = cells[2].innerText;
+    document.getElementById('editfieldCode').value = cells[0].querySelector('span').innerText;
+    document.getElementById('editfieldName').value = cells[1].innerText;
+    document.getElementById('editfieldLocation').value = cells[2].innerText;
+    document.getElementById('editfieldSize').value = cells[3].innerText;
 
-    // Open the edit modal
+    const currentImage = cells[0].querySelector('img').src; 
+    document.getElementById('editImagePreview').src = currentImage;
+
     editFieldModal.classList.remove('hidden');
 }
+
+document.getElementById('editfieldImage').addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            document.getElementById('editImagePreview').src = reader.result;
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
 
 // Attach event listener to edit buttons
 document.querySelectorAll('.edit-btn').forEach(button => {
@@ -110,23 +125,34 @@ document.querySelectorAll('.edit-btn').forEach(button => {
     });
 });
 
-// Attach event listener to delete buttons
-document.querySelectorAll('.delete-btn').forEach(button => {
-    button.addEventListener('click', function () {
-        deleteField(this);
-    });
-});
+
 
 
 // Function to delete field
-function deleteField(button) {
+function deleteField(button, fieldCode) {
     const row = button.closest('tr');
     const confirmation = confirm('Are you sure you want to delete this field?');
 
     if (confirmation) {
-        row.remove();
+        $.ajax({
+            url: `http://localhost:8080/api/v1/fields/${fieldCode}`,
+            method: 'DELETE',
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            success: function(response) {
+                console.log("Field deleted successfully:", response);
+                getAllFields();
+            },
+            error: function(error) {
+                console.error("Error deleting field:", error);
+                alert("Failed to delete field. Please try again.");
+            }
+        });
     }
 }
+
 
 
 // Function to close edit modal
@@ -136,18 +162,57 @@ closeEditModalBtn.addEventListener('click', () => {
 
 // Handle form submission for editing
 editFieldForm.addEventListener('submit', (event) => {
-    event.preventDefault(); // Prevent form submission
+    event.preventDefault();
 
-    // Update the table row with new data
-    currentRow.children[0].querySelector('span').innerText = document.getElementById('editfieldName').value;
-    currentRow.children[1].innerText = document.getElementById('editfieldLocation').value;
-    currentRow.children[2].innerText = document.getElementById('editfieldSize').value;
-    currentRow.children[3].querySelector('button').innerText = "Crops"
-    currentRow.children[4].querySelector('button').innerText = "Staff"
+    const fieldCode = document.getElementById('editfieldCode').value;
+    const fieldName = document.getElementById('editfieldName').value;
+    const fieldLocation = document.getElementById('editfieldLocation').value;
+    const fieldSize = document.getElementById('editfieldSize').value;
+    const fieldImageInput = document.getElementById('editfieldImage').files[0];
 
+    const updateData = {
+        fieldCode,
+        fieldName,
+        fieldLocation,
+        fieldSize,
+    };
 
-    closeEditModalBtn.click();
+    if (fieldImageInput) {
+        const reader = new FileReader();
+        reader.onload = () => {
+            updateData.fieldImage = reader.result.split(',')[1]; 
+            sendUpdateRequest(updateData);
+        };
+        reader.readAsDataURL(fieldImageInput);
+    } else {
+        const currentImageSrc = document.getElementById('editImagePreview').src;
+        updateData.fieldImage = currentImageSrc.split(',')[1]; 
+        sendUpdateRequest(updateData);
+    }
 });
+
+
+function sendUpdateRequest(updateData) {
+    $.ajax({
+        url: `http://localhost:8080/api/v1/fields/${updateData.fieldCode}`,
+        method: "PUT",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        data: JSON.stringify(updateData),
+    })
+        .done(function (response) {
+            console.log("Field updated successfully:", response);
+            getAllFields();
+            editFieldModal.classList.add('hidden');
+            editFieldForm.reset();
+        })
+        .fail(function (error) {
+            console.error("Error updating field:", error);
+            alert("Failed to update field. Please try again.");
+        });
+}
 
 
 
@@ -223,9 +288,10 @@ function getAllFields() {
                 row.classList.add('border-b');
                 row.innerHTML = `
                     <td class="p-4 flex items-center space-x-4">
-                        <img src="data:image/jpeg;base64,${field.fieldImage}" alt="${field.fieldName}" class="w-12 h-12 rounded-lg">
-                        <span>${field.fieldName}</span>
+                        <img src="data:image/jpeg;base64,${field.fieldImage}" alt="${field.fieldCode}" class="w-12 h-12 rounded-lg">
+                        <span>${field.fieldCode}</span>
                     </td>
+                    <td class="p-4 text-center">${field.fieldName}</td>
                     <td class="p-4 text-center">${field.fieldLocation}</td>
                     <td class="p-4 text-center">${field.fieldSize}</td>
                     <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail">Crops</button></td>
