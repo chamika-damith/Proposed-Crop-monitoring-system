@@ -579,7 +579,7 @@
                                     <div class="mb-4">
                                         <label for="cropCode" class="block mb-2">Crop Code</label>
                                         <input type="text" id="cropCode"
-                                            class="border border-gray-300 rounded w-full p-2" required>
+                                            class="border  bg-gray-200 border-gray-300 rounded w-full p-2" readonly>
                                     </div>
                                     <div class="mb-4">
                                         <label for="cropName" class="block mb-2">Crop Common Name</label>
@@ -608,16 +608,16 @@
                                     </div>
 
                                     <!-- Field Dropdown -->
-                                    <div class="mb-4">
+                                    <div class="mb-2">
                                         <label for="cropField" class="block mb-2">Field</label>
                                         <select id="cropField" class="border border-gray-300 rounded w-full p-2"
                                             required>
                                             <option value="">Select Field</option>
-                                            <option value="Field 1">Field 1</option>
-                                            <option value="Field 2">Field 2</option>
-                                            <option value="Field 3">Field 3</option>
-                                            <option value="Field 4">Field 4</option>
                                         </select>
+                                    </div>
+
+                                    <div class="mb-2">
+                                        <div id="cropFieldName" class="block border bg-gray-200 border-gray-300 rounded w-full p-2 pb-3"></div>
                                     </div>
 
                                     <!-- Season Dropdown -->
@@ -658,7 +658,7 @@
                                     <div class="mb-4">
                                         <label for="cropEditCode" class="block mb-2">Crop Code</label>
                                         <input type="text" id="cropEditCode"
-                                            class="border border-gray-300 rounded w-full p-2" required>
+                                            class="border bg-gray-200 border-gray-300 rounded w-full p-2" readonly>
                                     </div>
                                     <div class="mb-4">
                                         <label for="cropEditName" class="block mb-2">Crop Common Name</label>
@@ -703,11 +703,17 @@
                                         <select id="cropEditField" class="border border-gray-300 rounded w-full p-2"
                                             required>
                                             <option value="">Select Field</option>
-                                            <option value="Field 1">Field 1</option>
-                                            <option value="Field 2">Field 2</option>
-                                            <option value="Field 3">Field 3</option>
-                                            <option value="Field 4">Field 4</option>
                                         </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <div id="editcCropFieldName" class="block border bg-gray-200 border-gray-300 rounded w-full p-2 pb-3"></div>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="editCropImage" class="block mb-2">Upload Image</label>
+                                        <input type="file" id="editCropImage" accept="image/*"
+                                            class="border border-gray-300 rounded w-full p-2">
+                                            <img id="editCropImagePreview" src="" alt="Crop Image Preview"
+                                            class="w-24 h-24 mt-2 rounded-lg border">
                                     </div>
 
                                     <div class="flex justify-end">
