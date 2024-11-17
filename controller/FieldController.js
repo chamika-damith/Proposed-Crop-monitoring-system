@@ -216,19 +216,33 @@ function sendUpdateRequest(updateData) {
 
 
 
-function viewCropDetails() {
+function viewCropDetails(button, code) {
+    const cropDetailsContent = document.getElementById('cropDetailsContent');
     cropDetailsContent.innerHTML = '';
-    const cropItems = cropListElement.querySelectorAll('span');
 
-    cropItems.forEach(crop => {
-        const cropDetail = document.createElement('p');
-        cropDetail.className = 'text-gray-700';
-        cropDetail.innerHTML = `<strong>Crop Name:</strong> ${crop.innerText}`;
-        cropDetailsContent.appendChild(cropDetail);
+    $.ajax({
+        url: `http://localhost:8080/api/v1/crops/field/${code}`, 
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .done(function (response) {
+        response.forEach(crop => {
+            const cropDetail = document.createElement('p');
+            cropDetail.className = 'text-gray-700';
+            cropDetail.innerHTML = `<strong>Crop Name:</strong> ${crop.commonName}`;
+            cropDetailsContent.appendChild(cropDetail);
+        });
+    })
+    .fail(function (error) {
+        alert("Failed to get field details. Please try again.");
     });
 
     document.getElementById('cropDetailModal').classList.remove('hidden');
 }
+
 
 document.getElementById('closecropDetailModal').addEventListener('click', function () {
     document.getElementById('cropDetailModal').classList.add('hidden');
