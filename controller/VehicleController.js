@@ -13,8 +13,14 @@ const editVehicleModal = document.getElementById('editVehicleModal');
 
 let currentRow; 
 
+getAllVehicles();
+
 // Open modal when the add vehicle button is clicked
 openVehicleModalBtn.addEventListener('click', () => {
+    loadStaffOptions();
+    generateVehicleId(function (response) {
+        document.getElementById('vehicleId').value = response;
+    });
     addVehicleModal.classList.remove('hidden');
 });
 
@@ -27,63 +33,199 @@ closeVehicleModalBtn.addEventListener('click', () => {
 addVehicleForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const licensePlateNumber = document.getElementById('licensePlateNumber').value;
-    const vehicleCategory = document.getElementById('vehicleCategory').value;
-    const fuelType = document.getElementById('fuelType').value;
-    const status = document.getElementById('status').value;
-    const allocatedStaff = document.getElementById('allocatedStaff').value;
-    const remarks = document.getElementById('remarks').value;
+    const vehicleId= document.getElementById('vehicleId').value;
+    const licensePlateNumber= document.getElementById('licensePlateNumber').value;
+    const category= document.getElementById('vehicleCategory').value;
+    const fuelType= document.getElementById('fuelType').value;
+    const status= document.getElementById('status').value;
+    const allocatedStaff= document.getElementById('allocatedStaff').value;
+    const remarks=document.getElementById('remarks').value;
 
-    const row = document.createElement('tr');
-    row.classList.add('border-b');
-    row.innerHTML = `
-        <td class="p-4 text-center">${licensePlateNumber}</td>
-        <td class="p-4 text-center">${vehicleCategory}</td>
-        <td class="p-4 text-center">${fuelType}</td>
-        <td class="p-4 text-center">${status}</td>
-        <td class="p-4 text-center">${allocatedStaff}</td>
-        <td class="p-4 text-center">${remarks}</td>
-        <td class="p-4 text-center space-x-3">
-            <button class="text-blue-500 px-1 editVehiclebtn" id="openVehicleEditModal">
-                <i class="fa-solid fa-pen"></i>
-            </button>
-            <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-vehicle-btn">
-                <i class="fa-solid fa-times"></i>
-            </button>
-        </td>
-    `;
+    if (!vehicleId || !licensePlateNumber || !category || !fuelType || !status || !allocatedStaff || !remarks) {
+        alert("Please fill out all vehicle.");
+        return;
+    }
 
-    vehicleTableBody.appendChild(row);
+    fetchStaff(allocatedStaff, (staff) => {
+        const vehicleData = {
+            vehicleCode:vehicleId,
+            licensePlateNum: licensePlateNumber,
+            category: category,
+            fuelType: fuelType,
+            status: status,
+            remarks: remarks,
+            staff: staff,
+        };
 
-    addVehicleModal.classList.add('hidden');
-    addVehicleForm.reset();
-
-    row.querySelector('.editVehiclebtn').addEventListener('click', function() {
-        editVehicle(this);
-    });
-
-    row.querySelector('.delete-vehicle-btn').addEventListener('click', function() {
-        deleteVehicle(this);
+        saveVehicle(vehicleData);
     });
 });
 
+function loadStaffOptions() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/staff",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        success: function(staff) {
+            const staffDropdown = document.getElementById('allocatedStaff');
+            
+            staffDropdown.innerHTML = '<option value="">Select Staff</option>';
+            
+            staff.forEach(staff => {
+                const option = document.createElement('option');
+                option.value = staff.id; 
+                option.textContent = staff.id;
+                staffDropdown.appendChild(option);
+            });
+        },
+        error: function(error) {
+            console.error("Error loading staff:", error);
+            alert("Failed to load staff. Please try again later.");
+        }
+    });
+}
+
+function loadEditStaffOptions() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/staff",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        success: function(staff) {
+            const staffDropdown = document.getElementById('allocatedEditStaff');
+            
+            staffDropdown.innerHTML = '<option value="">Select Staff</option>';
+            
+            staff.forEach(staff => {
+                const option = document.createElement('option');
+                option.value = staff.id; 
+                option.textContent = staff.id;
+                staffDropdown.appendChild(option);
+            });
+        },
+        error: function(error) {
+            console.error("Error loading staff:", error);
+            alert("Failed to load staff. Please try again later.");
+        }
+    });
+}
+
+function fetchStaff(staffId, callback) {
+    $.ajax({
+        url: `http://localhost:8080/api/v1/staff/${staffId}`,
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        success: callback,
+        error: (error) => {
+            console.error("Error loading staff:", error);
+            alert("Failed to load staff data. Please try again.");
+        },
+    });
+}
+
+function saveVehicle(data) {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/vehicle',
+        method: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+    })
+        .done((response) => {
+            console.log('Vehicle added successfully:', response);
+
+            // Refresh vehicle list
+            getAllVehicles();
+
+            // Close modal and reset form
+            addVehicleModal.classList.add('hidden');
+            addVehicleForm.reset();
+        })
+        .fail((error) => {
+            console.error('Error adding vehicle:', error);
+            alert(error.responseJSON?.message || 'Failed to add vehicle. Please try again.');
+        });
+}
+
+function getAllVehicles() {
+    $.ajax({
+        url: 'http://localhost:8080/api/v1/vehicle',
+        method: 'GET',
+        contentType: 'application/json',
+    })
+        .done((vehicleList) => {
+            vehicleTableBody.innerHTML = '';
+
+            vehicleList.forEach((vehicle) => {
+                const row = document.createElement('tr');
+                row.classList.add('border-b');
+
+                row.innerHTML = `
+                    <td class="p-4 text-center">${vehicle.vehicleCode}</td>
+                    <td class="p-4 text-center">${vehicle.licensePlateNum}</td>
+                    <td class="p-4 text-center">${vehicle.category}</td>
+                    <td class="p-4 text-center">${vehicle.fuelType}</td>
+                    <td class="p-4 text-center">${vehicle.status}</td>
+                    <td class="p-4 text-center">${vehicle.staff ? vehicle.staff.id : 'N/A'}</td>
+                    <td class="p-4 text-center">${vehicle.remarks || ''}</td>
+                    <td class="p-4 text-center space-x-3">
+                        <button class="text-blue-500 px-1 editVehiclebtn">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-vehicle-btn">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                    </td>
+                `;
+
+                vehicleTableBody.appendChild(row);
+
+                row.querySelector('.editVehiclebtn').addEventListener('click', function () {
+                    editVehicle(this, vehicle.vehicleCode);
+                });
+
+                row.querySelector('.delete-vehicle-btn').addEventListener('click', function () {
+                    deleteVehicle(this,vehicle.vehicleCode);
+                });
+            });
+        })
+        .fail((error) => {
+            console.error('Error fetching vehicles:', error);
+            alert('Failed to fetch vehicles. Please try again later.');
+        });
+}
+
+
+
 // Function to edit vehicle data
-function editVehicle(button) {
-    // Get the closest table row of the clicked button
-    currentRow = button.closest('tr');
+function editVehicle(button, vehicleCode) {
+    loadEditStaffOptions();
+    const currentRow = button.closest('tr');
+    if (!currentRow) {
+        console.error('Error: No parent row found for the button.');
+        return;
+    }
+
     const cells = currentRow.children;
 
-    // Populate form with current row data
-    document.getElementById('editLicensePlateNumber').value = cells[0].innerText;
-    document.getElementById('editVehicleCategory').value = cells[1].innerText;
-    document.getElementById('editFuelType').value = cells[2].innerText;
-    document.getElementById('editStatus').value = cells[3].innerText;
-    document.getElementById('allocatedEditStaff').value = cells[4].innerText;
-    document.getElementById('editRemarks').value = cells[5].innerText;
+    document.getElementById('editvehicleId').value = vehicleCode;
+    document.getElementById('editLicensePlateNumber').value = cells[1].innerText;
+    document.getElementById('editVehicleCategory').value = cells[2].innerText;
+    document.getElementById('editFuelType').value = cells[3].innerText;
+    document.getElementById('editStatus').value = cells[4].innerText;
+    document.getElementById('allocatedEditStaff').value = cells[5].innerText;
+    document.getElementById('editRemarks').value = cells[6].innerText;
 
-    // Open the edit modal
     editVehicleModal.classList.remove('hidden');
 }
+
 
 // Attach event listener to edit buttons
 document.querySelectorAll('.editbtn').forEach(button => {
@@ -99,45 +241,88 @@ closeEditVehicleModalBtn.addEventListener('click', () => {
 
 // Handle form submission for editing vehicle data
 editVehicleForm.addEventListener('submit', (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
-    currentRow.children[0].innerText = document.getElementById('editLicensePlateNumber').value;
-    currentRow.children[1].innerText = document.getElementById('editVehicleCategory').value;
-    currentRow.children[2].innerText = document.getElementById('editFuelType').value;
-    currentRow.children[3].innerText = document.getElementById('editStatus').value;
-    currentRow.children[4].innerText = document.getElementById('allocatedEditStaff').value;
-    currentRow.children[5].innerText = document.getElementById('editRemarks').value;
+    const editvehicleId= document.getElementById('editvehicleId').value;
+    const licensePlateNumber= document.getElementById('editLicensePlateNumber').value;
+    const category= document.getElementById('editVehicleCategory').value;
+    const fuelType= document.getElementById('editFuelType').value;
+    const status= document.getElementById('editStatus').value;
+    const allocatedStaff= document.getElementById('allocatedEditStaff').value;
+    const remarks=document.getElementById('editRemarks').value;
 
-    closeEditVehicleModalBtn.click();
+    if (!editvehicleId || !licensePlateNumber || !category || !fuelType || !status || !allocatedStaff || !remarks) {
+        alert("Please fill out all vehicle.");
+        return;
+    }
+
+    fetchStaff(allocatedStaff, (staff) => {
+        const updatedVehicle = {
+            vehicleCode:editvehicleId,
+            licensePlateNum: licensePlateNumber,
+            category: category,
+            fuelType: fuelType,
+            status: status,
+            remarks: remarks,
+            staff: staff,
+        };
+
+        updateVehicle(updatedVehicle);
+    });
+    
+
+    
 });
 
+function updateVehicle(vehicle){
+    // AJAX call to update vehicle
+    $.ajax({
+        url: `http://localhost:8080/api/v1/vehicle/${vehicle.vehicleCode}`,
+        method: 'PUT',
+        contentType: 'application/json',
+        data: JSON.stringify(vehicle),
+    })
+        .done((response) => {
+            console.log('Vehicle updated successfully:', response);
+            getAllVehicles();
+            editVehicleModal.classList.add('hidden');
+        })
+        .fail((error) => {
+            console.error('Error updating vehicle:', error);
+            alert(error.responseJSON?.message || 'Failed to update vehicle. Please try again.');
+        });
+}
+
 // Function to delete vehicle
-function deleteVehicle(button) {
-    const row = button.closest('tr');
-    const confirmation = confirm('Are you sure you want to delete this vehicle?');
-    
-    if (confirmation) {
-        row.remove();
+function deleteVehicle(button,id) {
+    if (confirm('Are you sure you want to delete this vehicle?')) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/vehicle/${id}`,
+            method: 'DELETE',
+        })
+            .done(() => {
+                console.log('Vehicle deleted successfully.');
+                getAllVehicles();
+            })
+            .fail((error) => {
+                console.error('Error deleting vehicle:', error);
+                alert('Failed to delete vehicle. Please try again.');
+            });
     }
 }
 
-const allocatedStaffSelect = document.getElementById('allocatedStaff');
-const staffOptions = ["Driver 1", "Driver 2"];
+function generateVehicleId(callback) {
+    var request = {
+        "url": "http://localhost:8080/api/v1/vehicle/generateId",
+        "method": "GET",
+        "timeout": 0,
+    };
 
-staffOptions.forEach(staff => {
-    const option = document.createElement('option');
-    option.value = staff.toLowerCase().replace(" ", "_");
-    option.textContent = staff;
-    allocatedStaffSelect.appendChild(option);
-});
-
-
-const allocatedEditStaff = document.getElementById('allocatedEditStaff');
-const staffEditOptions = ["Driver 1", "Driver 2"];
-
-staffEditOptions.forEach(editstaff => {
-    const option = document.createElement('option');
-    option.value = editstaff.toLowerCase().replace(" ", "_");
-    option.textContent = editstaff;
-    allocatedEditStaff.appendChild(option);
-});
+    $.ajax(request).done(function (response) {
+        if (callback) {
+            callback(response);
+        }
+    }).fail(function (error) {
+        console.error("Error fetching staff ID:", error);
+    });
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="assests/styles/style.css">
+</head>
+<body>
+    <div class="flex-auto p-6 mx-5 mt-5 bg-gray-800 min-h-full h-[600px] overflow-x-hidden">
+        <div class="max-w-sm mx-auto mt-10 bg-white shadow-md rounded-lg border border-gray-200 relative">
+            <div class="p-5">
+              <div class="flex items-center">
+                <!-- Profile Picture -->
+                <div class="w-12 h-12 bg-gray-300 rounded-full flex-shrink-0"></div>
+                <div class="ml-4">
+                  <!-- Name and Role -->
+                  <h3 class="text-lg font-semibold text-gray-800">Bessie Cooper</h3>
+                  <p class="text-sm text-gray-500">Project Manager</p>
+                </div>
+                <!-- Dots Menu -->
+                <div class="ml-auto relative">
+                  <button id="dotsMenuButton" class="cursor-pointer">
+                    <svg class="w-6 h-6 text-gray-400 hover:text-gray-600" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v.01M12 12v.01M12 18v.01" />
+                    </svg>
+                  </button>
+                  <!-- Popup Menu -->
+                  <div id="popupMenu" class="absolute right-0 mt-2 w-32 bg-white shadow-md rounded-lg border border-gray-200 hidden z-10">
+                    <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Edit</button>
+                    <button class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Delete</button>
+                  </div>
+                </div>
+              </div>
+              <hr class="my-4 border-gray-200" />
+              <!-- Department & Hired Date -->
+              <div class="grid grid-cols-2 gap-4 text-sm text-gray-600 my-4">
+                <div>
+                  <p class="font-medium">Department</p>
+                  <p>Design Team</p>
+                </div>
+                <div>
+                  <p class="font-medium">Hired Date</p>
+                  <p>7/27/13</p>
+                </div>
+              </div>
+              <!-- Email & Phone -->
+              <div class="space-y-3 text-sm text-gray-600">
+                <div>
+                  <p class="font-medium">Email</p>
+                  <p>RonaldD043@gmail.com</p>
+                </div>
+                <div>
+                  <p class="font-medium">Phone</p>
+                  <p>(229) 555-0109</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const dotsMenuButton = document.getElementById('dotsMenuButton');
+            const popupMenu = document.getElementById('popupMenu');
+          
+            // Toggle popup menu visibility
+            dotsMenuButton.addEventListener('click', (event) => {
+              event.stopPropagation(); // Prevent event from closing immediately
+              popupMenu.classList.toggle('hidden');
+            });
+          
+            // Close popup when clicking outside
+            document.addEventListener('click', () => {
+              popupMenu.classList.add('hidden');
+            });
+          
+            // Prevent popup from closing when clicked inside
+            popupMenu.addEventListener('click', (event) => {
+              event.stopPropagation();
+            });
+          });
+          
+    </script>
+</body>
+</html>
