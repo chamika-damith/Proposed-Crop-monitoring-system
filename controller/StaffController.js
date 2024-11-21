@@ -39,6 +39,7 @@ openStaffModalbtn.addEventListener('click', () => {
     generateStaffId(function (response) {
         document.getElementById('staffId').value = response;
     });
+    loadFieldOptions();
     addStaffModal.classList.remove('hidden');
 });
 
@@ -48,39 +49,63 @@ closeStaffModalbtn.addEventListener('click', () => {
 });
 
 // Function to add staff
-addStaffForm.addEventListener('submit', (event) => {
+addStaffForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    // Collect staff data
-    const staffData = {
-        id:document.getElementById('staffId').value,
-        firstName: document.getElementById('firstName').value,
-        lastName: document.getElementById('lastName').value,
-        designation: document.getElementById('designation').value,
-        gender: document.getElementById('gender').value.toUpperCase(),
-        joinedDate: document.getElementById('joinedDate').value,
-        dob: document.getElementById('dob').value,
-        address: document.getElementById('address').value,
-        contact: document.getElementById('contactNo').value,
-        role: document.getElementById('role').value,
-        email: document.getElementById('email').value,
-        fields: [
-            {
-                fieldCode: "F-95cbddde-9501-4d36-a9af-06c9ae8ae4c7",
-                fieldName: "North Farm",
-                fieldLocation: "Green Valley, District 5",
-                fieldSize: 15.5,
-                fieldImage: "https://example.com/images/north_farm.jpg"
-            }
-        ]
-    };
-
-    // Basic validation to check for empty fields
-    if (Object.values(staffData).some((field) => field === '') || 
-        !staffData.fields.length) {
-        alert('Please fill out all fields.');
+    const staffFieldsList = getAllStaffFields();
+    if (staffFieldsList.length === 0) {
+        console.warn("No fields found to fetch.");
         return;
     }
+
+    // Fetch all fields and wait for the responses
+    const fieldList = await Promise.all(
+        staffFieldsList.map((fieldId) =>
+            fetchField(fieldId).catch((error) => {
+                console.error(`Error fetching field ${fieldId}:`, error);
+                return null; // Handle errors gracefully
+            })
+        )
+    );
+
+    // Remove any null entries from failed fetches
+    const validFields = fieldList.filter((field) => field !== null);
+
+    // Collect form data
+    const id = document.getElementById('staffId').value;
+    const firstName = document.getElementById('firstName').value;
+    const lastName = document.getElementById('lastName').value;
+    const designation = document.getElementById('designation').value;
+    const gender = document.getElementById('gender').value.toUpperCase();
+    const joinedDate = document.getElementById('joinedDate').value;
+    const dob = document.getElementById('dob').value;
+    const address = document.getElementById('address').value;
+    const contact = document.getElementById('contactNo').value;
+    const role = document.getElementById('role').value;
+    const email = document.getElementById('email').value;
+    const fields = validFields;
+
+    // Ensure all fields are filled
+    if (!id || !firstName || !lastName || !designation || !gender || !joinedDate || !dob || !address || !contact || !role || !email || fields.length === 0) {
+        alert("Please fill out all fields and select an image.");
+        return;
+    }
+
+    // Create staff data object
+    const staffData = {
+        id,
+        firstName,
+        lastName,
+        designation,
+        gender,
+        joinedDate,
+        dob,
+        address,
+        contact,
+        role,
+        email,
+        fields
+    };
 
     // AJAX call to save staff
     $.ajax({
@@ -91,11 +116,7 @@ addStaffForm.addEventListener('submit', (event) => {
     })
         .done((response) => {
             console.log('Staff saved successfully:', response);
-
-            // Refresh the staff list
             getAllStaff();
-
-            // Hide modal and reset form
             addStaffModal.classList.add('hidden');
             addStaffForm.reset();
         })
@@ -104,6 +125,40 @@ addStaffForm.addEventListener('submit', (event) => {
             alert(error.responseJSON?.message || 'Failed to save staff. Please try again.');
         });
 });
+
+
+function getAllStaffFields() {
+    const staffFieldListDiv = document.getElementById('staffFieldList');
+    const staffFields = [];
+
+    for (let child of staffFieldListDiv.children) {
+        const field = child.textContent.trim();
+        const match = field.match(/^F-[\w-]+/);
+        if (match) {
+            staffFields.push(match[0]);
+        }
+    }
+
+    return staffFields;
+}
+
+function fetchField(fieldId) {
+    return new Promise((resolve, reject) => {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/fields/${fieldId}`,
+            method: "GET",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+            },
+            success: resolve,
+            error: (error) => {
+                console.error("Error loading field:", error);
+                reject(error);
+            },
+        });
+    });
+}
 
 function getAllStaff() {
     $.ajax({
@@ -438,5 +493,32 @@ function generateStaffId(callback) {
         }
     }).fail(function (error) {
         console.error("Error fetching staff ID:", error);
+    });
+}
+
+function loadFieldOptions() {
+    $.ajax({
+        url: "http://localhost:8080/api/v1/fields",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+        },
+        success: function(fields) {
+            const cropFieldDropdown = document.getElementById('staffFieldSelect');
+            
+            cropFieldDropdown.innerHTML = '<option value="">Select Field</option>';
+            
+            fields.forEach(field => {
+                const option = document.createElement('option');
+                option.value = field.fieldCode; 
+                option.textContent = field.fieldCode;
+                cropFieldDropdown.appendChild(option);
+            });
+        },
+        error: function(error) {
+            console.error("Error loading fields:", error);
+            alert("Failed to load fields. Please try again later.");
+        }
     });
 }
