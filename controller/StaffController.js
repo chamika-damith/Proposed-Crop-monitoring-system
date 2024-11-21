@@ -58,20 +58,17 @@ addStaffForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    // Fetch all fields and wait for the responses
     const fieldList = await Promise.all(
         staffFieldsList.map((fieldId) =>
             fetchField(fieldId).catch((error) => {
                 console.error(`Error fetching field ${fieldId}:`, error);
-                return null; // Handle errors gracefully
+                return null; 
             })
         )
     );
 
-    // Remove any null entries from failed fetches
     const validFields = fieldList.filter((field) => field !== null);
 
-    // Collect form data
     const id = document.getElementById('staffId').value;
     const firstName = document.getElementById('firstName').value;
     const lastName = document.getElementById('lastName').value;
@@ -85,13 +82,11 @@ addStaffForm.addEventListener('submit', async (event) => {
     const email = document.getElementById('email').value;
     const fields = validFields;
 
-    // Ensure all fields are filled
     if (!id || !firstName || !lastName || !designation || !gender || !joinedDate || !dob || !address || !contact || !role || !email || fields.length === 0) {
         alert("Please fill out all fields and select an image.");
         return;
     }
 
-    // Create staff data object
     const staffData = {
         id,
         firstName,
@@ -107,7 +102,6 @@ addStaffForm.addEventListener('submit', async (event) => {
         fields
     };
 
-    // AJAX call to save staff
     $.ajax({
         url: 'http://localhost:8080/api/v1/staff',
         method: 'POST',
