@@ -251,15 +251,29 @@ document.getElementById('closecropDetailModal').addEventListener('click', functi
 
 
 
-function viewStaffDetails() {
+function viewStaffDetails(button,code) {
+    const fieldStaffDetailsContent = document.getElementById('fieldStaffDetailsContent');
     fieldStaffDetailsContent.innerHTML = '';
-    const staffItems = staffList.querySelectorAll('span');
+    
 
-    staffItems.forEach(staff => {
-        const staffDetail = document.createElement('p');
-        staffDetail.className = 'text-gray-700';
-        staffDetail.innerHTML = `<strong>Staff Member Name:</strong> ${staff.innerText}`;
-        fieldStaffDetailsContent.appendChild(staffDetail);
+    $.ajax({
+        url: `http://localhost:8080/api/v1/staff/field/${code}`, 
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+        },
+    })
+    .done(function (response) {
+        response.forEach(staff => {
+            const staffDetail = document.createElement('p');
+            staffDetail.className = 'text-gray-700';
+            staffDetail.innerHTML = `<strong>Staff Member Name:</strong> ${staff.firstName}`;
+            fieldStaffDetailsContent.appendChild(staffDetail);
+        });
+    })
+    .fail(function (error) {
+        alert("Failed to get staff details. Please try again.");
     });
 
     document.getElementById('fieldStaffDetailModal').classList.remove('hidden');
