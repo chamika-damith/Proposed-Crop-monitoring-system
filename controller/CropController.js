@@ -3,8 +3,8 @@ const closeCropModalButton = document.getElementById('closeCropModal');
 const addCropModal = document.getElementById('addCropModal');
 const addCropForm = document.getElementById('addCropForm');
 const cropTableBody = document.getElementById('cropTableBody');
-const cropField= document.getElementById('cropField');
-const cropEditField=document.getElementById('cropEditField');
+const cropField = document.getElementById('cropField');
+const cropEditField = document.getElementById('cropEditField');
 
 let currentRow;
 
@@ -74,12 +74,18 @@ addCropForm.addEventListener('submit', (event) => {
 
 // Fetch Field Data
 function fetchField(fieldId, callback) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: `http://localhost:8080/api/v1/fields/${fieldId}`,
         method: "GET",
         timeout: 0,
         headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
         },
         success: callback,
         error: (error) => {
@@ -91,12 +97,18 @@ function fetchField(fieldId, callback) {
 
 //Save Crop
 function saveCrop(data) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: "http://localhost:8080/api/v1/crops",
         method: "POST",
         timeout: 0,
         headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
         },
         data: JSON.stringify(data),
     })
@@ -122,14 +134,14 @@ function editCrop(button) {
     const cells = currentRow.children;
 
     // Populate form fields with data from the row
-    document.getElementById('cropEditCode').value = cells[0].querySelector('span').innerText; 
-    document.getElementById('cropEditName').value = cells[1].innerText; 
-    document.getElementById('cropEditSceintificName').value = cells[2].innerText; 
+    document.getElementById('cropEditCode').value = cells[0].querySelector('span').innerText;
+    document.getElementById('cropEditName').value = cells[1].innerText;
+    document.getElementById('cropEditSceintificName').value = cells[2].innerText;
     document.getElementById('cropEditCategory').value = cells[3].innerText;
     document.getElementById('cropEditSeason').value = cells[4].innerText;
     document.getElementById('cropEditField').value = cells[5].innerText;
 
-    const currentImage = cells[0].querySelector('img').src; 
+    const currentImage = cells[0].querySelector('img').src;
     document.getElementById('editCropImagePreview').src = currentImage;
 
     // Show the edit modal
@@ -150,7 +162,7 @@ document.getElementById('editCropImage').addEventListener('change', (event) => {
 
 // Attach event listener to edit buttons
 document.querySelectorAll('.editbtn').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         editCrop(this);
     });
 });
@@ -162,7 +174,7 @@ closeCropEditModalBtn.addEventListener('click', () => {
 
 
 editCropForm.addEventListener('submit', (event) => {
-    event.preventDefault(); 
+    event.preventDefault();
 
     const cropCode = document.getElementById('cropEditCode').value;
     const cropName = document.getElementById('cropEditName').value;
@@ -172,7 +184,7 @@ editCropForm.addEventListener('submit', (event) => {
     const cropField = document.getElementById('cropEditField').value;
     const cropImageInput = document.getElementById('editCropImage').files[0];
 
-    
+
 
     const updateData = {
         cropCode,
@@ -206,12 +218,18 @@ editCropForm.addEventListener('submit', (event) => {
 
 // Helper Function: Update Crop
 function cropUpdate(data) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: `http://localhost:8080/api/v1/crops/${data.cropCode}`,
         method: "PUT",
         timeout: 0,
         headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
         },
         data: JSON.stringify(data),
     })
@@ -229,23 +247,29 @@ function cropUpdate(data) {
 
 
 // Function to delete field
-function deleteCrop(button,cropCode) {
+function deleteCrop(button, cropCode) {
     const row = button.closest('tr');
     const confirmation = confirm('Are you sure you want to delete this crop?');
-    
+
     if (confirmation) {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("No token found. Please log in.");
+            return;
+        }
         $.ajax({
             url: `http://localhost:8080/api/v1/crops/${cropCode}`,
             method: 'DELETE',
             timeout: 0,
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
             },
-            success: function(response) {
+            success: function (response) {
                 console.log("Crop deleted successfully:", response);
                 getAllCrops();
             },
-            error: function(error) {
+            error: function (error) {
                 console.error("Error deleting crop:", error);
                 alert("Failed to delete crop. Please try again.");
             }
@@ -254,10 +278,18 @@ function deleteCrop(button,cropCode) {
 }
 
 function generateCropId(callback) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     var request = {
         "url": "http://localhost:8080/api/v1/crops/generateId",
         "method": "GET",
         "timeout": 0,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
     };
 
     $.ajax(request).done(function (response) {
@@ -270,26 +302,32 @@ function generateCropId(callback) {
 }
 
 function loadFieldOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: "http://localhost:8080/api/v1/fields",
         method: "GET",
         timeout: 0,
         headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
         },
-        success: function(fields) {
+        success: function (fields) {
             const cropFieldDropdown = document.getElementById('cropField');
-            
+
             cropFieldDropdown.innerHTML = '<option value="">Select Field</option>';
-            
+
             fields.forEach(field => {
                 const option = document.createElement('option');
-                option.value = field.fieldCode; 
+                option.value = field.fieldCode;
                 option.textContent = field.fieldCode;
                 cropFieldDropdown.appendChild(option);
             });
         },
-        error: function(error) {
+        error: function (error) {
             console.error("Error loading fields:", error);
             alert("Failed to load fields. Please try again later.");
         }
@@ -297,26 +335,32 @@ function loadFieldOptions() {
 }
 
 function loadEditFieldOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: "http://localhost:8080/api/v1/fields",
         method: "GET",
         timeout: 0,
         headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
         },
-        success: function(fields) {
+        success: function (fields) {
             const cropEditFieldDropdown = document.getElementById('cropEditField');
-            
+
             cropEditFieldDropdown.innerHTML = '<option value="">Select Field</option>';
-            
+
             fields.forEach(field => {
                 const option = document.createElement('option');
-                option.value = field.fieldCode; 
+                option.value = field.fieldCode;
                 option.textContent = field.fieldCode;
                 cropEditFieldDropdown.appendChild(option);
             });
         },
-        error: function(error) {
+        error: function (error) {
             console.error("Error loading fields:", error);
             alert("Failed to load fields. Please try again later.");
         }
@@ -325,7 +369,12 @@ function loadEditFieldOptions() {
 
 
 cropField.addEventListener("change", () => {
-    const selectedFieldCode = cropField.value;  
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    const selectedFieldCode = cropField.value;
 
     if (selectedFieldCode) {
         $.ajax({
@@ -334,11 +383,12 @@ cropField.addEventListener("change", () => {
             timeout: 0,
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
             },
-            success: function(field) {
+            success: function (field) {
                 document.getElementById('cropFieldName').textContent = field.fieldName;
             },
-            error: function(error) {
+            error: function (error) {
                 console.error("Error loading field:", error);
                 alert("Failed to load field details. Please try again later.");
             }
@@ -349,21 +399,27 @@ cropField.addEventListener("change", () => {
 });
 
 function getAllCrops() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: "http://localhost:8080/api/v1/crops",
         method: "GET",
         timeout: 0,
         headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
         },
     })
-    .done(function (crops) {
-        cropTableBody.innerHTML = ''; 
+        .done(function (crops) {
+            cropTableBody.innerHTML = '';
 
-        crops.forEach((crop) => {
-            const row = document.createElement('tr');
-            row.classList.add('border-b');
-            row.innerHTML = `
+            crops.forEach((crop) => {
+                const row = document.createElement('tr');
+                row.classList.add('border-b');
+                row.innerHTML = `
                 <td class="p-4 flex items-center space-x-4">
                     <img src="data:image/jpeg;base64,${crop.image}" alt="${crop.cropCode}" class="w-12 h-12 rounded-lg">
                     <span>${crop.cropCode}</span>
@@ -379,38 +435,44 @@ function getAllCrops() {
                 </td>
             `;
 
-            cropTableBody.appendChild(row);
+                cropTableBody.appendChild(row);
 
-            row.querySelector('.edit-btn').addEventListener('click', function () {
-                editCrop(this, crop.cropCode);
-            });
+                row.querySelector('.edit-btn').addEventListener('click', function () {
+                    editCrop(this, crop.cropCode);
+                });
 
-            row.querySelector('.delete-btn').addEventListener('click', function () {
-                deleteCrop(this, crop.cropCode);
+                row.querySelector('.delete-btn').addEventListener('click', function () {
+                    deleteCrop(this, crop.cropCode);
+                });
             });
+        })
+        .fail(function (error) {
+            console.error("Error fetching crops:", error);
+            alert("Failed to fetch crops. Please try again later.");
         });
-    })
-    .fail(function (error) {
-        console.error("Error fetching crops:", error);
-        alert("Failed to fetch crops. Please try again later.");
-    });
 }
 
 cropEditField.addEventListener("change", () => {
-    const selectedFieldCode = cropEditField.value;  
+    const selectedFieldCode = cropEditField.value;
 
     if (selectedFieldCode) {
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("No token found. Please log in.");
+            return;
+        }
         $.ajax({
             url: `http://localhost:8080/api/v1/fields/${selectedFieldCode}`,
             method: "GET",
             timeout: 0,
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
             },
-            success: function(field) {
+            success: function (field) {
                 document.getElementById('editcCropFieldName').textContent = field.fieldName;
             },
-            error: function(error) {
+            error: function (error) {
                 console.error("Error loading field:", error);
                 alert("Failed to load field details. Please try again later.");
             }

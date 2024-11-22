@@ -41,6 +41,8 @@ signupForm.addEventListener("submit", (event) => {
     return;
   }
 
+
+
   $.ajax({
     url: "http://localhost:8080/api/v1/auth/signup",
     method: "POST",
@@ -71,10 +73,12 @@ loginForm.addEventListener("submit", (event) => {
     alert("Please enter both email and password.");
     return;
   }
-  const data={
-    email: signupEmail,
-    password: signupPassword
-  }
+  const data = {
+    email: loginEmail,
+    password: loginPassword,
+  };
+
+
   $.ajax({
     url: "http://localhost:8080/api/v1/auth/signin",
     method: "POST",
@@ -84,6 +88,7 @@ loginForm.addEventListener("submit", (event) => {
     .done((response) => {
       console.log("User logged in successfully:", response);
       if (response != null) {
+        localStorage.setItem('token', response.token);
         window.location.href = "Dashboard.html";
       } else {
         alert("Invalid email or password. Please try again.");
@@ -111,7 +116,3 @@ function toggleTab(activeTab, inactiveTab, showForm, hideForm) {
   );
   inactiveTab.classList.add("text-gray-500");
 }
-
-signOut.addEventListener("click", () => {
-  window.location.href = "index.html";
-});

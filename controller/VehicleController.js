@@ -11,7 +11,7 @@ const closeEditVehicleModalBtn = document.getElementById('closeEditVehicleModal'
 const editVehicleForm = document.getElementById('editVehicleForm');
 const editVehicleModal = document.getElementById('editVehicleModal');
 
-let currentRow; 
+let currentRow;
 
 getAllVehicles();
 
@@ -33,13 +33,13 @@ closeVehicleModalBtn.addEventListener('click', () => {
 addVehicleForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const vehicleId= document.getElementById('vehicleId').value;
-    const licensePlateNumber= document.getElementById('licensePlateNumber').value;
-    const category= document.getElementById('vehicleCategory').value;
-    const fuelType= document.getElementById('fuelType').value;
-    const status= document.getElementById('status').value;
-    const allocatedStaff= document.getElementById('allocatedStaff').value;
-    const remarks=document.getElementById('remarks').value;
+    const vehicleId = document.getElementById('vehicleId').value;
+    const licensePlateNumber = document.getElementById('licensePlateNumber').value;
+    const category = document.getElementById('vehicleCategory').value;
+    const fuelType = document.getElementById('fuelType').value;
+    const status = document.getElementById('status').value;
+    const allocatedStaff = document.getElementById('allocatedStaff').value;
+    const remarks = document.getElementById('remarks').value;
 
     if (!vehicleId || !licensePlateNumber || !category || !fuelType || !status || !allocatedStaff || !remarks) {
         alert("Please fill out all vehicle.");
@@ -48,7 +48,7 @@ addVehicleForm.addEventListener('submit', (event) => {
 
     fetchStaff(allocatedStaff, (staff) => {
         const vehicleData = {
-            vehicleCode:vehicleId,
+            vehicleCode: vehicleId,
             licensePlateNum: licensePlateNumber,
             category: category,
             fuelType: fuelType,
@@ -62,26 +62,32 @@ addVehicleForm.addEventListener('submit', (event) => {
 });
 
 function loadStaffOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: "http://localhost:8080/api/v1/staff",
         method: "GET",
         timeout: 0,
         headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
         },
-        success: function(staff) {
+        success: function (staff) {
             const staffDropdown = document.getElementById('allocatedStaff');
-            
+
             staffDropdown.innerHTML = '<option value="">Select Staff</option>';
-            
+
             staff.forEach(staff => {
                 const option = document.createElement('option');
-                option.value = staff.id; 
+                option.value = staff.id;
                 option.textContent = staff.id;
                 staffDropdown.appendChild(option);
             });
         },
-        error: function(error) {
+        error: function (error) {
             console.error("Error loading staff:", error);
             alert("Failed to load staff. Please try again later.");
         }
@@ -89,26 +95,32 @@ function loadStaffOptions() {
 }
 
 function loadEditStaffOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: "http://localhost:8080/api/v1/staff",
         method: "GET",
         timeout: 0,
         headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
         },
-        success: function(staff) {
+        success: function (staff) {
             const staffDropdown = document.getElementById('allocatedEditStaff');
-            
+
             staffDropdown.innerHTML = '<option value="">Select Staff</option>';
-            
+
             staff.forEach(staff => {
                 const option = document.createElement('option');
-                option.value = staff.id; 
+                option.value = staff.id;
                 option.textContent = staff.id;
                 staffDropdown.appendChild(option);
             });
         },
-        error: function(error) {
+        error: function (error) {
             console.error("Error loading staff:", error);
             alert("Failed to load staff. Please try again later.");
         }
@@ -116,12 +128,18 @@ function loadEditStaffOptions() {
 }
 
 function fetchStaff(staffId, callback) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: `http://localhost:8080/api/v1/staff/${staffId}`,
         method: "GET",
         timeout: 0,
         headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
         },
         success: callback,
         error: (error) => {
@@ -132,10 +150,18 @@ function fetchStaff(staffId, callback) {
 }
 
 function saveVehicle(data) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: 'http://localhost:8080/api/v1/vehicle',
         method: 'POST',
         contentType: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
         data: JSON.stringify(data),
     })
         .done((response) => {
@@ -155,10 +181,18 @@ function saveVehicle(data) {
 }
 
 function getAllVehicles() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: 'http://localhost:8080/api/v1/vehicle',
         method: 'GET',
         contentType: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
     })
         .done((vehicleList) => {
             vehicleTableBody.innerHTML = '';
@@ -192,7 +226,7 @@ function getAllVehicles() {
                 });
 
                 row.querySelector('.delete-vehicle-btn').addEventListener('click', function () {
-                    deleteVehicle(this,vehicle.vehicleCode);
+                    deleteVehicle(this, vehicle.vehicleCode);
                 });
             });
         })
@@ -229,7 +263,7 @@ function editVehicle(button, vehicleCode) {
 
 // Attach event listener to edit buttons
 document.querySelectorAll('.editbtn').forEach(button => {
-    button.addEventListener('click', function() {
+    button.addEventListener('click', function () {
         editVehicle(this);
     });
 });
@@ -243,13 +277,13 @@ closeEditVehicleModalBtn.addEventListener('click', () => {
 editVehicleForm.addEventListener('submit', (event) => {
     event.preventDefault();
 
-    const editvehicleId= document.getElementById('editvehicleId').value;
-    const licensePlateNumber= document.getElementById('editLicensePlateNumber').value;
-    const category= document.getElementById('editVehicleCategory').value;
-    const fuelType= document.getElementById('editFuelType').value;
-    const status= document.getElementById('editStatus').value;
-    const allocatedStaff= document.getElementById('allocatedEditStaff').value;
-    const remarks=document.getElementById('editRemarks').value;
+    const editvehicleId = document.getElementById('editvehicleId').value;
+    const licensePlateNumber = document.getElementById('editLicensePlateNumber').value;
+    const category = document.getElementById('editVehicleCategory').value;
+    const fuelType = document.getElementById('editFuelType').value;
+    const status = document.getElementById('editStatus').value;
+    const allocatedStaff = document.getElementById('allocatedEditStaff').value;
+    const remarks = document.getElementById('editRemarks').value;
 
     if (!editvehicleId || !licensePlateNumber || !category || !fuelType || !status || !allocatedStaff || !remarks) {
         alert("Please fill out all vehicle.");
@@ -258,7 +292,7 @@ editVehicleForm.addEventListener('submit', (event) => {
 
     fetchStaff(allocatedStaff, (staff) => {
         const updatedVehicle = {
-            vehicleCode:editvehicleId,
+            vehicleCode: editvehicleId,
             licensePlateNum: licensePlateNumber,
             category: category,
             fuelType: fuelType,
@@ -269,17 +303,24 @@ editVehicleForm.addEventListener('submit', (event) => {
 
         updateVehicle(updatedVehicle);
     });
-    
 
-    
+
+
 });
 
-function updateVehicle(vehicle){
-    // AJAX call to update vehicle
+function updateVehicle(vehicle) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: `http://localhost:8080/api/v1/vehicle/${vehicle.vehicleCode}`,
         method: 'PUT',
         contentType: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
         data: JSON.stringify(vehicle),
     })
         .done((response) => {
@@ -294,11 +335,20 @@ function updateVehicle(vehicle){
 }
 
 // Function to delete vehicle
-function deleteVehicle(button,id) {
+function deleteVehicle(button, id) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     if (confirm('Are you sure you want to delete this vehicle?')) {
         $.ajax({
             url: `http://localhost:8080/api/v1/vehicle/${id}`,
             method: 'DELETE',
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
+            },
         })
             .done(() => {
                 console.log('Vehicle deleted successfully.');
@@ -312,10 +362,19 @@ function deleteVehicle(button,id) {
 }
 
 function generateVehicleId(callback) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     var request = {
         "url": "http://localhost:8080/api/v1/vehicle/generateId",
         "method": "GET",
         "timeout": 0,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+        },
     };
 
     $.ajax(request).done(function (response) {

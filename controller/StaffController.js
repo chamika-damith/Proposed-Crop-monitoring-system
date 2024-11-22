@@ -62,7 +62,7 @@ addStaffForm.addEventListener('submit', async (event) => {
         staffFieldsList.map((fieldId) =>
             fetchField(fieldId).catch((error) => {
                 console.error(`Error fetching field ${fieldId}:`, error);
-                return null; 
+                return null;
             })
         )
     );
@@ -101,12 +101,21 @@ addStaffForm.addEventListener('submit', async (event) => {
         email,
         fields
     };
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
 
     $.ajax({
         url: 'http://localhost:8080/api/v1/staff',
         method: 'POST',
         contentType: 'application/json',
         data: JSON.stringify(staffData),
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+        },
     })
         .done((response) => {
             console.log('Staff saved successfully:', response);
@@ -137,6 +146,11 @@ function getAllStaffFields() {
 }
 
 function fetchField(fieldId) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     return new Promise((resolve, reject) => {
         $.ajax({
             url: `http://localhost:8080/api/v1/fields/${fieldId}`,
@@ -144,6 +158,7 @@ function fetchField(fieldId) {
             timeout: 0,
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
             },
             success: resolve,
             error: (error) => {
@@ -155,10 +170,18 @@ function fetchField(fieldId) {
 }
 
 function getAllStaff() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
         url: 'http://localhost:8080/api/v1/staff',
         method: 'GET',
         contentType: 'application/json',
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
     })
         .done((staffList) => {
             const staffTableBody = document.getElementById('staffTableBody');
@@ -354,18 +377,26 @@ editStaffForm.addEventListener('submit', (event) => {
         ]
     };
 
-    // Send updated data to the backend
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
     $.ajax({
+
         url: `http://localhost:8080/api/v1/staff/${updatedStaff.id}`,
         method: "PUT",
         contentType: "application/json",
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
         data: JSON.stringify(updatedStaff),
-        success: function(response) {
+        success: function (response) {
             console.log("Staff updated successfully:", response);
             getAllStaff();
             document.getElementById('editStaffModal').classList.add('hidden');
         },
-        error: function(error) {
+        error: function (error) {
             console.error("Error updating staff:", error);
             alert("Failed to update staff. Please try again later.");
         }
@@ -378,10 +409,15 @@ editStaffForm.addEventListener('submit', (event) => {
 
 
 // Function to delete staff
-function deleteStaff(button,staffId) {
+function deleteStaff(button, staffId) {
     const row = button.closest('tr');
     const confirmation = confirm('Are you sure you want to delete this staff?');
-    
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+
     if (confirmation) {
         $.ajax({
             url: `http://localhost:8080/api/v1/staff/${staffId}`,
@@ -389,12 +425,13 @@ function deleteStaff(button,staffId) {
             timeout: 0,
             headers: {
                 "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
             },
-            success: function(response) {
+            success: function (response) {
                 console.log("Staff deleted successfully:", response);
                 getAllStaff();
             },
-            error: function(error) {
+            error: function (error) {
                 console.error("Error deleting staff:", error);
                 alert("Failed to delete staff. Please try again.");
             }
@@ -475,10 +512,20 @@ editVehicleFieldBtn.addEventListener('click', () => {
 });
 
 function generateStaffId(callback) {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+
     var request = {
         "url": "http://localhost:8080/api/v1/staff/generateId",
         "method": "GET",
         "timeout": 0,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+        },
     };
 
     $.ajax(request).done(function (response) {
@@ -491,26 +538,33 @@ function generateStaffId(callback) {
 }
 
 function loadFieldOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+
     $.ajax({
         url: "http://localhost:8080/api/v1/fields",
         method: "GET",
         timeout: 0,
         headers: {
             "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
         },
-        success: function(fields) {
+        success: function (fields) {
             const cropFieldDropdown = document.getElementById('staffFieldSelect');
-            
+
             cropFieldDropdown.innerHTML = '<option value="">Select Field</option>';
-            
+
             fields.forEach(field => {
                 const option = document.createElement('option');
-                option.value = field.fieldCode; 
+                option.value = field.fieldCode;
                 option.textContent = field.fieldCode;
                 cropFieldDropdown.appendChild(option);
             });
         },
-        error: function(error) {
+        error: function (error) {
             console.error("Error loading fields:", error);
             alert("Failed to load fields. Please try again later.");
         }
