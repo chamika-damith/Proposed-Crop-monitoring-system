@@ -49,48 +49,50 @@ addFieldForm.addEventListener("submit", (event) => {
     return;
   }
 
-  const reader = new FileReader();
-  reader.onloadend = () => {
-    const base64Image = reader.result.split(",")[1];
+  if (isAddFieldValidate()) {
+    const reader = new FileReader();
+    reader.onloadend = () => {
+      const base64Image = reader.result.split(",")[1];
 
-    const requestData = {
-      fieldCode: fieldCode,
-      fieldName: fieldName,
-      fieldLocation: fieldLocation,
-      fieldSize: fieldSize,
-      fieldImage: base64Image,
+      const requestData = {
+        fieldCode: fieldCode,
+        fieldName: fieldName,
+        fieldLocation: fieldLocation,
+        fieldSize: fieldSize,
+        fieldImage: base64Image,
+      };
+
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("No token found. Please log in.");
+        return;
+      }
+
+      $.ajax({
+        url: "http://localhost:8080/api/v1/fields",
+        method: "POST",
+        timeout: 0,
+        headers: {
+          "Content-Type": "application/json",
+          'Authorization': 'Bearer ' + token
+        },
+        data: JSON.stringify(requestData),
+      })
+        .done(function (response) {
+          console.log("Field saved successfully:", response);
+
+          getAllFields();
+          addFieldModal.classList.add("hidden");
+          addFieldForm.reset();
+        })
+        .fail(function (error) {
+          console.error("Error saving field:", error);
+          alert("Failed to save field. Please try again.");
+        });
     };
 
-    const token = localStorage.getItem("token");
-    if (!token) {
-      alert("No token found. Please log in.");
-      return;
-    }
-
-    $.ajax({
-      url: "http://localhost:8080/api/v1/fields",
-      method: "POST",
-      timeout: 0,
-      headers: {
-        "Content-Type": "application/json",
-        'Authorization': 'Bearer ' + token
-      },
-      data: JSON.stringify(requestData),
-    })
-      .done(function (response) {
-        console.log("Field saved successfully:", response);
-
-        getAllFields();
-        addFieldModal.classList.add("hidden");
-        addFieldForm.reset();
-      })
-      .fail(function (error) {
-        console.error("Error saving field:", error);
-        alert("Failed to save field. Please try again.");
-      });
-  };
-
-  reader.readAsDataURL(fieldImage);
+    reader.readAsDataURL(fieldImage);
+  }
 });
 
 // Function to edit field
@@ -178,24 +180,26 @@ editFieldForm.addEventListener("submit", (event) => {
   const fieldSize = document.getElementById("editfieldSize").value;
   const fieldImageInput = document.getElementById("editfieldImage").files[0];
 
-  const updateData = {
-    fieldCode,
-    fieldName,
-    fieldLocation,
-    fieldSize,
-  };
-
-  if (fieldImageInput) {
-    const reader = new FileReader();
-    reader.onload = () => {
-      updateData.fieldImage = reader.result.split(",")[1];
-      sendUpdateRequest(updateData);
+  if (isUpdateFieldValidate()) {
+    const updateData = {
+      fieldCode,
+      fieldName,
+      fieldLocation,
+      fieldSize,
     };
-    reader.readAsDataURL(fieldImageInput);
-  } else {
-    const currentImageSrc = document.getElementById("editImagePreview").src;
-    updateData.fieldImage = currentImageSrc.split(",")[1];
-    sendUpdateRequest(updateData);
+
+    if (fieldImageInput) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        updateData.fieldImage = reader.result.split(",")[1];
+        sendUpdateRequest(updateData);
+      };
+      reader.readAsDataURL(fieldImageInput);
+    } else {
+      const currentImageSrc = document.getElementById("editImagePreview").src;
+      updateData.fieldImage = currentImageSrc.split(",")[1];
+      sendUpdateRequest(updateData);
+    }
   }
 });
 
@@ -316,7 +320,7 @@ function generateFieldId(callback) {
     alert("No token found. Please log in.");
     return;
   }
-  
+
   var request = {
     url: "http://localhost:8080/api/v1/fields/generateId",
     method: "GET",
@@ -401,4 +405,66 @@ function getAllFields() {
       console.error("Error fetching fields:", error);
       alert("Failed to fetch fields. Please try again later.");
     });
+}
+
+
+function isAddFieldValidate() {
+  var isValid = true;
+
+  if (!/^\s*\S.{3,18}\S\s*$/.test($('#fieldName').val())) {
+    isValid = false;
+    $('#fieldName').css('border', '2px solid red');
+  }
+
+  if (!/^.{7,}$/.test($('#fieldLocation').val())) {
+    isValid = false;
+    $('#fieldLocation').css('border', '2px solid red');
+  }
+
+  if ($('#fieldSize').val() <= 0 || isNaN($('#fieldSize').val())) {
+    isValid = false;
+    $('#fieldSize').css('border', '2px solid red');
+  }
+
+  var file = $('#fieldImage').prop('files')[0];
+  var validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
+  if (!file || !validImageTypes.includes(file.type)) {
+    isValid = false;
+    $('#fieldImage').css('border', '2px solid red');
+  }
+
+  if (!isValid) {
+    e.preventDefault();
+    alert('Please correct the highlighted fields before submitting.');
+    return isValid;
+  }
+
+  return isValid;
+}
+
+function isUpdateFieldValidate() {
+  var isValid = true;
+
+  if (!/^\s*\S.{3,18}\S\s*$/.test($('#editfieldName').val())) {
+    isValid = false;
+    $('#editfieldName').css('border', '2px solid red');
+  }
+
+  if (!/^.{7,}$/.test($('#editfieldLocation').val())) {
+    isValid = false;
+    $('#editfieldLocation').css('border', '2px solid red');
+  }
+
+  if ($('#editfieldSize').val() <= 0 || isNaN($('#editfieldSize').val())) {
+    isValid = false;
+    $('#editfieldSize').css('border', '2px solid red');
+  }
+
+  if (!isValid) {
+    e.preventDefault();
+    alert('Please correct the highlighted fields before submitting.');
+    return isValid;
+  }
+
+  return isValid;
 }
