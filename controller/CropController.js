@@ -49,27 +49,29 @@ addCropForm.addEventListener('submit', (event) => {
         return;
     }
 
-    const reader = new FileReader();
-    reader.onloadend = () => {
-        const base64Image = reader.result.split(',')[1];
+    if (isAddCropValidate()) {
+        const reader = new FileReader();
+        reader.onloadend = () => {
+            const base64Image = reader.result.split(',')[1];
 
-        // Fetch field information
-        fetchField(cropField, (field) => {
-            const requestData = {
-                cropCode,
-                commonName: cropName,
-                scientificName: cropScientificName,
-                category: cropCategory,
-                season: cropSeason,
-                fieldDTO: field,
-                image: base64Image,
-            };
+            // Fetch field information
+            fetchField(cropField, (field) => {
+                const requestData = {
+                    cropCode,
+                    commonName: cropName,
+                    scientificName: cropScientificName,
+                    category: cropCategory,
+                    season: cropSeason,
+                    fieldDTO: field,
+                    image: base64Image,
+                };
 
-            saveCrop(requestData);
-        });
-    };
+                saveCrop(requestData);
+            });
+        };
 
-    reader.readAsDataURL(cropImage);
+        reader.readAsDataURL(cropImage);
+    }
 });
 
 // Fetch Field Data
@@ -184,35 +186,35 @@ editCropForm.addEventListener('submit', (event) => {
     const cropField = document.getElementById('cropEditField').value;
     const cropImageInput = document.getElementById('editCropImage').files[0];
 
-
-
-    const updateData = {
-        cropCode,
-        commonName: cropName,
-        scientificName: cropScientificName,
-        category: cropCategory,
-        season: cropSeason,
-    };
-
-    if (cropImageInput) {
-        const reader = new FileReader();
-        reader.onload = () => {
-            updateData.image = reader.result.split(',')[1];
-
+    if(isEditCropValidate()){
+        const updateData = {
+            cropCode,
+            commonName: cropName,
+            scientificName: cropScientificName,
+            category: cropCategory,
+            season: cropSeason,
+        };
+    
+        if (cropImageInput) {
+            const reader = new FileReader();
+            reader.onload = () => {
+                updateData.image = reader.result.split(',')[1];
+    
+                fetchField(cropField, (field) => {
+                    updateData.fieldDTO = field;
+                    cropUpdate(updateData);
+                });
+            };
+            reader.readAsDataURL(cropImageInput);
+        } else {
+            const currentImageSrc = document.getElementById('editCropImagePreview').src;
+            updateData.image = currentImageSrc.split(',')[1];
+    
             fetchField(cropField, (field) => {
                 updateData.fieldDTO = field;
                 cropUpdate(updateData);
             });
-        };
-        reader.readAsDataURL(cropImageInput);
-    } else {
-        const currentImageSrc = document.getElementById('editCropImagePreview').src;
-        updateData.image = currentImageSrc.split(',')[1];
-
-        fetchField(cropField, (field) => {
-            updateData.fieldDTO = field;
-            cropUpdate(updateData);
-        });
+        }
     }
 });
 
@@ -481,3 +483,95 @@ cropEditField.addEventListener("change", () => {
         document.getElementById('editcCropFieldName').textContent = '';
     }
 });
+
+function isAddCropValidate() {
+    var isValid = true;
+
+    // Validate Crop Name
+    if (!/^.{3,50}$/.test($('#cropName').val())) {
+        isValid = false;
+        $('#cropName').css('border', '2px solid red');
+        $('.errorMessageName').show();
+    } else {
+        $('#cropName').css('border', '1px solid #ccc');
+        $('.errorMessageName').hide();
+    }
+
+    // Validate Crop Scientific Name
+    if (!/^.{5,100}$/.test($('#cropSceintificName').val())) {
+        isValid = false;
+        $('#cropSceintificName').css('border', '2px solid red');
+        $('.errorMessageScientificName').show();
+    } else {
+        $('#cropSceintificName').css('border', '1px solid #ccc');
+        $('.errorMessageScientificName').hide();
+    }
+
+    // Validate Category Selection
+    if ($('#cropCategory').val() === "") {
+        isValid = false;
+        $('#cropCategory').css('border', '2px solid red');
+        $('.errorMessageCategory').show();
+    } else {
+        $('#cropCategory').css('border', '1px solid #ccc');
+        $('.errorMessageCategory').hide();
+    }
+
+    // Validate Field Selection
+    if ($('#cropField').val() === "") {
+        isValid = false;
+        $('#cropField').css('border', '2px solid red');
+        $('.errorMessageField').show();
+    } else {
+        $('#cropField').css('border', '1px solid #ccc');
+        $('.errorMessageField').hide();
+    }
+
+    // Validate Season Selection
+    if ($('#cropSeason').val() === "") {
+        isValid = false;
+        $('#cropSeason').css('border', '2px solid red');
+        $('.errorMessageSeason').show();
+    } else {
+        $('#cropSeason').css('border', '1px solid #ccc');
+        $('.errorMessageSeason').hide();
+    }
+
+    // Alert the user if there are validation errors
+    if (!isValid) {
+        alert('Please correct the highlighted fields before submitting.');
+    }
+
+    return isValid;
+}
+
+function isEditCropValidate() {
+    var isValid = true;
+
+    // Validate Crop Name
+    if (!/^.{3,50}$/.test($('#cropEditName').val())) {
+        isValid = false;
+        $('#cropEditName').css('border', '2px solid red');
+        $('.errorMessageEditCropName').show();
+    } else {
+        $('#cropEditName').css('border', '1px solid #ccc');
+        $('.errorMessageEditCropName').hide();
+    }
+
+    // Validate Crop Scientific Name
+    if (!/^.{5,100}$/.test($('#cropEditSceintificName').val())) {
+        isValid = false;
+        $('#cropEditSceintificName').css('border', '2px solid red');
+        $('.errorMessageEditCropScientificName').show();
+    } else {
+        $('#cropEditSceintificName').css('border', '1px solid #ccc');
+        $('.errorMessageEditCropScientificName').hide();
+    }
+
+    // Alert the user if there are validation errors
+    if (!isValid) {
+        alert('Please correct the highlighted fields before submitting.');
+    }
+
+    return isValid;
+}

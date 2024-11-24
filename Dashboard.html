@@ -449,7 +449,7 @@
                                         <input type="text" id="fieldName"
                                             class="border border-gray-300 rounded w-full p-2"
                                             placeholder="Enter field name (5-20 chars)" required />
-                                        <span class="errorMessageName text-red-500 hidden text-xs">
+                                        <span class="errorMessageFieldName text-red-500 hidden text-xs">
                                             Field name is required: Minimum 5, Max 20 characters,
                                             Spaces Allowed.
                                         </span>
@@ -459,7 +459,7 @@
                                         <input type="text" id="fieldLocation"
                                             class="border border-gray-300 rounded w-full p-2"
                                             placeholder="Enter location (min 7 chars)" required />
-                                        <span class="errorMessageAddress text-red-500 hidden text-xs">
+                                        <span class="errorMessageFieldAddress text-red-500 hidden text-xs">
                                             Location is required: Minimum 7 characters.
                                         </span>
                                     </div>
@@ -468,7 +468,7 @@
                                         <input type="number" id="fieldSize"
                                             class="border border-gray-300 rounded w-full p-2"
                                             placeholder="Enter field size (positive number)" required />
-                                        <span class="errorMessageSize text-red-500 hidden text-xs">
+                                        <span class="errorMessageFieldSize text-red-500 hidden text-xs">
                                             Size is required and must be a positive number.
                                         </span>
                                     </div>
@@ -510,7 +510,7 @@
                                         <input type="text" id="editfieldName"
                                             class="border border-gray-300 rounded w-full p-2"
                                             placeholder="Enter field name (5-20 chars)" required />
-                                        <span class="errorMessageName text-red-500 hidden text-xs">
+                                        <span class="errorMessageEditFieldName text-red-500 hidden text-xs">
                                             Field name is required: Minimum 5, Max 20 characters,
                                             Spaces Allowed.
                                         </span>
@@ -520,7 +520,7 @@
                                         <input type="text" id="editfieldLocation"
                                             class="border border-gray-300 rounded w-full p-2"
                                             placeholder="Enter location (min 7 chars)" required />
-                                        <span class="errorMessageAddress text-red-500 hidden text-xs">
+                                        <span class="errorMessageEditFieldAddress text-red-500 hidden text-xs">
                                             Location is required: Minimum 7 characters.
                                         </span>
                                     </div>
@@ -529,7 +529,7 @@
                                         <input type="number" id="editfieldSize"
                                             class="border border-gray-300 rounded w-full p-2"
                                             placeholder="Enter field size (positive number)" required />
-                                        <span class="errorMessageSize text-red-500 hidden text-xs">
+                                        <span class="errorMessageEditFieldSize text-red-500 hidden text-xs">
                                             Size is required and must be a positive number.
                                         </span>
                                     </div>
@@ -539,9 +539,6 @@
                                             class="border border-gray-300 rounded w-full p-2" />
                                         <img id="editImagePreview" src="" alt="Field Image Preview"
                                             class="w-24 h-24 mt-2 rounded-lg border border-gray-300" />
-                                        <span class="errorMessageImage text-red-500 hidden text-xs">
-                                            Please upload a valid image (JPEG, PNG, GIF).
-                                        </span>
                                     </div>
                                     <div class="flex justify-end">
                                         <button type="button" id="closeEditModal"
@@ -595,30 +592,7 @@
                                         </tr>
                                     </thead>
                                     <tbody id="cropTableBody">
-                                        <!--  Rows -->
-                                        <tr class="border-b">
-                                            <td class="p-4 flex items-center space-x-4">
-                                                <img src="https://via.placeholder.com/50" alt="Smartphone X Pro"
-                                                    class="w-12 h-12 rounded-lg" />
-                                                <span>BG-34</span>
-                                            </td>
-                                            <td class="p-4 text-center">Rice</td>
-                                            <td class="p-4 text-center">Oryza sativa</td>
-                                            <td class="p-4 text-center">Cereal</td>
-                                            <td class="p-4 text-center">Monsoon</td>
-                                            <td class="p-4 text-center">Paddy field</td>
-                                            <td class="p-4 text-gray-500 space-x-3">
-                                                <!-- Edit Icon -->
-                                                <button class="text-blue-500 px-1 editbtn" id="openCropEditModal">
-                                                    <i class="fa-solid fa-pen"></i>
-                                                </button>
-
-                                                <!-- Delete Icon -->
-                                                <button class="text-red-500 border-2 border-red-400 rounded-full px-1">
-                                                    <i class="fa-solid fa-times"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
+                                        
                                     </tbody>
                                 </table>
                             </div>
@@ -632,25 +606,26 @@
                                 <form id="addCropForm">
                                     <div class="mb-4">
                                         <label for="cropCode" class="block mb-2">Crop Code</label>
-                                        <input type="text" id="cropCode"
-                                            class="border bg-gray-200 border-gray-300 rounded w-full p-2" readonly />
+                                        <input type="text" id="cropCode" class="border bg-gray-200 border-gray-300 rounded w-full p-2" readonly placeholder="Auto-generated crop code" />
                                     </div>
                                     <div class="mb-4">
                                         <label for="cropName" class="block mb-2">Crop Common Name</label>
-                                        <input type="text" id="cropName"
-                                            class="border border-gray-300 rounded w-full p-2" required />
+                                        <input type="text" id="cropName" class="border border-gray-300 rounded w-full p-2" placeholder="Enter common crop name" required />
+                                        <span class="errorMessageName text-red-500 hidden text-xs">
+                                            Common name is required and should be between 3-50 characters.
+                                        </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="cropSceintificName" class="block mb-2">Crop Scientific Name</label>
-                                        <input type="text" id="cropSceintificName"
-                                            class="border border-gray-300 rounded w-full p-2" required />
+                                        <input type="text" id="cropSceintificName" class="border border-gray-300 rounded w-full p-2" placeholder="Enter scientific name" required />
+                                        <span class="errorMessageScientificName text-red-500 hidden text-xs">
+                                            Scientific name is required and should be between 5-100 characters.
+                                        </span>
                                     </div>
-
                                     <!-- Category Dropdown -->
                                     <div class="mb-4">
                                         <label for="cropCategory" class="block mb-2">Category</label>
-                                        <select id="cropCategory" class="border border-gray-300 rounded w-full p-2"
-                                            required>
+                                        <select id="cropCategory" class="border border-gray-300 rounded w-full p-2" required>
                                             <option value="">Select Category</option>
                                             <option value="Grain">Grain</option>
                                             <option value="Vegetable">Vegetable</option>
@@ -659,44 +634,42 @@
                                             <option value="Root">Root</option>
                                             <option value="Herb">Herb</option>
                                         </select>
+                                        <span class="errorMessageCategory text-red-500 hidden text-xs">
+                                            Please select a category.
+                                        </span>
                                     </div>
-
                                     <!-- Field Dropdown -->
-                                    <div class="mb-2">
+                                    <div class="mb-4">
                                         <label for="cropField" class="block mb-2">Field</label>
-                                        <select id="cropField" class="border border-gray-300 rounded w-full p-2"
-                                            required>
+                                        <select id="cropField" class="border border-gray-300 rounded w-full p-2" required>
                                             <option value="">Select Field</option>
                                         </select>
+                                        <span class="errorMessageField text-red-500 hidden text-xs">
+                                            Please select a field.
+                                        </span>
                                     </div>
-
-                                    <div class="mb-2">
-                                        <div id="cropFieldName"
-                                            class="block border bg-gray-200 border-gray-300 rounded w-full p-2 pb-3">
-                                        </div>
-                                    </div>
-
-                                    <!-- Season Dropdown -->
                                     <div class="mb-4">
                                         <label for="cropSeason" class="block mb-2">Season</label>
-                                        <select id="cropSeason" class="border border-gray-300 rounded w-full p-2"
-                                            required>
+                                        <select id="cropSeason" class="border border-gray-300 rounded w-full p-2" required>
                                             <option value="">Select Season</option>
                                             <option value="Spring">Spring</option>
                                             <option value="Summer">Summer</option>
                                             <option value="Fall">Fall</option>
                                             <option value="Winter">Winter</option>
                                         </select>
+                                        <span class="errorMessageSeason text-red-500 hidden text-xs">
+                                            Please select a season.
+                                        </span>
                                     </div>
-
                                     <div class="mb-4">
                                         <label for="cropImage" class="block mb-2">Upload Image</label>
-                                        <input type="file" id="cropImage" accept="image/*"
-                                            class="border border-gray-300 rounded w-full p-2" />
+                                        <input type="file" id="cropImage" accept="image/*" class="border border-gray-300 rounded w-full p-2" />
+                                        <span class="errorMessageImage text-red-500 hidden text-xs">
+                                            Please upload a valid image (JPEG, PNG, GIF).
+                                        </span>
                                     </div>
                                     <div class="flex justify-end">
-                                        <button type="button" id="closeCropModal"
-                                            class="bg-red-500 text-white px-4 py-2 rounded mr-2">
+                                        <button type="button" id="closeCropModal" class="bg-red-500 text-white px-4 py-2 rounded mr-2">
                                             Cancel
                                         </button>
                                         <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">
@@ -704,6 +677,7 @@
                                         </button>
                                     </div>
                                 </form>
+                                
                             </div>
                         </div>
 
@@ -722,12 +696,18 @@
                                         <label for="cropEditName" class="block mb-2">Crop Common Name</label>
                                         <input type="text" id="cropEditName"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditCropName text-red-500 hidden text-xs">
+                                                Common name is required and should be between 3-50 characters.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="cropEditSceintificName" class="block mb-2">Crop Scientific
                                             Name</label>
                                         <input type="text" id="cropEditSceintificName"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditCropScientificName text-red-500 hidden text-xs">
+                                                Scientific name is required and should be between 5-100 characters.
+                                            </span>
                                     </div>
 
                                     <div class="mb-4">
@@ -845,7 +825,7 @@
                             </div>
                         </div>
 
-                        <!-- Modal for Adding Crop -->
+                        <!-- Modal for Adding staff -->
                         <div id="addStaffModal"
                             class="fixed inset-0 bg-gray-800 bg-opacity-50 flex items-center justify-center hidden">
                             <div class="bg-white rounded-lg p-6 w-full max-w-4xl max-h-[90vh] overflow-y-auto">
@@ -863,18 +843,27 @@
                                             Name</label>
                                         <input type="text" id="firstName"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageStaffFistName text-red-500 hidden text-xs">
+                                                first name is required and should be between 3-50 characters.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="lastName" class="block text-gray-700 font-medium mb-2">Last
                                             Name</label>
                                         <input type="text" id="lastName"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageStaffLastName text-red-500 hidden text-xs">
+                                                last name is required and should be between 3-50 characters.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="designation"
                                             class="block text-gray-700 font-medium mb-2">Designation</label>
                                         <input type="text" id="designation"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageStaffDesignation text-red-500 hidden text-xs">
+                                                Location is required: Minimum 7 characters.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="gender" class="block text-gray-700 font-medium mb-2">Gender</label>
@@ -901,17 +890,26 @@
                                             class="block text-gray-700 font-medium mb-2">Address</label>
                                         <input type="text" id="address"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageStaffAddress text-red-500 hidden text-xs">
+                                                Location is required: Minimum 7 characters.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="contactNo" class="block text-gray-700 font-medium mb-2">Contact
                                             No</label>
                                         <input type="tel" id="contactNo"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageStaffContact text-red-500 hidden text-xs">
+                                                Contact is required: 10 Numbers Only.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
                                         <input type="email" id="email" class="border border-gray-300 rounded w-full p-2"
                                             required />
+                                            <span class="errorMessageStaffEmailtext-red-500 hidden text-xs">
+                                                Email is required: Input Valid Email.
+                                            </span>
                                     </div>
                                     <div class="mb-4 col-span-2">
                                         <label for="role" class="block text-gray-700 font-medium mb-2">Role</label>
@@ -989,18 +987,27 @@
                                             Name</label>
                                         <input type="text" id="editfirstName"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditStaffFistName text-red-500 hidden text-xs">
+                                                first name is required and should be between 3-50 characters.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="lastName" class="block text-gray-700 font-medium mb-2">Last
                                             Name</label>
                                         <input type="text" id="editlastName"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditStaffLastName text-red-500 hidden text-xs">
+                                                last name is required and should be between 3-50 characters.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="designation"
                                             class="block text-gray-700 font-medium mb-2">Designation</label>
                                         <input type="text" id="editdesignation"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditStaffDesignation text-red-500 hidden text-xs">
+                                                Location is required: Minimum 7 characters.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="gender" class="block text-gray-700 font-medium mb-2">Gender</label>
@@ -1027,17 +1034,26 @@
                                             class="block text-gray-700 font-medium mb-2">Address</label>
                                         <input type="text" id="editaddress"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditStaffAddress text-red-500 hidden text-xs">
+                                                Location is required: Minimum 7 characters.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="contactNo" class="block text-gray-700 font-medium mb-2">Contact
                                             No</label>
                                         <input type="tel" id="editcontactNo"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditStaffContact text-red-500 hidden text-xs">
+                                                Contact is required: 10 Numbers Only.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="email" class="block text-gray-700 font-medium mb-2">Email</label>
                                         <input type="email" id="editemail"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditStaffEmailtext-red-500 hidden text-xs">
+                                                Email is required: Input Valid Email.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="role" class="block text-gray-700 font-medium mb-2">Role</label>
@@ -1055,11 +1071,7 @@
                                         <div class="flex">
                                             <select id="staffEditFieldSelect"
                                                 class="border border-gray-300 rounded w-80 p-2 mr-2">
-                                                <option value="">Select a Field</option>
-                                                <option value="Agriculture">Agriculture</option>
-                                                <option value="Horticulture">Horticulture</option>
-                                                <option value="Botany">Botany</option>
-                                                <option value="Zoology">Zoology</option>
+                                                
                                             </select>
                                             <button type="button" id="editStaffFieldBtn"
                                                 class="font-semibold text-green-600">
@@ -1167,11 +1179,17 @@
                                         <label for="licensePlateNumber" class="block mb-2">License Plate Number</label>
                                         <input type="text" id="licensePlateNumber"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessagelicensePlateNumber text-red-500 hidden text-xs">
+                                                licensePlateNumber is required.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="vehicleCategory" class="block mb-2">Vehicle Category</label>
                                         <input type="text" id="vehicleCategory"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessagelicensePlateNumber text-red-500 hidden text-xs">
+                                                vehicleCategory is required.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="fuelType" class="block mb-2">Fuel Type</label>
@@ -1231,11 +1249,17 @@
                                             Number</label>
                                         <input type="text" id="editLicensePlateNumber"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditlicensePlateNumber text-red-500 hidden text-xs">
+                                                licensePlateNumber is required.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="editVehicleCategory" class="block mb-2">Vehicle Category</label>
                                         <input type="text" id="editVehicleCategory"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditlicensePlateNumber text-red-500 hidden text-xs">
+                                                vehicleCategory is required.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="editFuelType" class="block mb-2">Fuel Type</label>
@@ -1340,6 +1364,9 @@
                                         <input type="text" id="equipmentName"
                                             class="border border-gray-300 rounded w-full p-2" required
                                             placeholder="Equipment Name, e.g., Drill Machine" />
+                                            <span class="errorMessageequipmentName text-red-500 hidden text-xs">
+                                                equipmentName is not valid.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="equipmentType" class="block mb-2">Type</label>
@@ -1397,6 +1424,9 @@
                                         <label for="editEquipmentName" class="block mb-2">Equipment Name</label>
                                         <input type="text" id="editEquipmentName"
                                             class="border border-gray-300 rounded w-full p-2" required />
+                                            <span class="errorMessageEditequipmentName text-red-500 hidden text-xs">
+                                                equipmentName is not valid.
+                                            </span>
                                     </div>
                                     <div class="mb-4">
                                         <label for="editEquipmentType" class="block mb-2">Type</label>

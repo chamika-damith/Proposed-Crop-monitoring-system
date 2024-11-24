@@ -43,28 +43,30 @@ addEquipmentForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    try {
-        const fieldObj = await fetchField(fieldId);
-        const staffObj = await fetchStaff(staffId);
-
-        if (!fieldObj || !staffObj) {
-            alert("Failed to load field or staff data. Please check the IDs and try again.");
-            return;
+    if(isAddequipmentValidate()){
+        try {
+            const fieldObj = await fetchField(fieldId);
+            const staffObj = await fetchStaff(staffId);
+    
+            if (!fieldObj || !staffObj) {
+                alert("Failed to load field or staff data. Please check the IDs and try again.");
+                return;
+            }
+    
+            const equipmentData = {
+                equipmentId: Id,
+                name: Ename,
+                equipmentType: Type,
+                status: status,
+                staff: staffObj,
+                field: fieldObj,
+            };
+    
+            saveEquipment(equipmentData);
+        } catch (error) {
+            console.error("Error during form submission:", error);
+            alert("Failed to process the request. Please try again.");
         }
-
-        const equipmentData = {
-            equipmentId: Id,
-            name: Ename,
-            equipmentType: Type,
-            status: status,
-            staff: staffObj,
-            field: fieldObj,
-        };
-
-        saveEquipment(equipmentData);
-    } catch (error) {
-        console.error("Error during form submission:", error);
-        alert("Failed to process the request. Please try again.");
     }
 });
 
@@ -261,51 +263,53 @@ editEquipmentForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    try {
-        const fieldObj = await fetchField(fieldId);
-        const staffObj = await fetchStaff(staffId);
-
-        if (!fieldObj || !staffObj) {
-            alert("Failed to load field or staff data. Please check the IDs and try again.");
-            return;
-        }
-
-        const equipmentData = {
-            equipmentId: Id,
-            name: Ename,
-            equipmentType: Type,
-            status: status,
-            staff: staffObj,
-            field: fieldObj,
-        };
-
-        const token = localStorage.getItem("token");
-        if (!token) {
-            alert("No token found. Please log in.");
-            return;
-        }
-
-        $.ajax({
-            url: `http://localhost:8080/api/v1/equipment/${Id}`,
-            method: 'PUT',
-            contentType: 'application/json',
-            headers: {
-                'Authorization': 'Bearer ' + token
-            },
-            data: JSON.stringify(equipmentData),
-        })
-            .done((response) => {
-                console.log('Equipment updated successfully:', response);
-                getAllEquipment();
-                editEquipmentModal.classList.add('hidden');
+    if(isEditequipmentValidate()){
+        try {
+            const fieldObj = await fetchField(fieldId);
+            const staffObj = await fetchStaff(staffId);
+    
+            if (!fieldObj || !staffObj) {
+                alert("Failed to load field or staff data. Please check the IDs and try again.");
+                return;
+            }
+    
+            const equipmentData = {
+                equipmentId: Id,
+                name: Ename,
+                equipmentType: Type,
+                status: status,
+                staff: staffObj,
+                field: fieldObj,
+            };
+    
+            const token = localStorage.getItem("token");
+            if (!token) {
+                alert("No token found. Please log in.");
+                return;
+            }
+    
+            $.ajax({
+                url: `http://localhost:8080/api/v1/equipment/${Id}`,
+                method: 'PUT',
+                contentType: 'application/json',
+                headers: {
+                    'Authorization': 'Bearer ' + token
+                },
+                data: JSON.stringify(equipmentData),
             })
-            .fail((error) => {
-                console.error('Error updating equipment:', error);
-                alert(error.responseJSON?.message || 'Failed to update equipment. Please try again.');
-            });
-    } catch (error) {
-        console.error("Error during form submission:", error);
-        alert("Failed to process the request. Please try again.");
+                .done((response) => {
+                    console.log('Equipment updated successfully:', response);
+                    getAllEquipment();
+                    editEquipmentModal.classList.add('hidden');
+                })
+                .fail((error) => {
+                    console.error('Error updating equipment:', error);
+                    alert(error.responseJSON?.message || 'Failed to update equipment. Please try again.');
+                });
+        } catch (error) {
+            console.error("Error during form submission:", error);
+            alert("Failed to process the request. Please try again.");
+        }
     }
 });
 
@@ -490,4 +494,46 @@ function loadEditFieldOptions() {
             alert("Failed to load fields. Please try again later.");
         }
     });
+}
+
+function isAddequipmentValidate() {
+    let isValid = true;
+
+    if (!/^\s*\S.{2,48}\S\s*$/.test($('#equipmentName').val())) {
+        isValid = false;
+        $('#equipmentName').css('border', '2px solid red');
+        $('.errorMessageequipmentName').show();
+    } else {
+        $('#equipmentName').css('border', '1px solid #ccc');
+        $('.errorMessageequipmentName').hide();
+    }
+
+
+    // Alert the user if there are validation errors
+    if (!isValid) {
+        alert('Please correct the highlighted fields before submitting.');
+    }
+
+    return isValid;
+}
+
+function isEditequipmentValidate() {
+    let isValid = true;
+
+    if (!/^\s*\S.{2,48}\S\s*$/.test($('#editEquipmentName').val())) {
+        isValid = false;
+        $('#editEquipmentName').css('border', '2px solid red');
+        $('.errorMessageEditequipmentName').show();
+    } else {
+        $('#editEquipmentName').css('border', '1px solid #ccc');
+        $('.errorMessageEditequipmentName').hide();
+    }
+
+
+    // Alert the user if there are validation errors
+    if (!isValid) {
+        alert('Please correct the highlighted fields before submitting.');
+    }
+
+    return isValid;
 }

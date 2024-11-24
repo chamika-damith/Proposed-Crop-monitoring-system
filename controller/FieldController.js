@@ -411,36 +411,44 @@ function getAllFields() {
 function isAddFieldValidate() {
   var isValid = true;
 
+  // Validate Field Name
   if (!/^\s*\S.{3,18}\S\s*$/.test($('#fieldName').val())) {
-    isValid = false;
-    $('#fieldName').css('border', '2px solid red');
+      isValid = false;
+      $('#fieldName').css('border', '2px solid red');
+      $('.errorMessageFieldName').show();
+  } else {
+      $('#fieldName').css('border', '1px solid #ccc');
+      $('.errorMessageFieldName').hide();
   }
 
+  // Validate Field Location
   if (!/^.{7,}$/.test($('#fieldLocation').val())) {
-    isValid = false;
-    $('#fieldLocation').css('border', '2px solid red');
+      isValid = false;
+      $('#fieldLocation').css('border', '2px solid red');
+      $('.errorMessageFieldAddress').show();
+  } else {
+      $('#fieldLocation').css('border', '1px solid #ccc');
+      $('.errorMessageAddress').hide();
   }
 
+  // Validate Field Size
   if ($('#fieldSize').val() <= 0 || isNaN($('#fieldSize').val())) {
-    isValid = false;
-    $('#fieldSize').css('border', '2px solid red');
+      isValid = false;
+      $('#fieldSize').css('border', '2px solid red');
+      $('.errorMessageFieldSize').show();
+  } else {
+      $('#fieldSize').css('border', '1px solid #ccc');
+      $('.errorMessageSize').hide();
   }
 
-  var file = $('#fieldImage').prop('files')[0];
-  var validImageTypes = ['image/jpeg', 'image/png', 'image/gif'];
-  if (!file || !validImageTypes.includes(file.type)) {
-    isValid = false;
-    $('#fieldImage').css('border', '2px solid red');
-  }
-
+  // Alert the user if there are validation errors
   if (!isValid) {
-    e.preventDefault();
-    alert('Please correct the highlighted fields before submitting.');
-    return isValid;
+      alert('Please correct the highlighted fields before submitting.');
   }
 
   return isValid;
 }
+
 
 function isUpdateFieldValidate() {
   var isValid = true;
@@ -448,20 +456,22 @@ function isUpdateFieldValidate() {
   if (!/^\s*\S.{3,18}\S\s*$/.test($('#editfieldName').val())) {
     isValid = false;
     $('#editfieldName').css('border', '2px solid red');
+    $('.errorMessageEditFieldName').show();
   }
 
   if (!/^.{7,}$/.test($('#editfieldLocation').val())) {
     isValid = false;
     $('#editfieldLocation').css('border', '2px solid red');
+    $('.errorMessageEditFieldAddress').show();
   }
 
   if ($('#editfieldSize').val() <= 0 || isNaN($('#editfieldSize').val())) {
     isValid = false;
     $('#editfieldSize').css('border', '2px solid red');
+    $('.errorMessageEditFieldSize').show();
   }
 
   if (!isValid) {
-    e.preventDefault();
     alert('Please correct the highlighted fields before submitting.');
     return isValid;
   }

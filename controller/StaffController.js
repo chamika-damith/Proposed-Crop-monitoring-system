@@ -87,46 +87,48 @@ addStaffForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    const staffData = {
-        id,
-        firstName,
-        lastName,
-        designation,
-        gender,
-        joinedDate,
-        dob,
-        address,
-        contact,
-        role,
-        email,
-        fields
-    };
-    const token = localStorage.getItem("token");
-    if (!token) {
-        alert("No token found. Please log in.");
-        return;
-    }
-
-    $.ajax({
-        url: 'http://localhost:8080/api/v1/staff',
-        method: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(staffData),
-        headers: {
-            "Content-Type": "application/json",
-            'Authorization': 'Bearer ' + token
-        },
-    })
-        .done((response) => {
-            console.log('Staff saved successfully:', response);
-            getAllStaff();
-            addStaffModal.classList.add('hidden');
-            addStaffForm.reset();
+    if(isAddStaffValidate()){
+        const staffData = {
+            id,
+            firstName,
+            lastName,
+            designation,
+            gender,
+            joinedDate,
+            dob,
+            address,
+            contact,
+            role,
+            email,
+            fields
+        };
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("No token found. Please log in.");
+            return;
+        }
+    
+        $.ajax({
+            url: 'http://localhost:8080/api/v1/staff',
+            method: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(staffData),
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
+            },
         })
-        .fail((error) => {
-            console.error('Error saving staff:', error);
-            alert(error.responseJSON?.message || 'Failed to save staff. Please try again.');
-        });
+            .done((response) => {
+                console.log('Staff saved successfully:', response);
+                getAllStaff();
+                addStaffModal.classList.add('hidden');
+                addStaffForm.reset();
+            })
+            .fail((error) => {
+                console.error('Error saving staff:', error);
+                alert(error.responseJSON?.message || 'Failed to save staff. Please try again.');
+            });
+    }
 });
 
 
@@ -317,6 +319,7 @@ document.getElementById('closeStaffDetailModal').addEventListener('click', funct
 
 // Function to edit staff
 function editStaff(button, staff) {
+    loadEditFieldOptions();
     currentRow = button.closest('tr');
     const cells = currentRow.children;
 
@@ -354,56 +357,58 @@ editStaffForm.addEventListener('submit', (event) => {
 
     event.preventDefault();
 
-    const updatedStaff = {
-        id: document.getElementById('editStaffId').value,
-        firstName: document.getElementById('editfirstName').value,
-        lastName: document.getElementById('editlastName').value,
-        designation: document.getElementById('editdesignation').value,
-        gender: document.getElementById('editgender').value.toUpperCase(),
-        joinedDate: document.getElementById('editjoinedDate').value,
-        dob: document.getElementById('editdob').value,
-        address: document.getElementById('editaddress').value,
-        contact: document.getElementById('editcontactNo').value,
-        email: document.getElementById('editemail').value,
-        role: document.getElementById('editrole').value,
-        fields: [
-            {
-                fieldCode: "F-95cbddde-9501-4d36-a9af-06c9ae8ae4c7",
-                fieldName: "North Farm",
-                fieldLocation: "Green Valley, District 5",
-                fieldSize: 15.5,
-                fieldImage: "https://example.com/images/north_farm.jpg"
-            }
-        ]
-    };
-
-    const token = localStorage.getItem("token");
-    if (!token) {
-        alert("No token found. Please log in.");
-        return;
-    }
-    $.ajax({
-
-        url: `http://localhost:8080/api/v1/staff/${updatedStaff.id}`,
-        method: "PUT",
-        contentType: "application/json",
-        headers: {
-            'Authorization': 'Bearer ' + token
-        },
-        data: JSON.stringify(updatedStaff),
-        success: function (response) {
-            console.log("Staff updated successfully:", response);
-            getAllStaff();
-            document.getElementById('editStaffModal').classList.add('hidden');
-        },
-        error: function (error) {
-            console.error("Error updating staff:", error);
-            alert("Failed to update staff. Please try again later.");
+    if(isUpdateStaffValidate()){
+        const updatedStaff = {
+            id: document.getElementById('editStaffId').value,
+            firstName: document.getElementById('editfirstName').value,
+            lastName: document.getElementById('editlastName').value,
+            designation: document.getElementById('editdesignation').value,
+            gender: document.getElementById('editgender').value.toUpperCase(),
+            joinedDate: document.getElementById('editjoinedDate').value,
+            dob: document.getElementById('editdob').value,
+            address: document.getElementById('editaddress').value,
+            contact: document.getElementById('editcontactNo').value,
+            email: document.getElementById('editemail').value,
+            role: document.getElementById('editrole').value,
+            fields: [
+                {
+                    fieldCode: "F-95cbddde-9501-4d36-a9af-06c9ae8ae4c7",
+                    fieldName: "North Farm",
+                    fieldLocation: "Green Valley, District 5",
+                    fieldSize: 15.5,
+                    fieldImage: "https://example.com/images/north_farm.jpg"
+                }
+            ]
+        };
+    
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("No token found. Please log in.");
+            return;
         }
-    });
-
-    // Close the edit modal
-    editStaffModal.classList.add('hidden');
+        $.ajax({
+    
+            url: `http://localhost:8080/api/v1/staff/${updatedStaff.id}`,
+            method: "PUT",
+            contentType: "application/json",
+            headers: {
+                'Authorization': 'Bearer ' + token
+            },
+            data: JSON.stringify(updatedStaff),
+            success: function (response) {
+                console.log("Staff updated successfully:", response);
+                getAllStaff();
+                document.getElementById('editStaffModal').classList.add('hidden');
+            },
+            error: function (error) {
+                console.error("Error updating staff:", error);
+                alert("Failed to update staff. Please try again later.");
+            }
+        });
+    
+        // Close the edit modal
+        editStaffModal.classList.add('hidden');
+    }
 });
 
 
@@ -569,4 +574,180 @@ function loadFieldOptions() {
             alert("Failed to load fields. Please try again later.");
         }
     });
+}
+
+function loadEditFieldOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+
+    $.ajax({
+        url: "http://localhost:8080/api/v1/fields",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+        },
+        success: function (fields) {
+            const cropFieldDropdown = document.getElementById('staffEditFieldSelect');
+
+            cropFieldDropdown.innerHTML = '<option value="">Select Field</option>';
+
+            fields.forEach(field => {
+                const option = document.createElement('option');
+                option.value = field.fieldCode;
+                option.textContent = field.fieldCode;
+                cropFieldDropdown.appendChild(option);
+            });
+        },
+        error: function (error) {
+            console.error("Error loading fields:", error);
+            alert("Failed to load fields. Please try again later.");
+        }
+    });
+}
+
+function isAddStaffValidate() {
+    let isValid = true;
+
+    // Validate First Name
+    if (!/^\s*\S.{2,48}\S\s*$/.test($('#firstName').val())) {
+        isValid = false;
+        $('#firstName').css('border', '2px solid red');
+        $('.errorMessageStaffFistName').show();
+    } else {
+        $('#firstName').css('border', '1px solid #ccc');
+        $('.errorMessageStaffFistName').hide();
+    }
+
+    // Validate Last Name
+    if (!/^\s*\S.{2,48}\S\s*$/.test($('#lastName').val())) {
+        isValid = false;
+        $('#lastName').css('border', '2px solid red');
+        $('.errorMessageStaffLastName').show();
+    } else {
+        $('#lastName').css('border', '1px solid #ccc');
+        $('.errorMessageStaffLastName').hide();
+    }
+
+    // Validate Designation
+    if (!/^.{7,}$/.test($('#designation').val())) {
+        isValid = false;
+        $('#designation').css('border', '2px solid red');
+        $('.errorMessageStaffDesignation').show();
+    } else {
+        $('#designation').css('border', '1px solid #ccc');
+        $('.errorMessageStaffDesignation').hide();
+    }
+
+    // Validate Address
+    if (!/^.{7,}$/.test($('#address').val())) {
+        isValid = false;
+        $('#address').css('border', '2px solid red');
+        $('.errorMessageStaffAddress').show();
+    } else {
+        $('#address').css('border', '1px solid #ccc');
+        $('.errorMessageStaffAddress').hide();
+    }
+
+    // Validate Contact Number
+    if (!/^\d{10}$/.test($('#contactNo').val())) {
+        isValid = false;
+        $('#contactNo').css('border', '2px solid red');
+        $('.errorMessageStaffContact').show();
+    } else {
+        $('#contactNo').css('border', '1px solid #ccc');
+        $('.errorMessageStaffContact').hide();
+    }
+
+    // Validate Email
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#email').val())) {
+        isValid = false;
+        $('#email').css('border', '2px solid red');
+        $('.errorMessageStaffEmail').show();
+    } else {
+        $('#email').css('border', '1px solid #ccc');
+        $('.errorMessageStaffEmail').hide();
+    }
+
+    // Alert the user if there are validation errors
+    if (!isValid) {
+        alert('Please correct the highlighted fields before submitting.');
+    }
+
+    return isValid;
+}
+
+function isUpdateStaffValidate() {
+    let isValid = true;
+
+    // Validate First Name
+    if (!/^\s*\S.{2,48}\S\s*$/.test($('#editfirstName').val())) {
+        isValid = false;
+        $('#editfirstName').css('border', '2px solid red');
+        $('.errorMessageEditStaffFistName').show();
+    } else {
+        $('#editfirstName').css('border', '1px solid #ccc');
+        $('.errorMessageEditStaffFistName').hide();
+    }
+
+    // Validate Last Name
+    if (!/^\s*\S.{2,48}\S\s*$/.test($('#editlastName').val())) {
+        isValid = false;
+        $('#editlastName').css('border', '2px solid red');
+        $('.errorMessageEditStaffLastName').show();
+    } else {
+        $('#editlastName').css('border', '1px solid #ccc');
+        $('.errorMessageEditStaffLastName').hide();
+    }
+
+    // Validate Designation
+    if (!/^.{7,}$/.test($('#editdesignation').val())) {
+        isValid = false;
+        $('#editdesignation').css('border', '2px solid red');
+        $('.errorMessageEditStaffDesignation').show();
+    } else {
+        $('#editdesignation').css('border', '1px solid #ccc');
+        $('.errorMessageEditStaffDesignation').hide();
+    }
+
+    // Validate Address
+    if (!/^.{7,}$/.test($('#editaddress').val())) {
+        isValid = false;
+        $('#editaddress').css('border', '2px solid red');
+        $('.errorMessageEditStaffAddress').show();
+    } else {
+        $('#editaddress').css('border', '1px solid #ccc');
+        $('.errorMessageEditStaffAddress').hide();
+    }
+
+    // Validate Contact Number
+    if (!/^\d{10}$/.test($('#editcontactNo').val())) {
+        isValid = false;
+        $('#editcontactNo').css('border', '2px solid red');
+        $('.errorMessageEditStaffContact').show();
+    } else {
+        $('#editcontactNo').css('border', '1px solid #ccc');
+        $('.errorMessageEditStaffContact').hide();
+    }
+
+    // Validate Email
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test($('#editemail').val())) {
+        isValid = false;
+        $('#editemail').css('border', '2px solid red');
+        $('.errorMessageEditStaffEmailtext').show();
+    } else {
+        $('#editemail').css('border', '1p6x solid #ccc');
+        $('.errorMessageEditStaffEmailtext').hide();
+    }
+
+    // Alert the user if there are validation errors
+    if (!isValid) {
+        alert('Please correct the highlighted fields before submitting.');
+    }
+
+    return isValid;
 }

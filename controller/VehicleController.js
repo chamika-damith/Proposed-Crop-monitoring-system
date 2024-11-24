@@ -46,19 +46,21 @@ addVehicleForm.addEventListener('submit', (event) => {
         return;
     }
 
-    fetchStaff(allocatedStaff, (staff) => {
-        const vehicleData = {
-            vehicleCode: vehicleId,
-            licensePlateNum: licensePlateNumber,
-            category: category,
-            fuelType: fuelType,
-            status: status,
-            remarks: remarks,
-            staff: staff,
-        };
-
-        saveVehicle(vehicleData);
-    });
+    if(isAddVehicleValidate()){
+        fetchStaff(allocatedStaff, (staff) => {
+            const vehicleData = {
+                vehicleCode: vehicleId,
+                licensePlateNum: licensePlateNumber,
+                category: category,
+                fuelType: fuelType,
+                status: status,
+                remarks: remarks,
+                staff: staff,
+            };
+    
+            saveVehicle(vehicleData);
+        });
+    }
 });
 
 function loadStaffOptions() {
@@ -290,21 +292,21 @@ editVehicleForm.addEventListener('submit', (event) => {
         return;
     }
 
-    fetchStaff(allocatedStaff, (staff) => {
-        const updatedVehicle = {
-            vehicleCode: editvehicleId,
-            licensePlateNum: licensePlateNumber,
-            category: category,
-            fuelType: fuelType,
-            status: status,
-            remarks: remarks,
-            staff: staff,
-        };
-
-        updateVehicle(updatedVehicle);
-    });
-
-
+    if(isEditVehicleValidate()){
+        fetchStaff(allocatedStaff, (staff) => {
+            const updatedVehicle = {
+                vehicleCode: editvehicleId,
+                licensePlateNum: licensePlateNumber,
+                category: category,
+                fuelType: fuelType,
+                status: status,
+                remarks: remarks,
+                staff: staff,
+            };
+    
+            updateVehicle(updatedVehicle);
+        });
+    }
 
 });
 
@@ -384,4 +386,72 @@ function generateVehicleId(callback) {
     }).fail(function (error) {
         console.error("Error fetching staff ID:", error);
     });
+}
+
+function isAddVehicleValidate() {
+    let isValid = true;
+
+    // Validate License Plate Number (example pattern: alphanumeric with optional dashes or spaces)
+    const licensePlatePattern = /^[A-Za-z0-9\- ]{1,10}$/;
+    if (!licensePlatePattern.test($('#licensePlateNumber').val())) {
+        isValid = false;
+        $('#licensePlateNumber').css('border', '2px solid red');
+        $('.errorMessagelicensePlateNumber').show();
+    } else {
+        $('#licensePlateNumber').css('border', '1px solid #ccc');
+        $('.errorMessagelicensePlateNumber').hide();
+    }
+
+    // Validate Vehicle Category (example pattern: non-empty alphanumeric, allowing spaces)
+    const vehicleCategoryPattern = /^[A-Za-z0-9 ]{3,30}$/;
+    if (!vehicleCategoryPattern.test($('#vehicleCategory').val())) {
+        isValid = false;
+        $('#vehicleCategory').css('border', '2px solid red');
+        $('.errorMessageVehicleCategory').show();
+    } else {
+        $('#vehicleCategory').css('border', '1px solid #ccc');
+        $('.errorMessageVehicleCategory').hide();
+    }
+
+
+    // Alert the user if there are validation errors
+    if (!isValid) {
+        alert('Please correct the highlighted fields before submitting.');
+    }
+
+    return isValid;
+}
+
+function isEditVehicleValidate() {
+    let isValid = true;
+
+    // Validate License Plate Number (example pattern: alphanumeric with optional dashes or spaces)
+    const licensePlatePattern = /^[A-Za-z0-9\- ]{1,10}$/;
+    if (!licensePlatePattern.test($('#editLicensePlateNumber').val())) {
+        isValid = false;
+        $('#editLicensePlateNumber').css('border', '2px solid red');
+        $('.errorMessageEditlicensePlateNumber').show();
+    } else {
+        $('#editLicensePlateNumber').css('border', '1px solid #ccc');
+        $('.errorMessageEditlicensePlateNumber').hide();
+    }
+
+    // Validate Vehicle Category (example pattern: non-empty alphanumeric, allowing spaces)
+    const vehicleCategoryPattern = /^[A-Za-z0-9 ]{3,30}$/;
+    if (!vehicleCategoryPattern.test($('#editVehicleCategory').val())) {
+        isValid = false;
+        $('#editVehicleCategory').css('border', '2px solid red');
+        $('.errorMessageEditlicensePlateNumber').show();
+    } else {
+        $('#editVehicleCategory').css('border', '1px solid #ccc');
+        $('.errorMessageEditlicensePlateNumber').hide();
+    }
+
+
+    // Alert the user if there are validation errors
+    if (!isValid) {
+        alert('Please correct the highlighted fields before submitting.');
+    }
+
+    return isValid;
 }
