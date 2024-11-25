@@ -46,7 +46,7 @@ addVehicleForm.addEventListener('submit', (event) => {
         return;
     }
 
-    if(isAddVehicleValidate()){
+    if (isAddVehicleValidate()) {
         fetchStaff(allocatedStaff, (staff) => {
             const vehicleData = {
                 vehicleCode: vehicleId,
@@ -57,7 +57,7 @@ addVehicleForm.addEventListener('submit', (event) => {
                 remarks: remarks,
                 staff: staff,
             };
-    
+
             saveVehicle(vehicleData);
         });
     }
@@ -167,14 +167,16 @@ function saveVehicle(data) {
         data: JSON.stringify(data),
     })
         .done((response) => {
-            console.log('Vehicle added successfully:', response);
+            if (response.statusCode == 201) {
+                console.log('Vehicle added successfully:', response);
+                getAllVehicles();
+                addVehicleModal.classList.add('hidden');
+                addVehicleForm.reset();
+            } else {
+                console.error('Error adding vehicle:', response.statusMessage);
+                alert('Failed to add vehicle -> ' + response.statusMessage);
+            }
 
-            // Refresh vehicle list
-            getAllVehicles();
-
-            // Close modal and reset form
-            addVehicleModal.classList.add('hidden');
-            addVehicleForm.reset();
         })
         .fail((error) => {
             console.error('Error adding vehicle:', error);
@@ -292,7 +294,7 @@ editVehicleForm.addEventListener('submit', (event) => {
         return;
     }
 
-    if(isEditVehicleValidate()){
+    if (isEditVehicleValidate()) {
         fetchStaff(allocatedStaff, (staff) => {
             const updatedVehicle = {
                 vehicleCode: editvehicleId,
@@ -303,7 +305,7 @@ editVehicleForm.addEventListener('submit', (event) => {
                 remarks: remarks,
                 staff: staff,
             };
-    
+
             updateVehicle(updatedVehicle);
         });
     }
@@ -326,9 +328,15 @@ function updateVehicle(vehicle) {
         data: JSON.stringify(vehicle),
     })
         .done((response) => {
-            console.log('Vehicle updated successfully:', response);
-            getAllVehicles();
-            editVehicleModal.classList.add('hidden');
+            if (response.statusCode == 200) {
+                console.log('Vehicle updated successfully:', response);
+                getAllVehicles();
+                editVehicleModal.classList.add('hidden');
+            } else {
+                console.error('Error updating vehicle:', response.statusMessage);
+                alert('Failed to update vehicle -> ' + response.statusMessage);
+            }
+
         })
         .fail((error) => {
             console.error('Error updating vehicle:', error);

@@ -304,7 +304,7 @@ editEquipmentForm.addEventListener('submit', async (event) => {
                 data: JSON.stringify(equipmentData),
             })
                 .done((response) => {
-                    if (response.statusCode === 200) {
+                    if (response.statusCode  == 201) {
                         console.log('Equipment updated successfully:', response);
                         getAllEquipment();
                         editEquipmentModal.classList.add('hidden');
