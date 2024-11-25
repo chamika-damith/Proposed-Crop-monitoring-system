@@ -79,11 +79,17 @@ addFieldForm.addEventListener("submit", (event) => {
         data: JSON.stringify(requestData),
       })
         .done(function (response) {
-          console.log("Field saved successfully:", response);
+          if (response.statusCode === 201) {
+            console.log("Field saved successfully:", response);
 
-          getAllFields();
-          addFieldModal.classList.add("hidden");
-          addFieldForm.reset();
+            getAllFields();
+            addFieldModal.classList.add("hidden");
+            addFieldForm.reset();
+          } else {
+            console.error("Error saving field:", response.statusMessage);
+            alert("Failed to save field -> " + response.statusMessage);
+          }
+
         })
         .fail(function (error) {
           console.error("Error saving field:", error);
@@ -220,10 +226,16 @@ function sendUpdateRequest(updateData) {
     data: JSON.stringify(updateData),
   })
     .done(function (response) {
-      console.log("Field updated successfully:", response);
-      getAllFields();
-      editFieldModal.classList.add("hidden");
-      editFieldForm.reset();
+      if (response.statusCode === 200) {
+        console.log("Field updated successfully:", response);
+        getAllFields();
+        editFieldModal.classList.add("hidden");
+        editFieldForm.reset();
+      } else {
+        console.error("Error updating field:", response.statusMessage);
+        alert("Failed to update field -> " + response.statusMessage);
+      }
+
     })
     .fail(function (error) {
       console.error("Error updating field:", error);
@@ -413,37 +425,37 @@ function isAddFieldValidate() {
 
   // Validate Field Name
   if (!/^\s*\S.{3,18}\S\s*$/.test($('#fieldName').val())) {
-      isValid = false;
-      $('#fieldName').css('border', '2px solid red');
-      $('.errorMessageFieldName').show();
+    isValid = false;
+    $('#fieldName').css('border', '2px solid red');
+    $('.errorMessageFieldName').show();
   } else {
-      $('#fieldName').css('border', '1px solid #ccc');
-      $('.errorMessageFieldName').hide();
+    $('#fieldName').css('border', '1px solid #ccc');
+    $('.errorMessageFieldName').hide();
   }
 
   // Validate Field Location
   if (!/^.{7,}$/.test($('#fieldLocation').val())) {
-      isValid = false;
-      $('#fieldLocation').css('border', '2px solid red');
-      $('.errorMessageFieldAddress').show();
+    isValid = false;
+    $('#fieldLocation').css('border', '2px solid red');
+    $('.errorMessageFieldAddress').show();
   } else {
-      $('#fieldLocation').css('border', '1px solid #ccc');
-      $('.errorMessageAddress').hide();
+    $('#fieldLocation').css('border', '1px solid #ccc');
+    $('.errorMessageAddress').hide();
   }
 
   // Validate Field Size
   if ($('#fieldSize').val() <= 0 || isNaN($('#fieldSize').val())) {
-      isValid = false;
-      $('#fieldSize').css('border', '2px solid red');
-      $('.errorMessageFieldSize').show();
+    isValid = false;
+    $('#fieldSize').css('border', '2px solid red');
+    $('.errorMessageFieldSize').show();
   } else {
-      $('#fieldSize').css('border', '1px solid #ccc');
-      $('.errorMessageSize').hide();
+    $('#fieldSize').css('border', '1px solid #ccc');
+    $('.errorMessageSize').hide();
   }
 
   // Alert the user if there are validation errors
   if (!isValid) {
-      alert('Please correct the highlighted fields before submitting.');
+    alert('Please correct the highlighted fields before submitting.');
   }
 
   return isValid;

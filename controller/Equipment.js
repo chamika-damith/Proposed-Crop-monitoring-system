@@ -43,16 +43,16 @@ addEquipmentForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    if(isAddequipmentValidate()){
+    if (isAddequipmentValidate()) {
         try {
             const fieldObj = await fetchField(fieldId);
             const staffObj = await fetchStaff(staffId);
-    
+
             if (!fieldObj || !staffObj) {
                 alert("Failed to load field or staff data. Please check the IDs and try again.");
                 return;
             }
-    
+
             const equipmentData = {
                 equipmentId: Id,
                 name: Ename,
@@ -61,7 +61,7 @@ addEquipmentForm.addEventListener('submit', async (event) => {
                 staff: staffObj,
                 field: fieldObj,
             };
-    
+
             saveEquipment(equipmentData);
         } catch (error) {
             console.error("Error during form submission:", error);
@@ -189,10 +189,16 @@ function saveEquipment(data) {
         data: JSON.stringify(data),
     })
         .done((response) => {
-            console.log('Equipment added successfully:', response);
-            getAllEquipment();
-            addEquipmentModal.classList.add('hidden');
-            addEquipmentForm.reset();
+            if (response.statusCode == 201) {
+                console.log('Equipment added successfully:', response);
+                getAllEquipment();
+                addEquipmentModal.classList.add('hidden');
+                addEquipmentForm.reset();
+            } else {
+                console.error('Error adding equipment:', response.statusMessage);
+                alert('Failed to add equipment -> ' + response.statusMessage);
+            }
+
         })
         .fail((error) => {
             console.error('Error adding equipment:', error);
@@ -263,16 +269,16 @@ editEquipmentForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    if(isEditequipmentValidate()){
+    if (isEditequipmentValidate()) {
         try {
             const fieldObj = await fetchField(fieldId);
             const staffObj = await fetchStaff(staffId);
-    
+
             if (!fieldObj || !staffObj) {
                 alert("Failed to load field or staff data. Please check the IDs and try again.");
                 return;
             }
-    
+
             const equipmentData = {
                 equipmentId: Id,
                 name: Ename,
@@ -281,13 +287,13 @@ editEquipmentForm.addEventListener('submit', async (event) => {
                 staff: staffObj,
                 field: fieldObj,
             };
-    
+
             const token = localStorage.getItem("token");
             if (!token) {
                 alert("No token found. Please log in.");
                 return;
             }
-    
+
             $.ajax({
                 url: `http://localhost:8080/api/v1/equipment/${Id}`,
                 method: 'PUT',
@@ -298,9 +304,15 @@ editEquipmentForm.addEventListener('submit', async (event) => {
                 data: JSON.stringify(equipmentData),
             })
                 .done((response) => {
-                    console.log('Equipment updated successfully:', response);
-                    getAllEquipment();
-                    editEquipmentModal.classList.add('hidden');
+                    if (response.statusCode === 200) {
+                        console.log('Equipment updated successfully:', response);
+                        getAllEquipment();
+                        editEquipmentModal.classList.add('hidden');
+                    } else {
+                        console.error('Error updating equipment:', response.statusMessage);
+                        alert('Failed to update equipment -> ' + response.statusMessage);
+                    }
+
                 })
                 .fail((error) => {
                     console.error('Error updating equipment:', error);

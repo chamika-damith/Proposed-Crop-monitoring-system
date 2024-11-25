@@ -87,7 +87,7 @@ addStaffForm.addEventListener('submit', async (event) => {
         return;
     }
 
-    if(isAddStaffValidate()){
+    if (isAddStaffValidate()) {
         const staffData = {
             id,
             firstName,
@@ -107,7 +107,7 @@ addStaffForm.addEventListener('submit', async (event) => {
             alert("No token found. Please log in.");
             return;
         }
-    
+
         $.ajax({
             url: 'http://localhost:8080/api/v1/staff',
             method: 'POST',
@@ -119,10 +119,15 @@ addStaffForm.addEventListener('submit', async (event) => {
             },
         })
             .done((response) => {
-                console.log('Staff saved successfully:', response);
-                getAllStaff();
-                addStaffModal.classList.add('hidden');
-                addStaffForm.reset();
+                if (response.statusCode == 201) {
+                    console.log('Staff saved successfully:', response);
+                    getAllStaff();
+                    addStaffModal.classList.add('hidden');
+                    addStaffForm.reset();
+                } else {
+                    console.error('Error saving staff:', response.statusMassage);
+                    alert('Failed to save staff -> ' + response.statusMassage);
+                }
             })
             .fail((error) => {
                 console.error('Error saving staff:', error);
@@ -134,6 +139,21 @@ addStaffForm.addEventListener('submit', async (event) => {
 
 function getAllStaffFields() {
     const staffFieldListDiv = document.getElementById('staffFieldList');
+    const staffFields = [];
+
+    for (let child of staffFieldListDiv.children) {
+        const field = child.textContent.trim();
+        const match = field.match(/^F-[\w-]+/);
+        if (match) {
+            staffFields.push(match[0]);
+        }
+    }
+
+    return staffFields;
+}
+
+function getAllEditStaffFields() {
+    const staffFieldListDiv = document.getElementById('editstaffFieldList');
     const staffFields = [];
 
     for (let child of staffFieldListDiv.children) {
@@ -335,6 +355,23 @@ function editStaff(button, staff) {
     document.getElementById('editemail').value = staff.email;
     document.getElementById('editrole').value = staff.role;
 
+    staff.fields.map(field => {
+        const fieldItem = document.createElement('div');
+        fieldItem.className = 'flex justify-between items-center mb-1 text-gray-700';
+        fieldItem.innerHTML = `
+            <span>${field.fieldCode}</span>
+            <button type="button" class="text-red-500 font-bold remove-edit-field">X</button>
+        `;
+        editstaffFieldList.appendChild(fieldItem);
+
+        // Handle removal of field items
+        fieldItem.querySelector('.remove-edit-field').addEventListener('click', () => {
+            editstaffFieldList.removeChild(fieldItem);
+        });
+    })
+
+
+
     // Open the edit modal
     document.getElementById('editStaffModal').classList.remove('hidden');
 }
@@ -342,6 +379,7 @@ function editStaff(button, staff) {
 
 // Function to close edit modal
 closeStaffEditModal.addEventListener('click', () => {
+    editstaffFieldList.innerHTML = '';
     editStaffModal.classList.add('hidden');
 });
 
@@ -353,41 +391,63 @@ document.querySelectorAll('.editStaffbtn').forEach(button => {
 
 
 // Submit edit form and update the view
-editStaffForm.addEventListener('submit', (event) => {
+editStaffForm.addEventListener('submit', async (event) => {
 
     event.preventDefault();
 
-    if(isUpdateStaffValidate()){
+    const staffFieldsList = getAllEditStaffFields();
+    if (staffFieldsList.length === 0) {
+        console.warn("No fields found to fetch.");
+        return;
+    }
+
+    const fieldList = await Promise.all(
+        staffFieldsList.map((fieldId) =>
+            fetchField(fieldId).catch((error) => {
+                console.error(`Error fetching field ${fieldId}:`, error);
+                return null;
+            })
+        )
+    );
+
+    const validFields = fieldList.filter((field) => field !== null);
+
+    const id = document.getElementById('editStaffId').value;
+    const firstName = document.getElementById('editfirstName').value;
+    const lastName = document.getElementById('editlastName').value;
+    const designation = document.getElementById('editdesignation').value;
+    const gender = document.getElementById('editgender').value.toUpperCase();
+    const joinedDate = document.getElementById('editjoinedDate').value;
+    const dob = document.getElementById('editdob').value;
+    const address = document.getElementById('editaddress').value;
+    const contact = document.getElementById('editcontactNo').value;
+    const role = document.getElementById('editrole').value;
+    const email = document.getElementById('editemail').value;
+    const fields = validFields;
+
+    if (isUpdateStaffValidate()) {
         const updatedStaff = {
-            id: document.getElementById('editStaffId').value,
-            firstName: document.getElementById('editfirstName').value,
-            lastName: document.getElementById('editlastName').value,
-            designation: document.getElementById('editdesignation').value,
-            gender: document.getElementById('editgender').value.toUpperCase(),
-            joinedDate: document.getElementById('editjoinedDate').value,
-            dob: document.getElementById('editdob').value,
-            address: document.getElementById('editaddress').value,
-            contact: document.getElementById('editcontactNo').value,
-            email: document.getElementById('editemail').value,
-            role: document.getElementById('editrole').value,
-            fields: [
-                {
-                    fieldCode: "F-95cbddde-9501-4d36-a9af-06c9ae8ae4c7",
-                    fieldName: "North Farm",
-                    fieldLocation: "Green Valley, District 5",
-                    fieldSize: 15.5,
-                    fieldImage: "https://example.com/images/north_farm.jpg"
-                }
-            ]
+            id,
+            firstName,
+            lastName,
+            designation,
+            gender,
+            joinedDate,
+            dob,
+            address,
+            contact,
+            role,
+            email,
+            fields
         };
-    
+
         const token = localStorage.getItem("token");
         if (!token) {
             alert("No token found. Please log in.");
             return;
         }
         $.ajax({
-    
+
             url: `http://localhost:8080/api/v1/staff/${updatedStaff.id}`,
             method: "PUT",
             contentType: "application/json",
@@ -396,16 +456,24 @@ editStaffForm.addEventListener('submit', (event) => {
             },
             data: JSON.stringify(updatedStaff),
             success: function (response) {
-                console.log("Staff updated successfully:", response);
-                getAllStaff();
-                document.getElementById('editStaffModal').classList.add('hidden');
+                if (response.statusCode == 200) {
+                    console.log("Staff updated successfully:", response);
+                    getAllStaff();
+                    document.getElementById('editStaffModal').classList.add('hidden');
+                } else {
+                    console.error("Error updating staff:", response.statusMassage);
+                    alert("Failed to update staff -> " + response.statusMassage);
+                }
+
             },
             error: function (error) {
                 console.error("Error updating staff:", error);
                 alert("Failed to update staff. Please try again later.");
             }
         });
-    
+
+        editstaffFieldList.innerHTML = '';
+
         // Close the edit modal
         editStaffModal.classList.add('hidden');
     }

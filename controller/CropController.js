@@ -115,10 +115,15 @@ function saveCrop(data) {
         data: JSON.stringify(data),
     })
         .done((response) => {
-            console.log("Crop saved successfully:", response);
-            getAllCrops();
-            addCropModal.classList.add('hidden');
-            addCropForm.reset();
+            if (response.statusCode == 201) {
+                console.log("Crop saved successfully:", response);
+                getAllCrops();
+                addCropModal.classList.add('hidden');
+                addCropForm.reset();
+            } else {
+                console.error("Error saving crop:", response.statusMessage);
+                alert("Failed to save crop -> " + response.statusMessage);
+            }
         })
         .fail((error) => {
             console.error("Error saving crop:", error);
@@ -186,7 +191,7 @@ editCropForm.addEventListener('submit', (event) => {
     const cropField = document.getElementById('cropEditField').value;
     const cropImageInput = document.getElementById('editCropImage').files[0];
 
-    if(isEditCropValidate()){
+    if (isEditCropValidate()) {
         const updateData = {
             cropCode,
             commonName: cropName,
@@ -194,12 +199,12 @@ editCropForm.addEventListener('submit', (event) => {
             category: cropCategory,
             season: cropSeason,
         };
-    
+
         if (cropImageInput) {
             const reader = new FileReader();
             reader.onload = () => {
                 updateData.image = reader.result.split(',')[1];
-    
+
                 fetchField(cropField, (field) => {
                     updateData.fieldDTO = field;
                     cropUpdate(updateData);
@@ -209,7 +214,7 @@ editCropForm.addEventListener('submit', (event) => {
         } else {
             const currentImageSrc = document.getElementById('editCropImagePreview').src;
             updateData.image = currentImageSrc.split(',')[1];
-    
+
             fetchField(cropField, (field) => {
                 updateData.fieldDTO = field;
                 cropUpdate(updateData);
@@ -236,10 +241,16 @@ function cropUpdate(data) {
         data: JSON.stringify(data),
     })
         .done((response) => {
-            console.log("Crop updated successfully:", response);
-            getAllCrops();
-            editCropModal.classList.add('hidden');
-            editCropForm.reset();
+            if (response.statusCode == 200) {
+                console.log("Crop updated successfully:", response);
+                getAllCrops();
+                editCropModal.classList.add('hidden');
+                editCropForm.reset();
+            } else {
+                console.error("Error updating crop:", response.statusMessage);
+                alert("Failed to update crop -> " + response.statusMessage);
+            }
+
         })
         .fail((error) => {
             console.error("Error updating crop:", error);
