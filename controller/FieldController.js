@@ -21,6 +21,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 let currentRow;
 
+
 // Function to open add field modal
 openModalButton.addEventListener("click", () => {
   generateFieldId(function (response) {
@@ -43,63 +44,72 @@ addFieldForm.addEventListener("submit", (event) => {
   const fieldLocation = document.getElementById("fieldLocation").value;
   const fieldSize = document.getElementById("fieldSize").value;
   const fieldImage = document.getElementById("fieldImage").files[0];
+  const fieldImage2 = document.getElementById("fieldImage2").files[0];
 
-  if (!fieldCode || !fieldName || !fieldLocation || !fieldSize || !fieldImage) {
-    alert("Please fill out all fields and select an image.");
+  if (!fieldCode || !fieldName || !fieldLocation || !fieldSize || !fieldImage || !fieldImage2) {
+    alert("Please fill out all fields and select both images.");
     return;
   }
 
   if (isAddFieldValidate()) {
-    const reader = new FileReader();
-    reader.onloadend = () => {
-      const base64Image = reader.result.split(",")[1];
+    const reader1 = new FileReader();
+    const reader2 = new FileReader();
 
-      const requestData = {
-        fieldCode: fieldCode,
-        fieldName: fieldName,
-        fieldLocation: fieldLocation,
-        fieldSize: fieldSize,
-        fieldImage: base64Image,
+    reader1.onloadend = () => {
+      const base64Image1 = reader1.result.split(",")[1];
+      reader2.onloadend = () => {
+        const base64Image2 = reader2.result.split(",")[1];
+
+        const requestData = {
+          fieldCode: fieldCode,
+          fieldName: fieldName,
+          fieldLocation: fieldLocation,
+          fieldSize: fieldSize,
+          fieldImage: base64Image1,
+          fieldImage2: base64Image2,
+        };
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+          alert("No token found. Please log in.");
+          return;
+        }
+
+        $.ajax({
+          url: "http://localhost:8080/api/v1/fields",
+          method: "POST",
+          timeout: 0,
+          headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token,
+          },
+          data: JSON.stringify(requestData),
+        })
+          .done(function (response) {
+            if (response.statusCode === 201) {
+              console.log("Field saved successfully:", response);
+
+              getAllFields();
+              addFieldModal.classList.add("hidden");
+              addFieldForm.reset();
+            } else {
+              console.error("Error saving field:", response.statusMessage);
+              alert("Failed to save field -> " + response.statusMessage);
+            }
+          })
+          .fail(function (error) {
+            console.error("Error saving field:", error);
+            alert("Failed to save field. Please try again.");
+          });
       };
 
-      const token = localStorage.getItem("token");
-      if (!token) {
-        alert("No token found. Please log in.");
-        return;
-      }
-
-      $.ajax({
-        url: "http://localhost:8080/api/v1/fields",
-        method: "POST",
-        timeout: 0,
-        headers: {
-          "Content-Type": "application/json",
-          'Authorization': 'Bearer ' + token
-        },
-        data: JSON.stringify(requestData),
-      })
-        .done(function (response) {
-          if (response.statusCode === 201) {
-            console.log("Field saved successfully:", response);
-
-            getAllFields();
-            addFieldModal.classList.add("hidden");
-            addFieldForm.reset();
-          } else {
-            console.error("Error saving field:", response.statusMessage);
-            alert("Failed to save field -> " + response.statusMessage);
-          }
-
-        })
-        .fail(function (error) {
-          console.error("Error saving field:", error);
-          alert("Failed to save field. Please try again.");
-        });
+      reader2.readAsDataURL(fieldImage2);
     };
 
-    reader.readAsDataURL(fieldImage);
+    reader1.readAsDataURL(fieldImage);
   }
 });
+
 
 // Function to edit field
 function editField(button) {
@@ -112,24 +122,46 @@ function editField(button) {
   document.getElementById("editfieldLocation").value = cells[2].innerText;
   document.getElementById("editfieldSize").value = cells[3].innerText;
 
-  const currentImage = cells[0].querySelector("img").src;
-  document.getElementById("editImagePreview").src = currentImage;
+
+  const images = cells[0].querySelectorAll("img");
+
+  if (images.length > 0) {
+    document.getElementById("editImagePreview").src = images[0].src; 
+  } else {
+    console.error("First image not found in cells[0].");
+  }
+
+  if (images.length > 1) {
+    document.getElementById("editImagePreview2").src = images[1].src; 
+  } else {
+    console.error("Second image not found in cells[0].");
+  }
+
 
   editFieldModal.classList.remove("hidden");
 }
 
-document
-  .getElementById("editfieldImage")
-  .addEventListener("change", (event) => {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        document.getElementById("editImagePreview").src = reader.result;
-      };
-      reader.readAsDataURL(file);
-    }
-  });
+document.getElementById("editfieldImage").addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      document.getElementById("editImagePreview").src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+document.getElementById("editfieldImage2").addEventListener("change", (event) => {
+  const file = event.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      document.getElementById("editImagePreview2").src = reader.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
 
 // Attach event listener to edit buttons
 document.querySelectorAll(".edit-btn").forEach((button) => {
@@ -184,7 +216,8 @@ editFieldForm.addEventListener("submit", (event) => {
   const fieldName = document.getElementById("editfieldName").value;
   const fieldLocation = document.getElementById("editfieldLocation").value;
   const fieldSize = document.getElementById("editfieldSize").value;
-  const fieldImageInput = document.getElementById("editfieldImage").files[0];
+  const fieldImageInput = document.getElementById("editfieldImage").f
+  const fieldImageInput2 = document.getElementById("editfieldImage2").files[0];
 
   if (isUpdateFieldValidate()) {
     const updateData = {
@@ -198,11 +231,22 @@ editFieldForm.addEventListener("submit", (event) => {
       const reader = new FileReader();
       reader.onload = () => {
         updateData.fieldImage = reader.result.split(",")[1];
-        sendUpdateRequest(updateData);
       };
       reader.readAsDataURL(fieldImageInput);
     } else {
       const currentImageSrc = document.getElementById("editImagePreview").src;
+      updateData.fieldImage = currentImageSrc.split(",")[1];
+    }
+
+    if (fieldImageInput2) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        updateData.fieldImage2 = reader.result.split(",")[1];
+        sendUpdateRequest(updateData);
+      };
+      reader.readAsDataURL(fieldImageInput);
+    } else {
+      const currentImageSrc = document.getElementById("editImagePreview2").src;
       updateData.fieldImage = currentImageSrc.split(",")[1];
       sendUpdateRequest(updateData);
     }
@@ -377,6 +421,7 @@ function getAllFields() {
         row.innerHTML = `
                     <td class="p-4 flex items-center space-x-4">
                         <img src="data:image/jpeg;base64,${field.fieldImage}" alt="${field.fieldCode}" class="w-12 h-12 rounded-lg">
+                        <img src="data:image/jpeg;base64,${field.fieldImage2}" alt="${field.fieldCode}" class="w-12 h-12 rounded-lg">
                         <span>${field.fieldCode}</span>
                     </td>
                     <td class="p-4 text-center">${field.fieldName}</td>

@@ -3,17 +3,31 @@ const closeLogModelBtn = document.getElementById('closeLogModel');
 const addLogModal = document.getElementById('addLogModal');
 const addLogForm = document.getElementById('addLogForm');
 const logTableBody = document.getElementById('logTableBody');
+const relevantFields = document.getElementById('relevantFields');
+const relevantCrops = document.getElementById('relevantCrops');
+const logStaffMember = document.getElementById('logStaffMember');
 
 const openLogEditModalBtn = document.getElementById('openLogEditModal');
 const closeEditLogModalBtn = document.getElementById('closeEditLogModal');
 const editLogForm = document.getElementById('editLogForm');
 const editLogModal = document.getElementById('editLogModal');
+const editRelevantFields = document.getElementById('editRelevantFields');
+const editRelevantCrops = document.getElementById('editRelevantCrops');
+const editStaffMember = document.getElementById('editStaffMember');
 
 let currentRow;
 
-
+document.addEventListener('DOMContentLoaded', () => {
+    getAllLog();
+});
 // Open modal when the add log button is clicked
 openLogModalBtn.addEventListener('click', () => {
+    generateLogId(function (response) {
+        document.getElementById("logCode").value = response;
+    });
+    loadFieldOptions();
+    loadCropOptions();
+    loadStaffOptions();
     addLogModal.classList.remove('hidden');
 });
 
@@ -22,8 +36,14 @@ closeLogModelBtn.addEventListener('click', () => {
     addLogModal.classList.add('hidden');
 });
 
-addLogForm.addEventListener('submit', (event) => {
+addLogForm.addEventListener('submit', async (event) => {
     event.preventDefault();
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
 
     const logCode = document.getElementById('logCode').value;
     const logDate = document.getElementById('logDate').value;
@@ -31,45 +51,168 @@ addLogForm.addEventListener('submit', (event) => {
     const observedImage = document.getElementById('observedImage').files[0];
     const relevantFields = document.getElementById('relevantFields').value;
     const relevantCrops = document.getElementById('relevantCrops').value;
-    const staffMember = document.getElementById('staffMember').value;
+    const staffMember = document.getElementById('logStaffMember').value;
 
-    const row = document.createElement('tr');
-    row.classList.add('border-b');
-    row.innerHTML = `
-        <td class="p-4 text-center">${logCode}</td>
-        <td class="p-4 text-center">${logDate}</td>
-        <td class="p-4 text-center">${observation}</td>
-        <td class="p-4 text-center flex justify-center">
-            <img src="${URL.createObjectURL(observedImage)}" alt="Observation Image" class="w-12 h-12 object-cover">
-        </td>
-        <td class="p-4 text-center">${relevantFields}</td>
-        <td class="p-4 text-center">${relevantCrops}</td>
-        <td class="p-4 text-center">${staffMember}</td>
-        <td class="p-4 text-center space-x-3">
-            <button class="text-blue-500 px-1 editLogBtn" id="openLogEditModal">
-                <i class="fa-solid fa-pen"></i>
-            </button>
-            <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-log-btn">
-                <i class="fa-solid fa-times"></i>
-            </button>
-        </td>
-    `;
 
-    logTableBody.appendChild(row);
-    addLogModal.classList.add('hidden');
-    addLogForm.reset();
+    let newFieldDTO = null;
+    let newCropDTO = null;
+    let newStaffDTO = null;
 
-    row.querySelector('.editLogBtn').addEventListener('click', function () {
-        editLog(this);
-    });
+    const fetchData = async (url) => {
+        try {
+            const response = await $.ajax({
+                url,
+                method: "GET",
+                timeout: 0,
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer ' + token
+                }
+            });
+            return response;
+        } catch (error) {
+            console.error(`Error fetching data from ${url}:`, error);
+            alert(`Failed to load data from . Please try again later.`);
+            return null;
+        }
+    };
 
-    row.querySelector('.delete-log-btn').addEventListener('click', function () {
-        deleteLog(this);
-    });
+    if (relevantFields != null && relevantFields !== '') {
+        newFieldDTO = await fetchData(`http://localhost:8080/api/v1/fields/${relevantFields}`);
+    }
+
+    if (relevantCrops != null && relevantCrops !== '') {
+        newCropDTO = await fetchData(`http://localhost:8080/api/v1/crops/${relevantCrops}`);
+    }
+
+    if (staffMember != null && staffMember !== '') {
+        newStaffDTO = await fetchData(`http://localhost:8080/api/v1/staff/${staffMember}`);
+    }
+
+    const readImageAsBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result.split(',')[1]);
+            reader.onerror = (error) => reject(error);
+            reader.readAsDataURL(file);
+        });
+    };
+
+    let base64Image = null;
+    if (observedImage) {
+        try {
+            base64Image = await readImageAsBase64(observedImage);
+        } catch (error) {
+            console.error("Error reading image file:", error);
+            alert("Failed to process image. Please try again.");
+            return;
+        }
+    }
+
+    const requestData = {
+        logCode: logCode,
+        date: logDate,
+        observation: observation,
+        observationImage: base64Image,
+        fieldDTO: newFieldDTO,
+        staffDTO: newStaffDTO,
+        cropDTO: newCropDTO
+    };
+
+    try {
+        const response = await $.ajax({
+            url: "http://localhost:8080/api/v1/log",
+            method: "POST",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token,
+            },
+            data: JSON.stringify(requestData),
+        });
+
+        if (response.statusCode === 201) {
+            console.log("Log saved successfully:", response);
+            alert("Success to save log. ");
+            addLogModal.classList.add('hidden');
+            addLogForm.reset();
+            getAllLog();
+        } else {
+            console.error("Error saving log:", response.statusMessage);
+            alert("Failed to save log -> " + response.statusMessage);
+        }
+    } catch (error) {
+        console.error("Error saving log:", error);
+        alert("Failed to save log. Please try again.");
+    }
 });
+
+
+
+function getAllLog() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+
+    $.ajax({
+        url: "http://localhost:8080/api/v1/log",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+    })
+        .done(function (log) {
+            logTableBody.innerHTML = "";
+
+            log.forEach((field) => {
+                console.log(field)
+                const row = document.createElement("tr");
+                row.classList.add("border-b");
+                row.innerHTML = `
+                    <td class="p-4 text-center">${field.logCode}</td>
+                    <td class="p-4 text-center">${field.date}</td>
+                    <td class="p-4 text-center">${field.observation}</td>
+                    <td class="p-4 text-center flex justify-center">
+                        <img src="data:image/jpeg;base64,${field.observationImage}" alt="Observation Image" class="w-12 h-12 object-cover">
+                    </td>
+                    <td class="p-4 text-center">${field.fieldDTO ? field.fieldDTO.fieldCode : 'N/A'}</td>
+                    <td class="p-4 text-center">${field.cropDTO ? field.cropDTO.cropCode    : 'N/A'}</td>
+                    <td class="p-4 text-center">${field.staffDTO ? field.staffDTO.id : 'N/A'}</td>
+                    <td class="p-4 text-center space-x-3">
+                        <button class="text-blue-500 px-1 editLogBtn" id="openLogEditModal">
+                            <i class="fa-solid fa-pen"></i>
+                        </button>
+                        <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-log-btn">
+                            <i class="fa-solid fa-times"></i>
+                        </button>
+                    </td>
+                `;
+
+                logTableBody.appendChild(row);
+
+                row.querySelector(".editLogBtn").addEventListener("click", function () {
+                    editLog(this);
+                });
+
+                row.querySelector(".delete-log-btn").addEventListener("click", function () {
+                    deleteLog(this);
+                });
+            });
+        })
+        .fail(function (error) {
+            console.error("Error fetching log:", error);
+            alert("Failed to fetch log. Please try again later.");
+        });
+}
 
 // Function to edit log data
 function editLog(button) {
+    loadEditFieldOptions();
+    loadEditCropOptions();
+    loadEditStaffOptions();
     currentRow = button.closest('tr');
     const cells = currentRow.children;
 
@@ -102,33 +245,524 @@ closeEditLogModalBtn.addEventListener('click', () => {
 });
 
 // Handle form submission for editing log data
-editLogForm.addEventListener('submit', (event) => {
+editLogForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
-    currentRow.children[0].innerText = document.getElementById('editLogCode').value;
-    currentRow.children[1].innerText = document.getElementById('editLogDate').value;
-    currentRow.children[2].innerText = document.getElementById('editObservation').value;
-    currentRow.children[4].innerText = document.getElementById('editRelevantFields').value;
-    currentRow.children[5].innerText = document.getElementById('editRelevantCrops').value;
-    currentRow.children[6].innerText = document.getElementById('editStaffMember').value;
-
-    const newImageFile = document.getElementById('editObservedImage').files[0];
-
-    if (newImageFile) {
-        const newImageURL = URL.createObjectURL(newImageFile);
-        currentRow.children[3].querySelector('img').src = newImageURL;
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
     }
 
-    closeEditLogModalBtn.click();
+    const logCode = document.getElementById('editLogCode').value.trim();
+    const logDate = document.getElementById('editLogDate').value.trim();
+    const observation = document.getElementById('editObservation').value.trim();
+    const observedImage = document.getElementById('editObservedImage').files[0];
+    const relevantFields = document.getElementById('editRelevantFields').value;
+    const relevantCrops = document.getElementById('editRelevantCrops').value;
+    const staffMember = document.getElementById('editStaffMember').value;
+
+    // Field validation
+    if (!logCode || !logDate || !observation) {
+        alert("Please fill in all required fields: Log Code, Date, and Observation.");
+        return;
+    }
+
+    const fetchData = async (url) => {
+        try {
+            return await $.ajax({
+                url,
+                method: "GET",
+                timeout: 0,
+                headers: {
+                    "Content-Type": "application/json",
+                    'Authorization': 'Bearer ' + token,
+                },
+            });
+        } catch (error) {
+            console.error(`Error fetching data from ${url}:`, error);
+            alert(`Failed to load data from ${url}. Please try again later.`);
+            return null;
+        }
+    };
+
+    const readImageAsBase64 = (file) => {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onloadend = () => resolve(reader.result.split(',')[1]);
+            reader.onerror = (error) => reject(error);
+            reader.readAsDataURL(file);
+        });
+    };
+
+    let base64Image = null;
+    if (observedImage) {
+        if (!["image/jpeg", "image/png"].includes(observedImage.type)) {
+            alert("Please upload a valid image (JPEG or PNG).");
+            return;
+        }
+
+        if (observedImage.size > 2 * 1024 * 1024) { // 2MB limit
+            alert("Image size exceeds 2MB. Please upload a smaller file.");
+            return;
+        }
+
+        try {
+            base64Image = await readImageAsBase64(observedImage);
+        } catch (error) {
+            console.error("Error reading image file:", error);
+            alert("Failed to process the image. Please try again.");
+            return;
+        }
+    }
+
+    const [newFieldDTO, newCropDTO, newStaffDTO] = await Promise.all([
+        relevantFields ? fetchData(`http://localhost:8080/api/v1/fields/${relevantFields}`) : null,
+        relevantCrops ? fetchData(`http://localhost:8080/api/v1/crops/${relevantCrops}`) : null,
+        staffMember ? fetchData(`http://localhost:8080/api/v1/staff/${staffMember}`) : null,
+    ]);
+
+    const requestData = {
+        logCode,
+        date: logDate,
+        observation,
+        observationImage: base64Image,
+        fieldDTO: newFieldDTO,
+        staffDTO: newStaffDTO,
+        cropDTO: newCropDTO,
+    };
+
+    try {
+        const response = await $.ajax({
+            url: `http://localhost:8080/api/v1/log/${logCode}`,
+            method: "PUT",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token,
+            },
+            data: JSON.stringify(requestData),
+        });
+
+        if (response.statusCode >= 200 && response.statusCode < 300) {
+            alert("Log updated successfully.");
+            closeEditLogModalBtn.click();
+            editLogForm.reset();
+            getAllLog(); // Refresh log table
+        } else {
+            console.error("Error saving log:", response.statusMessage);
+            alert("Failed to save log. " + (response.statusMessage || "Please try again later."));
+        }
+    } catch (error) {
+        console.error("Error saving log:", error);
+        alert("Failed to save log. Please try again later.");
+    }
 });
+
 
 
 // Function to delete log
 function deleteLog(button) {
     const row = button.closest('tr');
     const confirmation = confirm('Are you sure you want to delete this log?');
-    
+
     if (confirmation) {
         row.remove();
     }
+}
+
+function generateLogId(callback) {
+
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+
+    var request = {
+        url: "http://localhost:8080/api/v1/log/generateId",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            'Authorization': 'Bearer ' + token
+        },
+    };
+
+    $.ajax(request)
+        .done(function (response) {
+            if (callback) {
+                callback(response);
+            }
+        })
+        .fail(function (error) {
+            console.error("Error fetching log ID:", error);
+        });
+}
+
+relevantFields.addEventListener("change", () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    const selectedFieldCode = relevantFields.value;
+
+    if (selectedFieldCode) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/fields/${selectedFieldCode}`,
+            method: "GET",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
+            },
+            success: function (field) {
+                document.getElementById('logFieldName').textContent = field.fieldName;
+                relevantCrops.disabled = true;
+                logStaffMember.disabled = true;
+            },
+            error: function (error) {
+                console.error("Error loading field:", error);
+                alert("Failed to load field details. Please try again later.");
+            }
+        });
+    } else {
+        document.getElementById('logFieldName').textContent = '';
+        relevantCrops.disabled = false;
+        logStaffMember.disabled = false;
+    }
+});
+
+logStaffMember.addEventListener("change", () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    const selectedFieldCode = logStaffMember.value;
+
+    if (selectedFieldCode) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/staff/${selectedFieldCode}`,
+            method: "GET",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
+            },
+            success: function (field) {
+                document.getElementById('logStaffName').textContent = field.firstName;
+                relevantCrops.disabled = true;
+                relevantFields.disabled = true;
+            },
+            error: function (error) {
+                console.error("Error loading field:", error);
+                alert("Failed to load field details. Please try again later.");
+            }
+        });
+    } else {
+        document.getElementById('logStaffName').textContent = '';
+        relevantCrops.disabled = false;
+        relevantFields.disabled = false;
+    }
+});
+
+editRelevantFields.addEventListener("change", () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    const selectedFieldCode = editRelevantFields.value;
+
+    if (selectedFieldCode) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/fields/${selectedFieldCode}`,
+            method: "GET",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
+            },
+            success: function (field) {
+                document.getElementById('editlogFieldName').textContent = field.fieldName;
+                editRelevantCrops.disabled = true;
+                editStaffMember.disabled = true;
+            },
+            error: function (error) {
+                console.error("Error loading field:", error);
+                alert("Failed to load field details. Please try again later.");
+            }
+        });
+    } else {
+        document.getElementById('logFieldName').textContent = '';
+        editRelevantCrops.disabled = false;
+        editStaffMember.disabled = false;
+    }
+});
+
+editRelevantCrops.addEventListener("change", () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    const selectedFieldCode = editRelevantCrops.value;
+
+    if (selectedFieldCode) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/crops/${selectedFieldCode}`,
+            method: "GET",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
+            },
+            success: function (crop) {
+                document.getElementById('editlogCropName').textContent = crop.commonName;
+                editRelevantFields.disabled = true;
+                editStaffMember.disabled = true;
+            },
+            error: function (error) {
+                console.error("Error loading crop:", error);
+                alert("Failed to load crop details. Please try again later.");
+            }
+        });
+    } else {
+        document.getElementById('editlogCropName').textContent = '';
+        editRelevantFields.disabled = false;
+        editStaffMember.disabled = false;
+    }
+});
+
+editStaffMember.addEventListener("change", () => {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    const selectedFieldCode = editStaffMember.value;
+
+    if (selectedFieldCode) {
+        $.ajax({
+            url: `http://localhost:8080/api/v1/staff/${selectedFieldCode}`,
+            method: "GET",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
+            },
+            success: function (staff) {
+                document.getElementById('editlogStaffName').textContent = staff.firstName;
+                editRelevantFields.disabled = true;
+                editRelevantCrops.disabled = true;
+            },
+            error: function (error) {
+                console.error("Error loading crop:", error);
+                alert("Failed to load crop details. Please try again later.");
+            }
+        });
+    } else {
+        document.getElementById('editlogStaffName').textContent = '';
+        editRelevantFields.disabled = false;
+        editRelevantCrops.disabled = false;
+    }
+});
+
+function loadFieldOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    $.ajax({
+        url: "http://localhost:8080/api/v1/fields",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+        },
+        success: function (fields) {
+            const logFieldDropdown = document.getElementById('relevantFields');
+
+            logFieldDropdown.innerHTML = '<option value="">Select Field</option>';
+
+            fields.forEach(field => {
+                const option = document.createElement('option');
+                option.value = field.fieldCode;
+                option.textContent = field.fieldCode;
+                logFieldDropdown.appendChild(option);
+            });
+        },
+        error: function (error) {
+            console.error("Error loading fields:", error);
+            alert("Failed to load fields. Please try again later.");
+        }
+    });
+}
+
+function loadCropOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    $.ajax({
+        url: "http://localhost:8080/api/v1/crops",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+        },
+        success: function (crop) {
+            const logCropDropdown = document.getElementById('relevantCrops');
+
+            logCropDropdown.innerHTML = '<option value="">Select Crop</option>';
+
+            crop.forEach(crop => {
+                const option = document.createElement('option');
+                option.value = crop.cropCode;
+                option.textContent = crop.cropCode;
+                logCropDropdown.appendChild(option);
+            });
+        },
+        error: function (error) {
+            console.error("Error loading crop:", error);
+            alert("Failed to load crop. Please try again later.");
+        }
+    });
+}
+
+function loadStaffOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    $.ajax({
+        url: "http://localhost:8080/api/v1/staff",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+        },
+        success: function (staffs) {
+            const logStaffDropdown = document.getElementById('logStaffMember');
+
+            logStaffDropdown.innerHTML = '<option value="">Select staff</option>';
+
+            staffs.forEach(staff => {
+                const option = document.createElement('option');
+                option.value = staff.id;
+                option.textContent = staff.id;
+                logStaffDropdown.appendChild(option);
+            });
+        },
+        error: function (error) {
+            console.error("Error loading staff:", error);
+            alert("Failed to load staff. Please try again later.");
+        }
+    });
+}
+
+function loadEditStaffOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    $.ajax({
+        url: "http://localhost:8080/api/v1/staff",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+        },
+        success: function (staffs) {
+            const logStaffDropdown = document.getElementById('editStaffMember');
+
+            logStaffDropdown.innerHTML = '<option value="">Select staff</option>';
+
+            staffs.forEach(staff => {
+                const option = document.createElement('option');
+                option.value = staff.id;
+                option.textContent = staff.id;
+                logStaffDropdown.appendChild(option);
+            });
+        },
+        error: function (error) {
+            console.error("Error loading staff:", error);
+            alert("Failed to load staff. Please try again later.");
+        }
+    });
+}
+
+function loadEditCropOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    $.ajax({
+        url: "http://localhost:8080/api/v1/crops",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+        },
+        success: function (crop) {
+            const logCropDropdown = document.getElementById('editRelevantCrops');
+
+            logCropDropdown.innerHTML = '<option value="">Select Crop</option>';
+
+            crop.forEach(crop => {
+                const option = document.createElement('option');
+                option.value = crop.cropCode;
+                option.textContent = crop.cropCode;
+                logCropDropdown.appendChild(option);
+            });
+        },
+        error: function (error) {
+            console.error("Error loading crop:", error);
+            alert("Failed to load crop. Please try again later.");
+        }
+    });
+}
+
+function loadEditFieldOptions() {
+    const token = localStorage.getItem("token");
+    if (!token) {
+        alert("No token found. Please log in.");
+        return;
+    }
+    $.ajax({
+        url: "http://localhost:8080/api/v1/fields",
+        method: "GET",
+        timeout: 0,
+        headers: {
+            "Content-Type": "application/json",
+            'Authorization': 'Bearer ' + token
+        },
+        success: function (fields) {
+            const logFieldDropdown = document.getElementById('editRelevantFields');
+
+            logFieldDropdown.innerHTML = '<option value="">Select Field</option>';
+
+            fields.forEach(field => {
+                const option = document.createElement('option');
+                option.value = field.fieldCode;
+                option.textContent = field.fieldCode;
+                logFieldDropdown.appendChild(option);
+            });
+        },
+        error: function (error) {
+            console.error("Error loading fields:", error);
+            alert("Failed to load fields. Please try again later.");
+        }
+    });
 }

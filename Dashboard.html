@@ -473,10 +473,18 @@
                                         </span>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="fieldImage" class="block mb-2">Upload Image</label>
+                                        <label for="fieldImage" class="block mb-2">Upload Image 1</label>
                                         <input type="file" id="fieldImage" accept="image/*"
                                             class="border border-gray-300 rounded w-full p-2" />
                                         <span class="errorMessageImage text-red-500 hidden text-xs">
+                                            Please upload a valid image (JPEG, PNG, GIF).
+                                        </span>
+                                    </div>
+                                    <div class="mb-4">
+                                        <label for="fieldImage2" class="block mb-2">Upload Image 2</label>
+                                        <input type="file" id="fieldImage2" accept="image/*"
+                                            class="border border-gray-300 rounded w-full p-2" />
+                                        <span class="errorMessageImage2 text-red-500 hidden text-xs">
                                             Please upload a valid image (JPEG, PNG, GIF).
                                         </span>
                                     </div>
@@ -534,12 +542,19 @@
                                         </span>
                                     </div>
                                     <div class="mb-4">
-                                        <label for="editfieldImage" class="block mb-2">Upload Image</label>
+                                       <label for="editfieldImage" class="block mb-2">Upload Image 1</label>
                                         <input type="file" id="editfieldImage" accept="image/*"
                                             class="border border-gray-300 rounded w-full p-2" />
                                         <img id="editImagePreview" src="" alt="Field Image Preview"
                                             class="w-24 h-24 mt-2 rounded-lg border border-gray-300" />
-                                    </div>
+                                    </div> 
+                                    <div class="mb-4">
+                                        <label for="editfieldImage2" class="block mb-2">Upload Image 2</label>
+                                         <input type="file" id="editfieldImage2" accept="image/*"
+                                             class="border border-gray-300 rounded w-full p-2" />
+                                         <img id="editImagePreview2" src="" alt="Field Image Preview"
+                                             class="w-24 h-24 mt-2 rounded-lg border border-gray-300" />
+                                     </div> 
                                     <div class="flex justify-end">
                                         <button type="button" id="closeEditModal"
                                             class="bg-red-500 text-white px-4 py-2 rounded mr-2">
@@ -1553,8 +1568,8 @@
                                     <div>
                                         <label for="logCode" class="block text-gray-700">Log Code</label>
                                         <input type="text" id="logCode"
-                                            class="w-full border border-gray-300 p-2 rounded"
-                                            placeholder="Enter Log Code (e.g., LG-001)" required />
+                                            class="w-full border bg-gray-200 border-gray-300 p-2 rounded"
+                                            placeholder="Enter Log Code (e.g., LG-001)" readonly />
                                     </div>
                                     <div>
                                         <label for="logDate" class="block text-gray-700 mb-1">Log Date</label>
@@ -1576,36 +1591,41 @@
                                         <label for="relevantFields" class="block text-gray-700">Relevant Fields</label>
                                         <select id="relevantFields"
                                             class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
-                                            required>
-                                            <option value="" disabled selected>Select Field</option>
-                                            <option value="Field A">Field A</option>
-                                            <option value="Field B">Field B</option>
-                                            <option value="Field C">Field C</option>
+                                            >
                                         </select>
                                     </div>
+                                    <div class="mb-2">
+                                      <div id="logFieldName"
+                                            class="block border bg-gray-200 border-gray-300 rounded w-full p-2 pb-3">
+                                        </div>
+                                    </div>  
                                     <div>
                                         <label for="relevantCrops" class="block text-gray-700">Relevant Crops</label>
                                         <select id="relevantCrops"
                                             class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
-                                            required>
+                                            >
                                             <option value="" disabled selected>Select Crop</option>
                                             <option value="Wheat">Wheat</option>
                                             <option value="Corn">Corn</option>
                                             <option value="Rice">Rice</option>
                                         </select>
                                     </div>
+                                    <div class="mb-2">
+                                        <div id="logCropName"
+                                            class="block border bg-gray-200 border-gray-300 rounded w-full p-2 pb-3">
+                                        </div>
+                                    </div>
                                     <div>
-                                        <label for="staffMember" class="block text-gray-700">Staff Member</label>
-                                        <select id="staffMember"
+                                        <label for="logStaffMember" class="block text-gray-700">Staff Member</label>
+                                        <select id="logStaffMember"
                                             class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
-                                            required>
-                                            <option value="" disabled selected>
-                                                Select Staff Member
-                                            </option>
-                                            <option value="John Doe">John Doe</option>
-                                            <option value="Jane Smith">Jane Smith</option>
-                                            <option value="Emily Johnson">Emily Johnson</option>
+                                            >
                                         </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <div id="logStaffName"
+                                            class="block border bg-gray-200 border-gray-300 rounded w-full p-2 pb-3">
+                                        </div>
                                     </div>
                                     <div class="flex justify-end">
                                         <button type="button"
@@ -1630,7 +1650,7 @@
                                     <div>
                                         <label for="editLogCode" class="block text-gray-700">Log Code</label>
                                         <input type="text" id="editLogCode"
-                                            class="w-full border border-gray-300 p-2 rounded" required />
+                                            class="w-full border bg-gray-200 border-gray-300 p-2 rounded" readonly />
                                     </div>
                                     <div>
                                         <label for="editLogDate" class="block text-gray-700 mb-1">Log Date</label>
@@ -1657,37 +1677,38 @@
                                             Fields</label>
                                         <select id="editRelevantFields"
                                             class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
-                                            required>
-                                            <option value="" disabled selected>Select Field</option>
-                                            <option value="Field A">Field A</option>
-                                            <option value="Field B">Field B</option>
-                                            <option value="Field C">Field C</option>
+                                            >
                                         </select>
                                     </div>
+                                    <div class="mb-2">
+                                        <div id="editlogFieldName"
+                                              class="block border bg-gray-200 border-gray-300 rounded w-full p-2 pb-3">
+                                          </div>
+                                      </div> 
                                     <div>
                                         <label for="editRelevantCrops" class="block text-gray-700">Relevant
                                             Crops</label>
                                         <select id="editRelevantCrops"
                                             class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
                                             required>
-                                            <option value="" disabled selected>Select Crop</option>
-                                            <option value="Wheat">Wheat</option>
-                                            <option value="Corn">Corn</option>
-                                            <option value="Rice">Rice</option>
                                         </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <div id="editlogCropName"
+                                            class="block border bg-gray-200 border-gray-300 rounded w-full p-2 pb-3">
+                                        </div>
                                     </div>
                                     <div>
                                         <label for="editStaffMember" class="block text-gray-700">Staff Member</label>
                                         <select id="editStaffMember"
                                             class="w-full border border-gray-300 p-2 rounded appearance-none bg-white pr-8 cursor-pointer"
                                             required>
-                                            <option value="" disabled selected>
-                                                Select Staff Member
-                                            </option>
-                                            <option value="John Doe">John Doe</option>
-                                            <option value="Jane Smith">Jane Smith</option>
-                                            <option value="Bob Johnson">Bob Johnson</option>
                                         </select>
+                                    </div>
+                                    <div class="mb-2">
+                                        <div id="editlogStaffName"
+                                            class="block border bg-gray-200 border-gray-300 rounded w-full p-2 pb-3">
+                                        </div>
                                     </div>
                                     <div class="flex justify-end">
                                         <button type="button" id="closeEditLogModal"
