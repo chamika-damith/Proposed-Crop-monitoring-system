@@ -140,17 +140,17 @@ function getAllEquipment() {
                 row.classList.add('border-b');
 
                 row.innerHTML = `
-                    <td class="p-2 text-center">${equipment.equipmentId}</td>
-                    <td class="p-2 text-center">${equipment.name}</td>
-                    <td class="p-2 text-center">${equipment.equipmentType}</td>
-                    <td class="p-2 text-center">${equipment.status}</td>
-                    <td class="p-2 text-center">${equipment.staff.id || 'N/A'}</td>
-                    <td class="p-2 text-center">${equipment.field.fieldCode || 'N/A'}</td>
-                    <td class="p-4 text-center space-x-3">
-                        <button class="text-blue-500 px-1 editEquipmentBtn">
+                    <td class="p-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${equipment.equipmentId}</td>
+                    <td class="p-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${equipment.name}</td>
+                    <td class="p-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${equipment.equipmentType}</td>
+                    <td class="p-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${equipment.status}</td>
+                    <td class="p-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${equipment.staff.id || 'N/A'}</td>
+                    <td class="p-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${equipment.field.fieldCode || 'N/A'}</td>
+                    <td class="p-2 text-center bg-gray-50 hover:bg-gray-100 text-gray-500 space-x-3">
+                        <button class="text-blue-500 hover:text-blue-600 px-2 py-1 rounded transition-all duration-200 ease-in-out editEquipmentBtn">
                             <i class="fa-solid fa-pen"></i>
                         </button>
-                        <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-equipment-btn">
+                        <button class="text-red-500 hover:text-red-600 border-2 border-red-400 hover:border-red-500 rounded-full px-2 py-1 transition-all duration-200 ease-in-out delete-equipment-btn">
                             <i class="fa-solid fa-times"></i>
                         </button>
                     </td>

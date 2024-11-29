@@ -261,6 +261,7 @@ function cropUpdate(data) {
 
 // Function to delete field
 function deleteCrop(button, cropCode) {
+    console.log(cropCode)
     const row = button.closest('tr');
     const confirmation = confirm('Are you sure you want to delete this crop?');
 
@@ -433,18 +434,18 @@ function getAllCrops() {
                 const row = document.createElement('tr');
                 row.classList.add('border-b');
                 row.innerHTML = `
-                <td class="p-4 flex items-center space-x-4">
-                    <img src="data:image/jpeg;base64,${crop.image}" alt="${crop.cropCode}" class="w-12 h-12 rounded-lg">
-                    <span>${crop.cropCode}</span>
+                <td class="p-4 flex items-center space-x-4 bg-gray-50 hover:bg-gray-100 rounded-lg">
+                    <img src="data:image/jpeg;base64,${crop.image}" alt="${crop.cropCode}" class="w-12 h-12 rounded-lg border border-gray-200 shadow-sm">
+                    <span class"font-semibold text-gray-800>${crop.cropCode}</span>
                 </td>
-                <td class="p-4 text-center">${crop.commonName}</td>
-                <td class="p-4 text-center">${crop.scientificName}</td>
-                <td class="p-4 text-center">${crop.category}</td>
-                <td class="p-4 text-center">${crop.season}</td>
-                <td class="p-4 text-center">${crop.fieldDTO.fieldCode}</td>
-                <td class="p-4 text-gray-500 space-x-3">
-                    <button class="text-blue-500 px-1 edit-btn"><i class="fa-solid fa-pen"></i></button>
-                    <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-btn"><i class="fa-solid fa-times"></i></button>
+                <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${crop.commonName}</td>
+                <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${crop.scientificName}</td>
+                <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${crop.category}</td>
+                <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${crop.season}</td>
+                <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${crop.fieldDTO.fieldCode}</td>
+                <td class="p-4 text-center bg-gray-50 hover:bg-gray-100 text-gray-500 space-x-3">
+                    <button class="text-blue-500 hover:text-blue-600 px-2 py-1 rounded transition-all duration-200 ease-in-out edit-btn"><i class="fa-solid fa-pen"></i></button>
+                    <button class="text-red-500 hover:text-red-600 border-2 border-red-400 hover:border-red-500 rounded-full px-2 py-1 transition-all duration-200 ease-in-out  delete-btn"><i class="fa-solid fa-times"></i></button>
                 </td>
             `;
 

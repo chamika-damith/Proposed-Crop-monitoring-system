@@ -172,20 +172,20 @@ function getAllLog() {
                 const row = document.createElement("tr");
                 row.classList.add("border-b");
                 row.innerHTML = `
-                    <td class="p-4 text-center">${field.logCode}</td>
-                    <td class="p-4 text-center">${field.date}</td>
-                    <td class="p-4 text-center">${field.observation}</td>
-                    <td class="p-4 text-center flex justify-center">
-                        <img src="data:image/jpeg;base64,${field.observationImage}" alt="Observation Image" class="w-12 h-12 object-cover">
+                    <td class="py-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${field.logCode}</td>
+                    <td class="py-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${field.date}</td>
+                    <td class="py-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${field.observation}</td>
+                    <td class="py-2 flex justify-center items-center space-x-4 bg-gray-50 hover:bg-gray-100 rounded-lg">
+                        <img src="data:image/jpeg;base64,${field.observationImage}" alt="Observation Image" class="w-12 h-12 rounded-lg border border-gray-200 shadow-sm">
                     </td>
-                    <td class="p-4 text-center">${field.fieldDTO ? field.fieldDTO.fieldCode : 'N/A'}</td>
-                    <td class="p-4 text-center">${field.cropDTO ? field.cropDTO.cropCode    : 'N/A'}</td>
-                    <td class="p-4 text-center">${field.staffDTO ? field.staffDTO.id : 'N/A'}</td>
-                    <td class="p-4 text-center space-x-3">
-                        <button class="text-blue-500 px-1 editLogBtn" id="openLogEditModal">
+                    <td class="py-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${field.fieldDTO ? field.fieldDTO.fieldCode : 'N/A'}</td>
+                    <td class="py-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${field.cropDTO ? field.cropDTO.cropCode    : 'N/A'}</td>
+                    <td class="py-2 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${field.staffDTO ? field.staffDTO.id : 'N/A'}</td>
+                    <td class="py-2 text-center bg-gray-50 hover:bg-gray-100 text-gray-500 space-x-3">
+                        <button class="text-blue-500 hover:text-blue-600 px-2 py-1 rounded transition-all duration-200 ease-in-out editLogBtn" id="openLogEditModal">
                             <i class="fa-solid fa-pen"></i>
                         </button>
-                        <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-log-btn">
+                        <button class="text-red-500 hover:text-red-600 border-2 border-red-400 hover:border-red-500 rounded-full px-2 py-1 transition-all duration-200 ease-in-out delete-log-btn">
                             <i class="fa-solid fa-times"></i>
                         </button>
                     </td>
@@ -348,7 +348,7 @@ editLogForm.addEventListener('submit', async (event) => {
             alert("Log updated successfully.");
             closeEditLogModalBtn.click();
             editLogForm.reset();
-            getAllLog(); // Refresh log table
+            getAllLog(); 
         } else {
             console.error("Error saving log:", response.statusMessage);
             alert("Failed to save log. " + (response.statusMessage || "Please try again later."));

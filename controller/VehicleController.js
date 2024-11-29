@@ -206,18 +206,18 @@ function getAllVehicles() {
                 row.classList.add('border-b');
 
                 row.innerHTML = `
-                    <td class="p-4 text-center">${vehicle.vehicleCode}</td>
-                    <td class="p-4 text-center">${vehicle.licensePlateNum}</td>
-                    <td class="p-4 text-center">${vehicle.category}</td>
-                    <td class="p-4 text-center">${vehicle.fuelType}</td>
-                    <td class="p-4 text-center">${vehicle.status}</td>
-                    <td class="p-4 text-center">${vehicle.staff ? vehicle.staff.id : 'N/A'}</td>
-                    <td class="p-4 text-center">${vehicle.remarks || ''}</td>
-                    <td class="p-4 text-center space-x-3">
-                        <button class="text-blue-500 px-1 editVehiclebtn">
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${vehicle.vehicleCode}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${vehicle.licensePlateNum}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${vehicle.category}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${vehicle.fuelType}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${vehicle.status}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${vehicle.staff ? vehicle.staff.id : 'N/A'}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${vehicle.remarks || ''}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 space-x-3">
+                        <button class="text-blue-500 hover:text-blue-600 px-2 py-1 rounded transition-all duration-200 ease-in-out editVehiclebtn">
                             <i class="fa-solid fa-pen"></i>
                         </button>
-                        <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-vehicle-btn">
+                        <button class="text-red-500 hover:text-red-600 border-2 border-red-400 hover:border-red-500 rounded-full px-2 py-1 transition-all duration-200 ease-in-out  delete-vehicle-btn">
                             <i class="fa-solid fa-times"></i>
                         </button>
                     </td>
@@ -328,7 +328,7 @@ function updateVehicle(vehicle) {
         data: JSON.stringify(vehicle),
     })
         .done((response) => {
-            if (response.statusCode == 200) {
+            if (response.statusCode == 201) {
                 console.log('Vehicle updated successfully:', response);
                 getAllVehicles();
                 editVehicleModal.classList.add('hidden');
@@ -399,16 +399,6 @@ function generateVehicleId(callback) {
 function isAddVehicleValidate() {
     let isValid = true;
 
-    // Validate License Plate Number (example pattern: alphanumeric with optional dashes or spaces)
-    const licensePlatePattern = /^[A-Za-z0-9\- ]{1,10}$/;
-    if (!licensePlatePattern.test($('#licensePlateNumber').val())) {
-        isValid = false;
-        $('#licensePlateNumber').css('border', '2px solid red');
-        $('.errorMessagelicensePlateNumber').show();
-    } else {
-        $('#licensePlateNumber').css('border', '1px solid #ccc');
-        $('.errorMessagelicensePlateNumber').hide();
-    }
 
     // Validate Vehicle Category (example pattern: non-empty alphanumeric, allowing spaces)
     const vehicleCategoryPattern = /^[A-Za-z0-9 ]{3,30}$/;

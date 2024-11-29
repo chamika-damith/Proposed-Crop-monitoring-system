@@ -1,76 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
+    <title>Green Shadow - Crop Monitoring System</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
         integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="assests/styles/style.css">
 </head>
-
-<div
-    class="absolute top-0 z-[-2] h-screen w-full bg-white bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,119,198,0.3),rgba(255,255,255,0))]">
-
-    <body class="bg-teal-50">
-        
-        <!-- Login-Container -->
-         <div class="bg-gray-100 flex items-center justify-center min-h-screen">
+<body class="bg-gradient-to-br from-teal-50 via-white to-blue-50 min-h-screen flex items-center justify-center">
+    <div class="absolute inset-0 z-[-1] bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(79,209,197,0.15),transparent)]"></div>
+    
+    <div class="container mx-auto px-4 py-8 ">
+        <div class="grid md:grid-cols-2 gap-8 items-center">
+            <!-- Left Side: Information Section -->
+            <div class="text-center md:text-left space-y-6 pl-20">
+                <div class="relative">
+                    <div class="absolute -top-2 -left-2 w-16 h-16 bg-gradient-to-br from-teal-200 to-blue-300 rounded-full opacity-30 blur-2xl"></div>
+                    <h1 class="text-center relative z-10 text-5xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-teal-500 to-blue-500 mb-4 tracking-tight">
+                        Green Shadow
+                    </h1>
+                    <p class="text-center text-xl text-gray-600 mb-6 tracking-wide">
+                        Advanced Crop Monitoring Solution
+                    </p>
+                </div>
+                
+                <div class="space-y-6">
+                    <div class="bg-white/60 backdrop-blur-lg border border-gray-100 rounded-2xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
+                        <div class="flex items-center space-x-6">
+                            <div class="bg-gradient-to-br from-teal-400 to-blue-500 p-4 rounded-2xl shadow-md">
+                                <i class="fas fa-leaf text-white text-3xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-xl mb-2 bg-clip-text text-transparent bg-gradient-to-r from-teal-600 to-blue-600">
+                                    Precision Agriculture
+                                </h3>
+                                <p class="text-gray-600 text-sm leading-relaxed">
+                                    Real-time crop health tracking using advanced machine learning and satellite imagery analytics
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/60 backdrop-blur-lg border border-gray-100 rounded-2xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
+                        <div class="flex items-center space-x-6">
+                            <div class="bg-gradient-to-br from-blue-400 to-indigo-500 p-4 rounded-2xl shadow-md">
+                                <i class="fas fa-satellite text-white text-3xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-xl mb-2 bg-clip-text text-transparent bg-gradient-to-r from-blue-600 to-indigo-600">
+                                    Satellite Monitoring
+                                </h3>
+                                <p class="text-gray-600 text-sm leading-relaxed">
+                                    Comprehensive field surveillance with AI-powered insights and predictive environmental analysis
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="bg-white/60 backdrop-blur-lg border border-gray-100 rounded-2xl p-6 shadow-lg transition-all duration-300 hover:shadow-xl hover:scale-[1.02]">
+                        <div class="flex items-center space-x-6">
+                            <div class="bg-gradient-to-br from-green-400 to-teal-500 p-4 rounded-2xl shadow-md">
+                                <i class="fas fa-chart-line text-white text-3xl"></i>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-gray-800 text-xl mb-2 bg-clip-text text-transparent bg-gradient-to-r from-green-600 to-teal-600">
+                                    Performance Tracking
+                                </h3>
+                                <p class="text-gray-600 text-sm leading-relaxed">
+                                    Intelligent yield predictions and comprehensive performance metrics using deep learning algorithms
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="mt-8 relative text-center">
+                    <p class=" relative z-10 text-sm text-gray-500 italic bg-white/60 backdrop-blur-sm px-4 py-2 rounded-xl inline-block shadow-md">
+                        "Empowering farmers with data-driven agricultural solutions"
+                    </p>
+                </div>
+            </div>
             
-            <div class="bg-white p-8 rounded-lg shadow-lg w-full max-w-md space-y-6 " id="auth-content">
-
+            <!-- Right Side: Authentication Container -->
+            <div class="bg-white/80 backdrop-blur-lg p-8 rounded-2xl shadow-2xl w-full max-w-md mx-auto border border-gray-100" id="auth-content">
                 <div class="text-center mb-6">
-                    <h1 class="text-2xl font-bold text-gray-700">Green Shadow (Pvt) Ltd</h1>
-                    <p class="text-sm text-gray-500">Crop Monitoring System, Station Road, Matale, Sri Lanka</p>
+                    <h2 class="text-2xl font-bold text-gray-700">Welcome to Green Shadow</h2>
+                    <p class="text-sm text-gray-500 mt-2">Station Road, Matale, Sri Lanka</p>
                 </div>
 
                 <!-- Toggle Tabs -->
-                <div class="flex justify-center space-x-4">
-                    <button id="loginTab" class="py-2 px-4 text-blue-500 border-b-2 border-blue-500 font-semibold"
-                        >Login</button>
-                    <button id="signupTab" class="py-2 px-4 text-gray-500 hover:text-blue-500">Sign
-                        Up</button>
+                <div class="flex justify-center space-x-4 mb-6">
+                    <button id="loginTab" class="py-2 px-4 text-blue-600 font-semibold relative group">
+                        Login
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 scale-x-100 group-hover:scale-x-100 transition-transform"></span>
+                    </button>
+                    <button id="signupTab" class="py-2 px-4 text-gray-500 hover:text-blue-600 relative group">
+                        Sign Up
+                        <span class="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-teal-400 to-blue-500 scale-x-0 group-hover:scale-x-100 transition-transform"></span>
+                    </button>
                 </div>
-    
+
                 <!-- Login Form -->
                 <form id="loginForm" class="space-y-4">
                     <div>
-                        <label for="loginEmail" class="text-sm font-medium text-gray-600">Email</label>
+                        <label for="loginEmail" class="text-sm font-medium text-gray-600 block mb-1">Email</label>
                         <input type="email" id="loginEmail"
-                            class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition-all duration-300 ease-in-out"
                             required>
                     </div>
                     <div>
-                        <label for="loginPassword" class="text-sm font-medium text-gray-600">Password</label>
+                        <label for="loginPassword" class="text-sm font-medium text-gray-600 block mb-1">Password</label>
                         <input type="password" id="loginPassword"
-                            class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition-all duration-300 ease-in-out"
                             required>
                     </div>
                     <button type="submit"
-                        class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">Login</button>
+                        class="w-full py-3 px-4 bg-gradient-to-r from-teal-500 to-blue-500 text-white rounded-lg hover:from-teal-600 hover:to-blue-600 transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-[1.02] shadow-lg hover:shadow-xl">
+                        Login
+                    </button>
+                    <div class="text-center mt-4">
+                        <a href="#" class="text-sm text-blue-500 hover:underline">Forgot Password?</a>
+                    </div>
                 </form>
-    
+
                 <!-- Sign-Up Form -->
                 <form id="signupForm" class="space-y-4 hidden">
                     <div>
-                        <label for="signupEmail" class="text-sm font-medium text-gray-600">Email</label>
+                        <label for="signupEmail" class="text-sm font-medium text-gray-600 block mb-1">Email</label>
                         <input type="email" id="signupEmail"
-                            class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition-all duration-300 ease-in-out"
                             required>
                     </div>
                     <div>
-                        <label for="signupPassword" class="text-sm font-medium text-gray-600">Password</label>
+                        <label for="signupPassword" class="text-sm font-medium text-gray-600 block mb-1">Password</label>
                         <input type="password" id="signupPassword"
-                            class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition-all duration-300 ease-in-out"
                             required>
                     </div>
                     <div>
-                        <label for="role" class="text-sm font-medium text-gray-600">Role</label>
+                        <label for="role" class="text-sm font-medium text-gray-600 block mb-1">Role</label>
                         <select id="role"
-                            class="w-full p-2 mt-1 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            class="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-400 transition-all duration-300 ease-in-out"
                             required>
                             <option value="" disabled selected>Select Role</option>
                             <option value="MANAGER">Manager</option>
@@ -79,21 +152,19 @@
                             <option value="OTHER">Other</option>
                         </select>
                     </div>
-                    <button type="submit" class="w-full py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600">Sign
-                        Up</button>
+                    <button type="submit" 
+                        class="w-full py-3 px-4 bg-gradient-to-r from-teal-500 to-blue-500 text-white rounded-lg hover:from-teal-600 hover:to-blue-600 transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-[1.02] shadow-lg hover:shadow-xl">
+                        Sign Up
+                    </button>
                 </form>
-    
             </div>
-         </div>
+        </div>
+    </div>
 
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
-            integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
-            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-        <script src="script/script.js"></script>
-        <script type="module" src="controller/Auth.js"></script>
-    </body>
-</div>
-
-
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"
+        integrity="sha512-v2CJ7UaYy4JwqLDIrZUI/4hqeoQieOmAZNXBeQyjo21dadnwR+8ZaIJVT8EE2iyI61OV8e6M8PP2/4hpQINQ/g=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="script/script.js"></script>
+    <script type="module" src="controller/Auth.js"></script>
+</body>
 </html>

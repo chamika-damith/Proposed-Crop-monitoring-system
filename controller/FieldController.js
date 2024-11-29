@@ -15,6 +15,7 @@ const addeditStaffBtn = document.getElementById("addeditStaffBtn");
 const editfieldStaff = document.getElementById("editfieldStaff");
 const editstaffList = document.getElementById("editstaffList");
 
+
 document.addEventListener("DOMContentLoaded", () => {
   getAllFields();
 });
@@ -126,13 +127,13 @@ function editField(button) {
   const images = cells[0].querySelectorAll("img");
 
   if (images.length > 0) {
-    document.getElementById("editImagePreview").src = images[0].src; 
+    document.getElementById("editImagePreview").src = images[0].src;
   } else {
     console.error("First image not found in cells[0].");
   }
 
   if (images.length > 1) {
-    document.getElementById("editImagePreview2").src = images[1].src; 
+    document.getElementById("editImagePreview2").src = images[1].src;
   } else {
     console.error("Second image not found in cells[0].");
   }
@@ -419,21 +420,34 @@ function getAllFields() {
         const row = document.createElement("tr");
         row.classList.add("border-b");
         row.innerHTML = `
-                    <td class="p-4 flex items-center space-x-4">
-                        <img src="data:image/jpeg;base64,${field.fieldImage}" alt="${field.fieldCode}" class="w-12 h-12 rounded-lg">
-                        <img src="data:image/jpeg;base64,${field.fieldImage2}" alt="${field.fieldCode}" class="w-12 h-12 rounded-lg">
-                        <span>${field.fieldCode}</span>
-                    </td>
-                    <td class="p-4 text-center">${field.fieldName}</td>
-                    <td class="p-4 text-center">${field.fieldLocation}</td>
-                    <td class="p-4 text-center">${field.fieldSize}</td>
-                    <td class="p-4 text-center"><button class="bg-green-200 py-1 px-2 rounded cropDetail">Crops</button></td>
-                    <td class="p-4 text-center"><button class="bg-red-200 py-1 px-2 rounded fieldStaffDetail">Staff</button></td>
-                    <td class="p-4 text-gray-500 space-x-3">
-                        <button class="text-blue-500 px-1 edit-btn"><i class="fa-solid fa-pen"></i></button>
-                        <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-btn"><i class="fa-solid fa-times"></i></button>
-                    </td>
-                `;
+            <td class="p-4 flex items-center space-x-4 bg-gray-50 hover:bg-gray-100 rounded-lg">
+                <img src="data:image/jpeg;base64,${field.fieldImage}" alt="${field.fieldCode}" class="w-12 h-12 rounded-lg border border-gray-200 shadow-sm">
+                <img src="data:image/jpeg;base64,${field.fieldImage2}" alt="${field.fieldCode}" class="w-12 h-12 rounded-lg border border-gray-200 shadow-sm">
+                <span class="font-semibold text-gray-800">${field.fieldCode}</span>
+            </td>
+            <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${field.fieldName}</td>
+            <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${field.fieldLocation}</td>
+            <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${field.fieldSize}</td>
+            <td class="p-4 text-center bg-gray-50 hover:bg-gray-100">
+                <button class="bg-green-200 text-green-800 py-1 px-2 rounded-md shadow hover:bg-green-300 focus:ring focus:ring-green-300 cropDetail">
+                    Crops
+                </button>
+            </td>
+            <td class="p-4 text-center bg-gray-50 hover:bg-gray-100">
+                <button class="bg-red-200 text-red-800 py-1 px-2 rounded-md shadow hover:bg-red-300 focus:ring focus:ring-red-300 fieldStaffDetail">
+                    Staff
+                </button>
+            </td>
+            <td class="p-4 text-center bg-gray-50 hover:bg-gray-100 text-gray-500 space-x-3">
+                <button class="text-blue-500 hover:text-blue-600 px-2 py-1 rounded transition-all duration-200 ease-in-out edit-btn">
+                    <i class="fa-solid fa-pen"></i>
+                </button>
+                <button class="text-red-500 hover:text-red-600 border-2 border-red-400 hover:border-red-500 rounded-full px-2 py-1 transition-all duration-200 ease-in-out delete-btn">
+                    <i class="fa-solid fa-times"></i>
+                </button>
+            </td>
+          `;
+
 
         // Append the row to the table body
         fieldTableBody.appendChild(row);

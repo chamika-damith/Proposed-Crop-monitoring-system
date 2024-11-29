@@ -213,18 +213,18 @@ function getAllStaff() {
                 const row = document.createElement('tr');
                 row.classList.add('border-b');
                 row.innerHTML = `
-                    <td class="p-4 text-center">${staff.id}</td>
-                    <td class="p-4 text-center">${staff.firstName}</td>
-                    <td class="p-4 text-center">${staff.lastName}</td>
-                    <td class="p-4 text-center">${staff.designation}</td>
-                    <td class="p-4 text-gray-500 space-x-3">
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${staff.id}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${staff.firstName}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${staff.lastName}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100">${staff.designation}</td>
+                    <td class="p-4 text-center font-medium text-gray-700 bg-gray-50 hover:bg-gray-100 space-x-3">
                         <button class="text-green-500 px-1 viewStaffDetailbtn" data-id="${staff.id}">
                             <i class="fa-solid fa-eye"></i>
                         </button>
-                        <button class="text-blue-500 px-1 editStaffbtn" id="openStaffEditModal">
+                        <button class="text-blue-500 hover:text-blue-600 px-2 py-1 rounded transition-all duration-200 ease-in-out editStaffbtn" id="openStaffEditModal">
                             <i class="fa-solid fa-pen"></i>
                         </button>
-                        <button class="text-red-500 border-2 border-red-400 rounded-full px-1 delete-staff-btn">
+                        <button class="text-red-500 hover:text-red-600 border-2 border-red-400 hover:border-red-500 rounded-full px-2 py-1 transition-all duration-200 ease-in-out  delete-staff-btn">
                             <i class="fa-solid fa-times"></i>
                         </button>
                     </td>
