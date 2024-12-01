@@ -130,8 +130,13 @@ addStaffForm.addEventListener('submit', async (event) => {
                 }
             })
             .fail((error) => {
-                console.error('Error saving staff:', error);
+                if (error.status === 403) {
+                    alert("Access Denied: You do not have permission to perform this action.");
+                  } else {
+                    console.error('Error saving staff:', error);
                 alert(error.responseJSON?.message || 'Failed to save staff. Please try again.');
+                  }
+                
             });
     }
 });
@@ -467,8 +472,13 @@ editStaffForm.addEventListener('submit', async (event) => {
 
             },
             error: function (error) {
-                console.error("Error updating staff:", error);
-                alert("Failed to update staff. Please try again later.");
+                if (error.status === 403) {
+                    alert("Access Denied: You do not have permission to perform this action.");
+                  } else {
+                    console.error("Error updating staff:", error);
+                    alert("Failed to update staff. Please try again later.");
+                  }
+               
             }
         });
 
@@ -505,8 +515,13 @@ function deleteStaff(button, staffId) {
                 getAllStaff();
             },
             error: function (error) {
-                console.error("Error deleting staff:", error);
+                if (error.status === 403) {
+                    alert("Access Denied: You do not have permission to perform this action.");
+                  } else {
+                    console.error("Error deleting staff:", error);
                 alert("Failed to delete staff. Please try again.");
+                  }
+                
             }
         });
     }

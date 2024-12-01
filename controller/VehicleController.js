@@ -179,8 +179,13 @@ function saveVehicle(data) {
 
         })
         .fail((error) => {
-            console.error('Error adding vehicle:', error);
+            if (error.status === 403) {
+                alert("Access Denied: You do not have permission to perform this action.");
+              } else{_
+                console.error('Error adding vehicle:', error);
             alert(error.responseJSON?.message || 'Failed to add vehicle. Please try again.');
+              }
+            
         });
 }
 
@@ -339,8 +344,13 @@ function updateVehicle(vehicle) {
 
         })
         .fail((error) => {
-            console.error('Error updating vehicle:', error);
-            alert(error.responseJSON?.message || 'Failed to update vehicle. Please try again.');
+            if (error.status === 403) {
+                alert("Access Denied: You do not have permission to perform this action.");
+              } else{
+                console.error('Error updating vehicle:', error);
+                alert(error.responseJSON?.message || 'Failed to update vehicle. Please try again.');
+              }
+           
         });
 }
 
@@ -365,8 +375,13 @@ function deleteVehicle(button, id) {
                 getAllVehicles();
             })
             .fail((error) => {
-                console.error('Error deleting vehicle:', error);
+                if (error.status === 403) {
+                    alert("Access Denied: You do not have permission to perform this action.");
+                  } else {
+                    console.error('Error deleting vehicle:', error);
                 alert('Failed to delete vehicle. Please try again.');
+                  }
+                
             });
     }
 }

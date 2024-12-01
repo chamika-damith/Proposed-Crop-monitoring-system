@@ -7,7 +7,7 @@ $('#equipment-section').hide();
 $('#log-section').hide();
 
 
-$('#fieldBtn').on('click',()=>{
+$('#fieldBtn').on('click', () => {
     $('#dashboard').hide();
     $('#field').show();
     $('#crop-section').hide();
@@ -18,7 +18,7 @@ $('#fieldBtn').on('click',()=>{
     $('#chart-section').hide();
 });
 
-$('#dashboardBtn').on('click',()=>{
+$('#dashboardBtn').on('click', () => {
     $('#dashboard').show();
     $('#field').hide();
     $('#crop-section').hide();
@@ -30,7 +30,7 @@ $('#dashboardBtn').on('click',()=>{
 
 });
 
-$('#cropBtn').on('click',()=>{
+$('#cropBtn').on('click', () => {
     $('#dashboard').hide();
     $('#field').hide();
     $('#crop-section').show();
@@ -41,7 +41,7 @@ $('#cropBtn').on('click',()=>{
     $('#chart-section').hide();
 });
 
-$('#staffBtn').on('click',()=>{
+$('#staffBtn').on('click', () => {
     $('#dashboard').hide();
     $('#field').hide();
     $('#crop-section').hide();
@@ -52,7 +52,7 @@ $('#staffBtn').on('click',()=>{
     $('#chart-section').hide();
 });
 
-$('#vehicleBtn').on('click',()=>{
+$('#vehicleBtn').on('click', () => {
     $('#dashboard').hide();
     $('#field').hide();
     $('#crop-section').hide();
@@ -63,7 +63,7 @@ $('#vehicleBtn').on('click',()=>{
     $('#chart-section').hide();
 });
 
-$('#equipmentBtn').on('click',()=>{
+$('#equipmentBtn').on('click', () => {
     $('#dashboard').hide();
     $('#field').hide();
     $('#crop-section').hide();
@@ -74,7 +74,7 @@ $('#equipmentBtn').on('click',()=>{
     $('#chart-section').hide();
 });
 
-$('#logBtn').on('click',()=>{
+$('#logBtn').on('click', () => {
     $('#dashboard').hide();
     $('#field').hide();
     $('#crop-section').hide();
@@ -96,9 +96,9 @@ function toggleProfileMenu() {
     const profileMenu = document.getElementById("user-menu");
     profileMenu.classList.toggle("hidden");
 }
-   
+
 // Pie Chart Data
-  let cropData = [
+let cropData = [
     { label: "Rice", color: "#4F46E5", value: 25 },
     { label: "Wheat", color: "#D946EF", value: 20 },
     { label: "Corn", color: "#A78BFA", value: 15 },
@@ -161,3 +161,76 @@ new Chart(barCtx, {
     }
 });
 
+document.addEventListener("DOMContentLoaded", function () {
+    document.getElementById("signOut").addEventListener("click", function (e) {
+        e.preventDefault();
+        console.log("click sign out");
+
+        localStorage.removeItem("authToken");
+        window.location.href = "index.html";
+    });
+
+    const profileModal = document.getElementById("profileModal");
+    const userProfileLink = document.getElementById("user-menu-item-0");
+    const closeModalButton = document.getElementById("ProfilecloseModal");
+    const userMenu = document.getElementById("user-menu");
+    const dashboard = document.getElementById("dashboard");
+
+
+    // Open profile modal
+    userProfileLink.addEventListener("click", function (e) {
+        e.preventDefault();
+        profileModal.classList.remove("hidden");
+        userMenu.classList.add("hidden");
+        dashboard.classList.add("hidden");
+
+        const token = localStorage.getItem("token");
+        if (!token) {
+            alert("No token found. Please log in.");
+            return;
+        }
+
+        $.ajax({
+            url: "http://localhost:8080/api/v1/users/active",
+            method: "GET",
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
+            },
+            success: (user) => {
+                console.log("Active User Details:", user);
+            
+                document.getElementById("Profileemail").value = user.email;
+            
+                const roleSelect = document.getElementById("Profilerole");
+                if (roleSelect) {
+                    roleSelect.value = user.userRole; 
+                } else {
+                    console.error("Role select element not found");
+                }
+            },
+            error: (error) => {
+                console.error("Error loading staff:", error);
+            },
+            
+        });
+
+    });
+
+    // Close modal
+    closeModalButton.addEventListener("click", function () {
+        profileModal.classList.add("hidden");
+        dashboard.classList.remove("hidden");
+    });
+
+    document.getElementById("profileForm").addEventListener("submit", function (e) {
+        e.preventDefault();
+        console.log({
+            email: document.getElementById("email").value,
+            password: document.getElementById("password").value,
+            role: document.getElementById("role").value,
+        });
+        profileModal.classList.add("hidden");
+    });
+});

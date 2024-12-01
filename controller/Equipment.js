@@ -201,8 +201,13 @@ function saveEquipment(data) {
 
         })
         .fail((error) => {
-            console.error('Error adding equipment:', error);
-            alert(error.responseJSON?.message || 'Failed to add equipment. Please try again.');
+            if (error.status === 403) {
+                alert("Access Denied: You do not have permission to perform this action.");
+            } else {
+                console.error('Error adding equipment:', error);
+                alert(error.responseJSON?.message || 'Failed to add equipment. Please try again.');
+            }
+
         });
 }
 
@@ -304,7 +309,7 @@ editEquipmentForm.addEventListener('submit', async (event) => {
                 data: JSON.stringify(equipmentData),
             })
                 .done((response) => {
-                    if (response.statusCode  == 201) {
+                    if (response.statusCode == 201) {
                         console.log('Equipment updated successfully:', response);
                         getAllEquipment();
                         editEquipmentModal.classList.add('hidden');
@@ -315,8 +320,13 @@ editEquipmentForm.addEventListener('submit', async (event) => {
 
                 })
                 .fail((error) => {
-                    console.error('Error updating equipment:', error);
-                    alert(error.responseJSON?.message || 'Failed to update equipment. Please try again.');
+                    if (error.status === 403) {
+                        alert("Access Denied: You do not have permission to perform this action.");
+                    } else {
+                        console.error('Error updating equipment:', error);
+                        alert(error.responseJSON?.message || 'Failed to update equipment. Please try again.');
+                    }
+
                 });
         } catch (error) {
             console.error("Error during form submission:", error);
@@ -347,8 +357,13 @@ function deleteEquipment(equipmentId) {
                 getAllEquipment();
             })
             .fail((error) => {
-                console.error('Error deleting equipment:', error);
-                alert('Failed to delete equipment. Please try again.');
+                if (error.status === 403) {
+                    alert("Access Denied: You do not have permission to perform this action.");
+                } else {
+                    console.error('Error deleting equipment:', error);
+                    alert('Failed to delete equipment. Please try again.');
+                }
+
             });
     }
 }

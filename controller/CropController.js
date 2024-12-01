@@ -126,8 +126,13 @@ function saveCrop(data) {
             }
         })
         .fail((error) => {
-            console.error("Error saving crop:", error);
-            alert("Failed to save crop. Please try again.");
+            if (error.status === 403) {
+                alert("Access Denied: You do not have permission to perform this action.");
+              }else{
+                console.error("Error saving crop:", error);
+                alert("Failed to save crop. Please try again.");
+              }
+           
         });
 }
 
@@ -253,8 +258,13 @@ function cropUpdate(data) {
 
         })
         .fail((error) => {
-            console.error("Error updating crop:", error);
-            alert("Failed to update crop. Please try again.");
+            if (error.status === 403) {
+                alert("Access Denied: You do not have permission to perform this action.");
+            }else{
+                console.error("Error updating crop:", error);
+                alert("Failed to update crop. Please try again.");
+              }
+           
         });
 }
 
@@ -284,8 +294,14 @@ function deleteCrop(button, cropCode) {
                 getAllCrops();
             },
             error: function (error) {
-                console.error("Error deleting crop:", error);
-                alert("Failed to delete crop. Please try again.");
+                if (error.status === 403) {
+                    alert("Access Denied: You do not have permission to perform this action.");
+                } else {
+
+                    console.error("Error deleting crop:", error);
+                    alert("Failed to delete crop. Please try again.");
+                }
+               
             }
         });
     }

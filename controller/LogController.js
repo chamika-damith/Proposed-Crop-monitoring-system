@@ -71,9 +71,14 @@ addLogForm.addEventListener('submit', async (event) => {
             });
             return response;
         } catch (error) {
-            console.error(`Error fetching data from ${url}:`, error);
-            alert(`Failed to load data from . Please try again later.`);
-            return null;
+            if (error.status === 403) {
+                alert("Access Denied: You do not have permission to perform this action.");
+              } else {
+                console.error(`Error fetching data from ${url}:`, error);
+                alert(`Failed to load data from . Please try again later.`);
+                return null;
+              }
+           
         }
     };
 
@@ -198,7 +203,7 @@ function getAllLog() {
                 });
 
                 row.querySelector(".delete-log-btn").addEventListener("click", function () {
-                    deleteLog(this);
+                    deleteLog(this,field.logCode);
                 });
             });
         })
@@ -280,9 +285,14 @@ editLogForm.addEventListener('submit', async (event) => {
                 },
             });
         } catch (error) {
-            console.error(`Error fetching data from ${url}:`, error);
-            alert(`Failed to load data from ${url}. Please try again later.`);
-            return null;
+            if (error.status === 403) {
+                alert("Access Denied: You do not have permission to perform this action.");
+              } else{
+                console.error(`Error fetching data from ${url}:`, error);
+                alert(`Failed to load data from ${url}. Please try again later.`);
+                return null;
+              }
+           
         }
     };
 
@@ -362,12 +372,34 @@ editLogForm.addEventListener('submit', async (event) => {
 
 
 // Function to delete log
-function deleteLog(button) {
+function deleteLog(button,logId) {
     const row = button.closest('tr');
     const confirmation = confirm('Are you sure you want to delete this log?');
 
+
     if (confirmation) {
-        row.remove();
+        $.ajax({
+            url: `http://localhost:8080/api/v1/log/${logId}`,
+            method: 'DELETE',
+            timeout: 0,
+            headers: {
+                "Content-Type": "application/json",
+                'Authorization': 'Bearer ' + token
+            },
+            success: function (response) {
+                console.log("log deleted successfully:", response);
+                getAllLog();
+            },
+            error: function (error) {
+                if (error.status === 403) {
+                    alert("Access Denied: You do not have permission to perform this action.");
+                  } else {
+                    console.error("Error deleting log:", error);
+                alert("Failed to delete log. Please try again.");
+                  }
+                
+            }
+        });
     }
 }
 

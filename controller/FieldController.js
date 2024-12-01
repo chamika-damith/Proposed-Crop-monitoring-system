@@ -57,7 +57,7 @@ addFieldForm.addEventListener("submit", (event) => {
     const reader2 = new FileReader();
 
     reader1.onloadend = () => {
-      const base64Image1 = reader1.result.split(",")[1];
+      const base64Image1 = reader1.result.split(",")[0];
       reader2.onloadend = () => {
         const base64Image2 = reader2.result.split(",")[1];
 
@@ -99,8 +99,12 @@ addFieldForm.addEventListener("submit", (event) => {
             }
           })
           .fail(function (error) {
-            console.error("Error saving field:", error);
-            alert("Failed to save field. Please try again.");
+            if (error.status === 403) {
+              alert("Access Denied: You do not have permission to perform this action.");
+            } else {
+              console.error("Error saving field:", error);
+              alert("Failed to save field. Please try again.");
+            }
           });
       };
 
@@ -197,8 +201,13 @@ function deleteField(button, fieldCode) {
         getAllFields();
       },
       error: function (error) {
-        console.error("Error deleting field:", error);
-        alert("Failed to delete field. Please try again.");
+        if (error.status === 403) {
+          alert("Access Denied: You do not have permission to perform this action.");
+        } else {
+          console.error("Error deleting field:", error);
+          alert("Failed to delete field. Please try again.");
+        }
+     
       },
     });
   }
@@ -217,7 +226,7 @@ editFieldForm.addEventListener("submit", (event) => {
   const fieldName = document.getElementById("editfieldName").value;
   const fieldLocation = document.getElementById("editfieldLocation").value;
   const fieldSize = document.getElementById("editfieldSize").value;
-  const fieldImageInput = document.getElementById("editfieldImage").f
+  const fieldImageInput = document.getElementById("editfieldImage").files[0];
   const fieldImageInput2 = document.getElementById("editfieldImage2").files[0];
 
   if (isUpdateFieldValidate()) {
@@ -228,31 +237,77 @@ editFieldForm.addEventListener("submit", (event) => {
       fieldSize,
     };
 
-    if (fieldImageInput) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        updateData.fieldImage = reader.result.split(",")[1];
-      };
-      reader.readAsDataURL(fieldImageInput);
-    } else {
-      const currentImageSrc = document.getElementById("editImagePreview").src;
-      updateData.fieldImage = currentImageSrc.split(",")[1];
-    }
+    const handleUpdateRequest = () => {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("No token found. Please log in.");
+        return;
+      }
 
-    if (fieldImageInput2) {
-      const reader = new FileReader();
-      reader.onload = () => {
-        updateData.fieldImage2 = reader.result.split(",")[1];
-        sendUpdateRequest(updateData);
+      $.ajax({
+        url: `http://localhost:8080/api/v1/fields/${fieldCode}`,
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        data: JSON.stringify(updateData),
+      })
+        .done((response) => {
+          console.log("Field updated successfully:", response);
+          getAllFields();
+          editFieldModal.classList.add("hidden");
+          editFieldForm.reset();
+        })
+        .fail((error) => {
+          if (error.status === 403) {
+            alert("Access Denied: You do not have permission to perform this action.");
+          } else {
+            console.error("Error updating field:", error);
+            alert("Failed to update field. Please try again.");
+          }
+        });
+    };
+
+    if (fieldImageInput) {
+      const reader1 = new FileReader();
+      reader1.onloadend = () => {
+        updateData.fieldImage = reader1.result.split(",")[1];
+
+        if (fieldImageInput2) {
+          const reader2 = new FileReader();
+          reader2.onloadend = () => {
+            updateData.fieldImage2 = reader2.result.split(",")[1];
+            handleUpdateRequest();
+          };
+          reader2.readAsDataURL(fieldImageInput2);
+        } else {
+          const currentImageSrc2 = document.getElementById("editImagePreview2").src;
+          updateData.fieldImage2 = currentImageSrc2.split(",")[1];
+          handleUpdateRequest();
+        }
       };
-      reader.readAsDataURL(fieldImageInput);
+      reader1.readAsDataURL(fieldImageInput);
     } else {
-      const currentImageSrc = document.getElementById("editImagePreview2").src;
-      updateData.fieldImage = currentImageSrc.split(",")[1];
-      sendUpdateRequest(updateData);
+      const currentImageSrc1 = document.getElementById("editImagePreview").src;
+      updateData.fieldImage = currentImageSrc1.split(",")[1];
+
+      if (fieldImageInput2) {
+        const reader2 = new FileReader();
+        reader2.onloadend = () => {
+          updateData.fieldImage2 = reader2.result.split(",")[1];
+          handleUpdateRequest();
+        };
+        reader2.readAsDataURL(fieldImageInput2);
+      } else {
+        const currentImageSrc2 = document.getElementById("editImagePreview2").src;
+        updateData.fieldImage2 = currentImageSrc2.split(",")[1];
+        handleUpdateRequest();
+      }
     }
   }
 });
+
 
 function sendUpdateRequest(updateData) {
   const token = localStorage.getItem("token");
@@ -283,8 +338,13 @@ function sendUpdateRequest(updateData) {
 
     })
     .fail(function (error) {
-      console.error("Error updating field:", error);
+      if (error.status === 403) {
+        alert("Access Denied: You do not have permission to perform this action.");
+      }else{
+        console.error("Error updating field:", error);
       alert("Failed to update field. Please try again.");
+      }
+      
     });
 }
 

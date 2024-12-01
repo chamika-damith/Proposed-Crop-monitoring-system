@@ -34,6 +34,7 @@ signupForm.addEventListener("submit", (event) => {
     email: signupEmail,
     password: signupPassword,
     userRole: role,
+    status:true,
   };
 
   if (!signupEmail || !signupPassword) {
@@ -116,3 +117,4 @@ function toggleTab(activeTab, inactiveTab, showForm, hideForm) {
   );
   inactiveTab.classList.add("text-gray-500");
 }
+
