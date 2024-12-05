@@ -17,6 +17,14 @@ const editstaffList = document.getElementById("editstaffList");
 
 
 document.addEventListener("DOMContentLoaded", () => {
+   $("#fieldSearchId").on("keyup", function () {
+        const searchValue = $(this).val().toLowerCase();
+
+        $("#fieldTableBody tr").each(function () {
+            const rowText = $(this).text().toLowerCase();
+            $(this).toggle(rowText.includes(searchValue));
+        });
+    });
   getAllFields();
 });
 

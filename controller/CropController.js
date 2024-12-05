@@ -9,6 +9,14 @@ const cropEditField = document.getElementById('cropEditField');
 let currentRow;
 
 document.addEventListener('DOMContentLoaded', () => {
+    $("#cropSearchId").on("keyup", function () {
+        const searchValue = $(this).val().toLowerCase();
+
+        $("#cropTableBody tr").each(function () {
+            const rowText = $(this).text().toLowerCase();
+            $(this).toggle(rowText.includes(searchValue));
+        });
+    });
     getAllCrops();
 });
 
@@ -128,11 +136,11 @@ function saveCrop(data) {
         .fail((error) => {
             if (error.status === 403) {
                 alert("Access Denied: You do not have permission to perform this action.");
-              }else{
+            } else {
                 console.error("Error saving crop:", error);
                 alert("Failed to save crop. Please try again.");
-              }
-           
+            }
+
         });
 }
 
@@ -260,11 +268,11 @@ function cropUpdate(data) {
         .fail((error) => {
             if (error.status === 403) {
                 alert("Access Denied: You do not have permission to perform this action.");
-            }else{
+            } else {
                 console.error("Error updating crop:", error);
                 alert("Failed to update crop. Please try again.");
-              }
-           
+            }
+
         });
 }
 
@@ -301,7 +309,7 @@ function deleteCrop(button, cropCode) {
                     console.error("Error deleting crop:", error);
                     alert("Failed to delete crop. Please try again.");
                 }
-               
+
             }
         });
     }
@@ -425,7 +433,7 @@ cropField.addEventListener("change", () => {
         });
     } else {
         document.getElementById('cropFieldName').textContent = '';
-    }
+    } 
 });
 
 function getAllCrops() {
